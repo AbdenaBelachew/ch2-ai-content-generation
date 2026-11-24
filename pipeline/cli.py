@@ -63,6 +63,16 @@ def cmd_keyframes(args: argparse.Namespace) -> int:
     print("=" * 60)
     stage = KeyframesStage(mock_if_unconfigured=args.mock)
     try:
+        if getattr(args, "character_sheet", False):
+            sheets = stage.generate_character_sheets(
+                storyboard_path=args.storyboard,
+                force_regenerate=args.force,
+            )
+            print(f"[SUCCESS] Processed {len(sheets)} character sheet(s):")
+            for cid, path in sheets.items():
+                print(f"  - Character {cid}: {path}")
+            return 0
+
         results = stage.run(
             storyboard_path=args.storyboard,
             force_regenerate=args.force,
@@ -120,6 +130,26 @@ def cmd_narration(args: argparse.Namespace) -> int:
     except Exception as exc:
         print(f"[ERROR] Narration stage failed: {exc}")
         return 1
+
+
+def cmd_radio(args: argparse.Namespace) -> int:
+    """Generate Amharic narration, music, and mix into a Radio Cut scratch track."""
+    print("=" * 60)
+    print("AI Heritage Short - Radio Cut Scratch Track")
+    print("=" * 60)
+    # Ensure narration and music exist (using mock fallback if unconfigured or requested)
+    narr_stage = NarrationStage(mock_if_unconfigured=args.mock)
+    narr_stage.run(storyboard_path=args.storyboard, force_regenerate=args.force)
+
+    music_stage = MusicStage(mock_if_unconfigured=args.mock)
+    music_stage.run(storyboard_path=args.storyboard, force_regenerate=args.force)
+
+    assembly_stage = AssemblyStage(dry_run=args.dry_run)
+    res = assembly_stage.assemble_radio_cut(storyboard_path=args.storyboard)
+    print(f"Radio Cut Status: {res.get('status')}")
+    if "radio_cut_path" in res:
+        print(f"[SUCCESS] Radio Cut ready at: {res['radio_cut_path']}")
+    return 0
 
 
 def cmd_music(args: argparse.Namespace) -> int:
@@ -332,6 +362,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_kf.add_argument("--storyboard", type=str, help="Path to storyboard JSON")
     p_kf.add_argument("--force", action="store_true", help="Force regenerate keyframes")
     p_kf.add_argument("--mock", action="store_true", help="Generate offline mock images")
+    p_kf.add_argument("--character-sheet", action="store_true", help="Generate character reference sheet")
     p_kf.add_argument("--shots", nargs="+", help="Specific shot IDs to generate")
     p_kf.set_defaults(func=cmd_keyframes)
 
@@ -357,6 +388,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_mus.add_argument("--force", action="store_true", help="Force regenerate music")
     p_mus.add_argument("--mock", action="store_true", help="Generate offline mock audio")
     p_mus.set_defaults(func=cmd_music)
+
+    # radio
+    p_rad = subparsers.add_parser("radio", help="Generate Radio Cut scratch mix (narration + ducked music)")
+    p_rad.add_argument("--storyboard", type=str, help="Path to storyboard JSON")
+    p_rad.add_argument("--force", action="store_true", help="Force regenerate audio tracks")
+    p_rad.add_argument("--mock", action="store_true", help="Generate offline mock audio if unconfigured")
+    p_rad.add_argument("--dry-run", action="store_true", help="Do not write mixed audio")
+    p_rad.set_defaults(func=cmd_radio)
 
     # assemble
     p_ass = subparsers.add_parser("assemble", help="Assemble final video exports via FFmpeg")

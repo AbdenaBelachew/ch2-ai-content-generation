@@ -1,4 +1,4 @@
-"""Cloudflare Workers AI provider for FLUX-1 Schnell keyframe generation."""
+"""Cloudflare Workers AI provider for FLUX-1 Schnell keyframe and character sheet generation."""
 
 import base64
 from pathlib import Path
@@ -150,13 +150,42 @@ class CloudflareWorkersAIProvider(BaseProvider):
             )
             raise
 
+    def generate_character_sheet(
+        self,
+        character_data: Dict[str, Any],
+        output_image_path: str | Path,
+        seed: int = 42,
+        mock_if_unconfigured: bool = False,
+    ) -> Path:
+        """Generate a multi-angle character turnaround reference sheet to ensure cross-shot visual consistency."""
+        name = character_data.get("name", "Character")
+        traits = character_data.get("visual_traits", {})
+        age = traits.get("estimated_age", "72 years old")
+        attire = traits.get("attire", "Habesha Kemis")
+        facial = traits.get("facial_features", "warm features")
+        hair = traits.get("hair", "traditional braids")
+
+        prompt = (
+            f"Professional character design turnaround model sheet for {name}, {age}. "
+            f"Three distinct views on a single image: front view full body, three-quarter angle portrait, and close-up profile. "
+            f"Attire: {attire}. Facial details: {facial}. Hair: {hair}. "
+            f"Neutral studio grey background, even documentary lighting, cinematic photorealism, 8k resolution, perfect anatomical consistency."
+        )
+
+        return self.generate_image(
+            prompt=prompt,
+            output_image_path=output_image_path,
+            shot_id="char_sheet",
+            num_steps=8,
+            seed=seed,
+            mock_if_unconfigured=mock_if_unconfigured,
+        )
+
     @staticmethod
     def _write_mock_image(path: Path) -> None:
         """Write a minimal valid 1x1 PNG image for offline testing."""
-        # 1x1 transparent/black PNG
         png_bytes = (
             b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01"
             b"\x08\x06\x00\x00\x00\x1f\x15c4\x00\x00\x00\nIDATx\x9cc\x00\x01\x00\x00\x05\x00\x01\r\n-\xb4\x00\x00\x00\x00IEND\xaeB`\x82"
         )
         path.write_bytes(png_bytes)
-

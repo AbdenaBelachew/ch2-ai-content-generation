@@ -1,4 +1,4 @@
-"""Stage 6: Final Video Assembly via FFmpeg."""
+"""Stage 6: Final Video Assembly & Radio Cut via FFmpeg."""
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -7,9 +7,11 @@ from pipeline.logger import get_logger
 from pipeline.utils.ffmpeg import (
     build_end_card_command,
     build_final_assembly_command,
+    build_radio_cut_command,
     execute_ffmpeg,
     generate_srt,
     is_ffmpeg_available,
+    synthesize_fallback_ducked_mix,
 )
 from pipeline.validator import load_json
 
@@ -23,6 +25,61 @@ class AssemblyStage:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.exports_dir = self.config.output_dir / "exports"
         self.exports_dir.mkdir(parents=True, exist_ok=True)
+
+    def assemble_radio_cut(
+        self,
+        storyboard_path: Optional[str | Path] = None,
+    ) -> Dict[str, Any]:
+        """Mix narration audio with background music under sidechain ducking into a Radio Cut scratch mix."""
+        path = Path(storyboard_path or self.config.storyboard_path)
+        storyboard = load_json(path)
+        music_settings = storyboard.get("music_settings", {})
+        ducking_db = float(music_settings.get("ducking_attenuation_db", -14.0))
+
+        narration_path = self.config.output_dir / "narration" / "full_narration.wav"
+        music_path = self.config.output_dir / "music" / "soundtrack.wav"
+        radio_cut_path = self.output_dir / "radio_cut.wav"
+
+        if not narration_path.is_file() or not music_path.is_file():
+            return {
+                "status": "MISSING_PREREQUISITES",
+                "message": "Both narration and music must be generated before building the Radio Cut.",
+                "missing": {
+                    "narration": not narration_path.is_file(),
+                    "music": not music_path.is_file(),
+                },
+            }
+
+        cmd = build_radio_cut_command(
+            narration_audio_path=narration_path,
+            music_audio_path=music_path,
+            output_audio_path=radio_cut_path,
+            ducking_attenuation_db=ducking_db,
+        )
+
+        if not self.dry_run:
+            if is_ffmpeg_available():
+                try:
+                    execute_ffmpeg(cmd)
+                except Exception:
+                    synthesize_fallback_ducked_mix(narration_path, music_path, radio_cut_path)
+            else:
+                synthesize_fallback_ducked_mix(narration_path, music_path, radio_cut_path)
+
+        self.logger.log(
+            stage="radio",
+            provider="ffmpeg" if is_ffmpeg_available() else "python_synth",
+            model="sidechain_compressor",
+            status="SUCCESS" if radio_cut_path.exists() else "DRY_RUN",
+            output_paths=[str(radio_cut_path)],
+            generation_parameters={"ducking_db": ducking_db},
+        )
+
+        return {
+            "status": "SUCCESS" if radio_cut_path.exists() else "DRY_RUN",
+            "radio_cut_path": str(radio_cut_path),
+            "command": cmd,
+        }
 
     def run(
         self,
@@ -117,4 +174,3 @@ class AssemblyStage:
         )
 
         return results
-

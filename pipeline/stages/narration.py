@@ -70,10 +70,12 @@ class NarrationStage:
                 continue
 
             # Generate via provider
+            shot_duration = float(shot.get("duration", 7.5))
             generated_path = self.provider.generate_amharic_tts(
                 amharic_text=amharic_text,
                 output_audio_path=out_file,
                 voice_name=voice_config["voice_name"],
+                target_duration=shot_duration,
                 mock_if_unconfigured=self.mock_if_unconfigured,
             )
 

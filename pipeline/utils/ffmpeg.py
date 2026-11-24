@@ -6,12 +6,16 @@ Handles:
 - Loudness normalization (EBU R128).
 - Subtitle generation (SRT) and overlay.
 - End-card generation for AI disclosure.
+- Radio cut generation (scratch audio mix).
 """
 
+import math
 from pathlib import Path
 import shutil
+import struct
 import subprocess
 from typing import Any, Dict, List, Optional
+import wave
 from pipeline.config import get_config
 
 
@@ -75,6 +79,33 @@ def build_audio_ducking_filter(
         f"loudnorm=I=-16:TP=-1.5:LRA=11[aout]"
     )
     return filter_graph
+
+
+def build_radio_cut_command(
+    narration_audio_path: str | Path,
+    music_audio_path: str | Path,
+    output_audio_path: str | Path,
+    ducking_attenuation_db: float = -14.0,
+) -> List[str]:
+    """Build FFmpeg command to mix narration and music with ducking for a Radio Cut."""
+    ffmpeg_bin = get_config().ffmpeg.ffmpeg_path
+    filter_graph = (
+        f"[1:a]volume=0.35[bgm];"
+        f"[bgm][0:a]sidechaincompress=threshold=0.125:ratio=4:attack=20:release=300[ducked];"
+        f"[0:a][ducked]amix=inputs=2:duration=first:dropout_transition=2,"
+        f"loudnorm=I=-16:TP=-1.5:LRA=11[aout]"
+    )
+    codec = "pcm_s16le" if str(output_audio_path).endswith(".wav") else "libmp3lame"
+    return [
+        ffmpeg_bin,
+        "-y",
+        "-i", str(narration_audio_path),
+        "-i", str(music_audio_path),
+        "-filter_complex", filter_graph,
+        "-map", "[aout]",
+        "-c:a", codec,
+        str(output_audio_path),
+    ]
 
 
 def build_aspect_ratio_filter(aspect_ratio: str = "16:9") -> str:
@@ -218,3 +249,72 @@ def execute_ffmpeg(args: List[str]) -> subprocess.CompletedProcess:
         text=True,
         check=True,
     )
+
+
+def synthesize_fallback_ducked_mix(
+    narration_path: Path,
+    music_path: Path,
+    output_path: Path,
+    ducking_factor: float = 0.20,
+) -> Path:
+    """Synthesize a sidechain ducked audio mix purely in Python when FFmpeg is not installed.
+
+    Reads narration and music WAV files, detects speech energy, ducks music amplitude by ducking_factor,
+    sums the channels, and writes a normalized 44.1kHz stereo WAV file.
+    """
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Read narration
+    with wave.open(str(narration_path), "rb") as n_wf:
+        n_sr = n_wf.getframerate()
+        n_ch = n_wf.getnchannels()
+        n_frames = n_wf.readframes(n_wf.getnframes())
+
+    # Read music
+    with wave.open(str(music_path), "rb") as m_wf:
+        m_sr = m_wf.getframerate()
+        m_ch = m_wf.getnchannels()
+        m_frames = m_wf.readframes(m_wf.getnframes())
+
+    # Standardize to 44.1kHz
+    out_sr = 44100
+    n_samples_count = len(n_frames) // (2 * n_ch)
+    m_samples_count = len(m_frames) // (2 * m_ch)
+    total_samples = max(n_samples_count, m_samples_count)
+
+    n_ints = struct.unpack(f"<{n_samples_count * n_ch}h", n_frames)
+    m_ints = struct.unpack(f"<{m_samples_count * m_ch}h", m_frames)
+
+    out_frames = bytearray()
+    smooth_duck = 1.0
+
+    for i in range(total_samples):
+        # Extract narration sample
+        if i < n_samples_count:
+            n_val = n_ints[i * n_ch] / 32768.0
+        else:
+            n_val = 0.0
+
+        # Extract music sample
+        if i < m_samples_count:
+            m_val = m_ints[i * m_ch] / 32768.0
+        else:
+            m_val = 0.0
+
+        # Sidechain envelope detection
+        is_speaking = abs(n_val) > 0.04
+        target_gain = ducking_factor if is_speaking else 0.50
+        smooth_duck += (target_gain - smooth_duck) * 0.01
+
+        # Ducked mix
+        mixed = n_val * 0.90 + (m_val * smooth_duck)
+        clamped = max(-32768, min(32767, int(mixed * 32767.0)))
+        out_frames.extend(struct.pack("<hh", clamped, clamped))
+
+    with wave.open(str(output_path), "wb") as out_wf:
+        out_wf.setnchannels(2)
+        out_wf.setsampwidth(2)
+        out_wf.setframerate(out_sr)
+        out_wf.writeframes(out_frames)
+
+    return output_path

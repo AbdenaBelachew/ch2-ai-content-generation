@@ -42,9 +42,8 @@ validate:
 	$(RUN_PY) -m pipeline.cli validate
 
 radio:
-	@echo "Building Radio Play (Amharic Narration + Music Scratch Mix)..."
-	$(RUN_PY) -m pipeline.cli narration
-	$(RUN_PY) -m pipeline.cli music
+	@echo "Building Radio Cut (Amharic Narration + Music Scratch Mix with Ducking)..."
+	$(RUN_PY) -m pipeline.cli radio --mock
 
 keyframes:
 	$(RUN_PY) -m pipeline.cli keyframes

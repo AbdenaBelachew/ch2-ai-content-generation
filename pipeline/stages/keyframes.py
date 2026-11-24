@@ -23,23 +23,80 @@ class KeyframesStage:
         self.output_dir = self.config.output_dir / "keyframes"
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
+    def generate_character_sheets(
+        self,
+        storyboard_path: Optional[str | Path] = None,
+        force_regenerate: bool = False,
+    ) -> Dict[str, Path]:
+        """Generate character turnaround reference sheets for all characters declared in storyboard."""
+        path = Path(storyboard_path or self.config.storyboard_path)
+        storyboard = load_json(path)
+        characters = storyboard.get("character_references", [])
+        results: Dict[str, Path] = {}
+
+        for char in characters:
+            cid = char["character_id"]
+            out_file = self.output_dir / f"character_sheet_{cid}.png"
+            cache_key = self.cache.keyframe_key(
+                prompt=f"character_sheet_{cid}_{char.get('description', '')}",
+                ref_image_path=None,
+                model_id=self.provider.config.flux_model,
+                generation_settings={"steps": 8, "type": "turnaround_sheet"},
+                seed=42,
+            )
+
+            if not force_regenerate and self.cache.is_cached("keyframes", cache_key, out_file):
+                self.logger.log(
+                    stage="keyframes",
+                    provider="cloudflare",
+                    model=self.provider.config.flux_model,
+                    status="CACHED",
+                    shot_id=f"sheet_{cid}",
+                    output_paths=[str(out_file)],
+                )
+                results[cid] = out_file
+                continue
+
+            generated = self.provider.generate_character_sheet(
+                character_data=char,
+                output_image_path=out_file,
+                seed=42,
+                mock_if_unconfigured=self.mock_if_unconfigured,
+            )
+            self.cache.put(
+                stage="keyframes",
+                cache_key=cache_key,
+                output_path=generated,
+                metadata={"character_id": cid, "type": "character_sheet"},
+            )
+            results[cid] = generated
+
+        return results
+
     def run(
         self,
         storyboard_path: Optional[str | Path] = None,
         force_regenerate: bool = False,
         shot_ids: Optional[List[str]] = None,
+        generate_sheets_first: bool = True,
     ) -> Dict[str, Path]:
         """Generate keyframe images for storyboard shots using cached outputs when available."""
         path = Path(storyboard_path or self.config.storyboard_path)
         storyboard = load_json(path)
         shots = storyboard.get("shots", [])
 
-        # Build character reference image map if any
-        char_ref_images = {
-            c["character_id"]: c.get("reference_image_path")
-            for c in storyboard.get("character_references", [])
-            if c.get("character_id")
-        }
+        # Step A: Ensure character sheets are generated first to act as visual anchor
+        char_ref_images: Dict[str, str] = {}
+        if generate_sheets_first and storyboard.get("character_references"):
+            sheets = self.generate_character_sheets(path, force_regenerate=force_regenerate)
+            for cid, sheet_path in sheets.items():
+                char_ref_images[cid] = str(sheet_path)
+
+        # Also incorporate any pre-existing reference image paths from storyboard
+        for c in storyboard.get("character_references", []):
+            cid = c.get("character_id")
+            if cid and c.get("reference_image_path") and cid not in char_ref_images:
+                char_ref_images[cid] = c["reference_image_path"]
 
         results: Dict[str, Path] = {}
 
@@ -99,9 +156,8 @@ class KeyframesStage:
                 stage="keyframes",
                 cache_key=cache_key,
                 output_path=generated_path,
-                metadata={"shot_id": shot_id, "prompt": prompt[:100], "seed": seed},
+                metadata={"shot_id": shot_id, "prompt": prompt[:100], "seed": seed, "ref_img": ref_img},
             )
             results[shot_id] = generated_path
 
         return results
-
