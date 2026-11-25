@@ -5,7 +5,9 @@ from typing import Any, Dict, List, Optional
 from pipeline.cache import get_cache
 from pipeline.config import get_config
 from pipeline.logger import get_logger
+from pipeline.providers.base import AuthenticationError
 from pipeline.providers.cloudflare import CloudflareWorkersAIProvider
+from pipeline.providers.gemini_image import GeminiImageProvider
 from pipeline.validator import load_json
 
 
@@ -20,8 +22,21 @@ class KeyframesStage:
         self.logger = get_logger()
         self.provider = cloudflare_provider or CloudflareWorkersAIProvider()
         self.mock_if_unconfigured = mock_if_unconfigured
+        self._explicit_provider = cloudflare_provider is not None
         self.output_dir = self.config.output_dir / "keyframes"
         self.output_dir.mkdir(parents=True, exist_ok=True)
+
+    def _call_provider(self, method: str, **kwargs: Any) -> Path:
+        """Call the image provider; if Cloudflare auth fails, fall back to Gemini images once."""
+        try:
+            return getattr(self.provider, method)(**kwargs)
+        except AuthenticationError:
+            fallback = GeminiImageProvider()
+            if self._explicit_provider or isinstance(self.provider, GeminiImageProvider) or not fallback.config.is_configured:
+                raise
+            print("[WARN] Cloudflare authentication failed; falling back to Gemini image generation.")
+            self.provider = fallback
+            return getattr(self.provider, method)(**kwargs)
 
     def generate_character_sheets(
         self,
@@ -57,7 +72,8 @@ class KeyframesStage:
                 results[cid] = out_file
                 continue
 
-            generated = self.provider.generate_character_sheet(
+            generated = self._call_provider(
+                "generate_character_sheet",
                 character_data=char,
                 output_image_path=out_file,
                 seed=42,
@@ -143,7 +159,8 @@ class KeyframesStage:
                 continue
 
             # Generate via provider
-            generated_path = self.provider.generate_image(
+            generated_path = self._call_provider(
+                "generate_image",
                 prompt=prompt,
                 output_image_path=out_file,
                 shot_id=shot_id,

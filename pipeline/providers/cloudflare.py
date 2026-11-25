@@ -32,9 +32,12 @@ class CloudflareWorkersAIProvider(BaseProvider):
             }
 
         headers = {"Authorization": f"Bearer {self.config.api_token}"}
-        url = f"https://api.cloudflare.com/client/v4/accounts/{self.config.account_id}/tokens/verify"
+        # Account-owned tokens verify under /accounts/{id}/tokens/verify, user tokens under /user/tokens/verify.
         try:
-            resp = requests.get(url, headers=headers, timeout=10)
+            base = "https://api.cloudflare.com/client/v4"
+            resp = requests.get(f"{base}/accounts/{self.config.account_id}/tokens/verify", headers=headers, timeout=10)
+            if resp.status_code in (401, 403):
+                resp = requests.get(f"{base}/user/tokens/verify", headers=headers, timeout=10)
             if resp.status_code == 200:
                 return {
                     "provider": "cloudflare",
@@ -86,10 +89,9 @@ class CloudflareWorkersAIProvider(BaseProvider):
         }
         body: Dict[str, Any] = {
             "prompt": prompt,
-            "num_steps": num_steps,
+            "steps": max(1, min(int(num_steps), 8)),  # flux-1-schnell accepts 'steps' (max 8)
         }
-        if seed is not None:
-            body["seed"] = seed
+        # Note: the current flux-1-schnell schema rejects 'seed', so it is only logged/cached, not sent.
 
         start_time = time.time()
 

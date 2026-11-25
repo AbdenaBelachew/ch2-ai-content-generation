@@ -1,7 +1,10 @@
 """Gemini API provider for story refinement, translation, and Amharic TTS."""
 
+import base64
+import io
 import json
 import math
+import wave
 from pathlib import Path
 import re
 import struct
@@ -192,20 +195,44 @@ class GeminiProvider(BaseProvider):
         # In production, call Gemini audio / Cloud Text-to-Speech API
         url = f"{self.config.api_endpoint}/models/{self.config.tts_model}:generateContent?key={self.config.api_key}"
         headers = {"Content-Type": "application/json"}
+        # Gemini TTS returns base64 audio inside the JSON response (responseModalities=AUDIO).
+        # voice_name here is a legacy Cloud-TTS style id; Gemini uses prebuilt voice names.
+        gemini_voice = voice_name if voice_name and not voice_name.startswith("am-") else "Kore"
         body = {
             "contents": [{"parts": [{"text": f"Read the following Amharic narration clearly, warmly, and authentically: {amharic_text}"}]}],
-            "generationConfig": {"responseMimeType": "audio/mp3"},
+            "generationConfig": {
+                "responseModalities": ["AUDIO"],
+                "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": gemini_voice}}},
+            },
         }
 
         start_time = time.time()
 
         def _call():
-            resp = requests.post(url, headers=headers, json=body, timeout=30)
+            resp = requests.post(url, headers=headers, json=body, timeout=120)
             if resp.status_code in (401, 403):
                 raise AuthenticationError(f"Gemini TTS authentication failed: {resp.text}")
+            if resp.status_code in (429,):
+                raise RateLimitError(f"Gemini TTS rate limited: {resp.text}")
             if resp.status_code != 200:
                 raise ProviderError(f"Gemini TTS error {resp.status_code}: {resp.text}")
-            return resp.content
+            try:
+                inline = resp.json()["candidates"][0]["content"]["parts"][0]["inlineData"]
+                data = base64.b64decode(inline["data"])
+            except (KeyError, IndexError, ValueError) as exc:
+                raise ProviderError(f"Gemini TTS returned no audio: {resp.text[:300]}") from exc
+            if data[:4] == b"RIFF":  # already a WAV container
+                return data
+            # Raw 16-bit mono PCM (audio/L16;codec=pcm;rate=24000): wrap into a WAV container
+            m = re.search(r"rate=(\d+)", inline.get("mimeType", ""))
+            rate = int(m.group(1)) if m else 24000
+            buf = io.BytesIO()
+            with wave.open(buf, "wb") as wf:
+                wf.setnchannels(1)
+                wf.setsampwidth(2)
+                wf.setframerate(rate)
+                wf.writeframes(data)
+            return buf.getvalue()
 
         try:
             audio_bytes = retry_with_backoff(_call)

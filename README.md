@@ -27,7 +27,7 @@ All model identifiers and endpoints are centralized in `pipeline/config.py` and 
 | Stage | Provider / Technology | Model / Tool | Role |
 | :--- | :--- | :--- | :--- |
 | **Story & Script** | Google Gemini API | `gemini-2.5-flash` | Validation, translation fidelity, script refinement |
-| **Amharic Narration** | Google Gemini TTS | `gemini-2.5-flash-tts` | Authentic Amharic speech audio synthesis |
+| **Amharic Narration** | Google Gemini TTS | `gemini-2.5-flash-preview-tts` | Authentic Amharic speech audio synthesis |
 | **Character Sheet & Keyframes**| Cloudflare Workers AI | `@cf/black-forest-labs/flux-1-schnell` | Consistent character sheet & shot keyframes |
 | **Moving Shots** | Kaggle GPU Notebooks | `Wan 2.2 TI2V-5B` | Video generation from keyframe + motion prompt |
 | **Original Music** | Kaggle GPU Notebooks | `ACE-Step 1.5` | Traditional Ethiopian acoustic soundtrack |
