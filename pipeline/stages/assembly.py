@@ -8,6 +8,7 @@ from pipeline.utils.ffmpeg import (
     build_end_card_command,
     build_final_assembly_command,
     build_radio_cut_command,
+    build_scaled_concat_command,
     execute_ffmpeg,
     generate_srt,
     is_ffmpeg_available,
@@ -141,11 +142,14 @@ class AssemblyStage:
             results["commands"][f"end_card_{ratio_slug}"] = end_card_cmd
 
             export_file = self.exports_dir / f"film_{ratio_slug}.mp4"
-            # Video concat source: for test/dry-run, we use shot_01 or placeholder
-            sample_video = shots_dir / f"{shots[0]['shot_id']}.mp4" if shots else shots_dir / "shot_01.mp4"
-            
+            # Concatenate all shots + end card (normalized to this aspect ratio) into one silent video
+            concat_video = self.output_dir / f"concat_{ratio_slug}.mp4"
+            concat_inputs = [shots_dir / f"{s['shot_id']}.mp4" for s in shots] + [end_card_clip]
+            concat_cmd = build_scaled_concat_command(concat_inputs, concat_video, aspect)
+            results["commands"][f"concat_{ratio_slug}"] = concat_cmd
+
             assembly_cmd = build_final_assembly_command(
-                video_input_path=sample_video,
+                video_input_path=concat_video,
                 narration_audio_path=narration_path,
                 music_audio_path=music_path,
                 output_path=export_file,
@@ -157,6 +161,8 @@ class AssemblyStage:
 
             if not self.dry_run and not missing_shots and narration_path.exists() and music_path.exists():
                 if is_ffmpeg_available():
+                    execute_ffmpeg(end_card_cmd)
+                    execute_ffmpeg(concat_cmd)
                     execute_ffmpeg(assembly_cmd)
                     results["exports"][aspect] = str(export_file)
                 else:

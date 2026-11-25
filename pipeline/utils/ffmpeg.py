@@ -190,6 +190,37 @@ def build_video_concat_command(
     ]
 
 
+def build_scaled_concat_command(
+    video_paths: List[str | Path],
+    output_path: str | Path,
+    aspect_ratio: str = "16:9",
+    fps: int = 24,
+) -> List[str]:
+    """Build FFmpeg command that normalizes every clip to the target aspect/fps and concatenates them.
+
+    Re-encodes (concat filter) so clips with differing sizes, e.g. shots and the end card, can be joined.
+    """
+    ffmpeg_bin = get_config().ffmpeg.ffmpeg_path
+    aspect_filter = build_aspect_ratio_filter(aspect_ratio)
+    cmd: List[str] = [ffmpeg_bin, "-y"]
+    parts = []
+    for i, p in enumerate(video_paths):
+        cmd.extend(["-i", str(p)])
+        parts.append(f"[{i}:v]{aspect_filter},fps={fps},format=yuv420p[v{i}]")
+    labels = "".join(f"[v{i}]" for i in range(len(video_paths)))
+    graph = ";".join(parts) + f";{labels}concat=n={len(video_paths)}:v=1:a=0[vcat]"
+    cmd.extend([
+        "-filter_complex", graph,
+        "-map", "[vcat]",
+        "-c:v", "libx264",
+        "-preset", "medium",
+        "-crf", "20",
+        "-pix_fmt", "yuv420p",
+        str(output_path),
+    ])
+    return cmd
+
+
 def build_final_assembly_command(
     video_input_path: str | Path,
     narration_audio_path: str | Path,
@@ -221,6 +252,8 @@ def build_final_assembly_command(
         music_input_index=2,
         ducking_attenuation_db=ducking_attenuation_db,
     )
+    # Pad audio with silence so -shortest ends at the video (keeps the silent end card).
+    audio_filter = audio_filter.replace("[aout]", ",apad[aout]")
 
     cmd.extend([
         "-filter_complex",
@@ -242,13 +275,19 @@ def build_final_assembly_command(
 
 def execute_ffmpeg(args: List[str]) -> subprocess.CompletedProcess:
     """Execute FFmpeg command synchronously."""
-    return subprocess.run(
-        args,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        check=True,
-    )
+    try:
+        return subprocess.run(
+            args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        tail = (exc.stderr or "").strip().splitlines()[-8:]
+        raise RuntimeError(
+            f"FFmpeg failed (exit {exc.returncode}) running {Path(args[-1]).name}:\n" + "\n".join(tail)
+        ) from exc
 
 
 def synthesize_fallback_ducked_mix(
