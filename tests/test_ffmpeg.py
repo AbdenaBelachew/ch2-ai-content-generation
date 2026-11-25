@@ -116,3 +116,16 @@ def test_synthesize_fallback_ducked_mix(tmp_path):
     synthesize_fallback_ducked_mix(narr_file, music_file, out_file)
     assert out_file.exists()
     assert out_file.stat().st_size > 0
+
+
+def test_pick_motion_and_kenburns_command():
+    from pipeline.utils.ffmpeg import build_kenburns_command, pick_motion
+
+    assert pick_motion("Slow pan right") == "pan_right"
+    assert pick_motion("Gentle orbit around pan") == "orbit"
+    assert pick_motion("Slow zoom out to reveal warm room") == "zoom_out"
+    assert pick_motion("Slow tilt up") == "tilt_up"
+    assert pick_motion("Subtle tracking down with the stream") == "tilt_down"
+    cmd = build_kenburns_command("in.png", "out.mp4", duration=2.0, motion="pan_left")
+    joined = " ".join(cmd)
+    assert "zoompan" in joined and "-frames:v 48" in joined

@@ -221,6 +221,71 @@ def build_scaled_concat_command(
     return cmd
 
 
+def pick_motion(camera_movement: str) -> str:
+    """Map a storyboard camera_movement description to a Ken Burns motion name."""
+    c = (camera_movement or "").lower()
+    if "orbit" in c:
+        return "orbit"
+    if "zoom out" in c or "pull" in c:
+        return "zoom_out"
+    if "pan right" in c or "track right" in c:
+        return "pan_right"
+    if "pan left" in c or "track left" in c:
+        return "pan_left"
+    if "up" in c and ("tilt" in c or "pedestal" in c or "crane" in c):
+        return "tilt_up"
+    if "down" in c or "tilt" in c:
+        return "tilt_down" if "down" in c else "tilt_up"
+    if "static" in c:
+        return "gentle"
+    if "dolly" in c or "push" in c or "zoom" in c:
+        return "zoom_in"
+    return "zoom_in"
+
+
+def build_kenburns_command(
+    image_path: str | Path,
+    output_path: str | Path,
+    duration: float = 7.5,
+    motion: str = "zoom_in",
+    fps: int = 24,
+    size: tuple[int, int] = (1280, 720),
+) -> List[str]:
+    """Build FFmpeg command that animates a still image with a smooth camera move (Ken Burns)."""
+    ffmpeg_bin = get_config().ffmpeg.ffmpeg_path
+    n = max(1, int(round(duration * fps)))
+    cx = "iw/2-(iw/zoom/2)"
+    cy = "ih/2-(ih/zoom/2)"
+    moves = {
+        "zoom_in": (f"1+0.25*on/{n}", cx, cy),
+        "gentle": (f"1+0.10*on/{n}", cx, cy),
+        "zoom_out": (f"1.25-0.25*on/{n}", cx, cy),
+        "pan_right": ("1.20", f"(iw-iw/zoom)*on/{n}", cy),
+        "pan_left": ("1.20", f"(iw-iw/zoom)*(1-on/{n})", cy),
+        "tilt_up": ("1.20", cx, f"(ih-ih/zoom)*(1-on/{n})"),
+        "tilt_down": ("1.20", cx, f"(ih-ih/zoom)*on/{n}"),
+        "orbit": (f"1.08+0.10*on/{n}", f"{cx}+iw*0.04*sin(2*PI*on/{n})", cy),
+    }
+    if motion not in moves:
+        raise ValueError(f"Unknown motion: {motion}")
+    z, x, y = moves[motion]
+    w, h = size
+    # Center-crop to the output aspect, upscale for sub-pixel smoothness, then animate with zoompan.
+    vf = (
+        f"scale={w*2.25:.0f}:{h*2.25:.0f}:force_original_aspect_ratio=increase:flags=lanczos,"
+        f"crop={w*2.25:.0f}:{h*2.25:.0f},"
+        f"zoompan=z='{z}':x='{x}':y='{y}':d={n}:s={w}x{h}:fps={fps},"
+        f"format=yuv420p"
+    )
+    return [
+        ffmpeg_bin, "-y", "-i", str(image_path),
+        "-vf", vf,
+        "-frames:v", str(n),
+        "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p",
+        str(output_path),
+    ]
+
+
 def build_final_assembly_command(
     video_input_path: str | Path,
     narration_audio_path: str | Path,

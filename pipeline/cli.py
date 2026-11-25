@@ -94,6 +94,15 @@ def cmd_shots(args: argparse.Namespace) -> int:
     print("=" * 60)
     stage = ShotsStage(mock_if_unconfigured=args.mock)
     try:
+        if getattr(args, "kenburns", False):
+            print("Mode: Ken Burns camera moves from keyframes (FFmpeg, no GPU)")
+            done = stage.generate_kenburns(
+                storyboard_path=args.storyboard,
+                force_regenerate=args.force,
+                shot_ids=args.shots,
+            )
+            print(f"[SUCCESS] Animated {len(done)} shot(s) into outputs/shots/.")
+            return 0
         res = stage.run(
             storyboard_path=args.storyboard,
             force_regenerate=args.force,
@@ -372,6 +381,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_sh.add_argument("--force", action="store_true", help="Force regenerate shots")
     p_sh.add_argument("--mock", action="store_true", help="Generate offline mock video")
     p_sh.add_argument("--shots", nargs="+", help="Specific shot IDs to generate")
+    p_sh.add_argument("--kenburns", action="store_true", help="Animate keyframes with FFmpeg camera moves instead of Wan on Kaggle")
     p_sh.set_defaults(func=cmd_shots)
 
     # narration
