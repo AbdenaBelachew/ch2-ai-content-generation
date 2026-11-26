@@ -156,12 +156,9 @@ make test
 ## 5. Kaggle GPU Execution Workflow
 
 Heavy video diffusion (Wan 2.2 TI2V-5B) and music generation (ACE-Step 1.5) run on Kaggle GPUs:
-1. `python -m pipeline.cli shots` produces `kaggle/wan_batch.json`.
-2. `python -m pipeline.cli music` produces `kaggle/acestep_batch.json`.
-3. Open [kaggle/wan2_ti2v_notebook.ipynb](file:///d:/tenx/challenges/ch2-ai-content-generation/kaggle/wan2_ti2v_notebook.ipynb) on Kaggle with GPU T4x2 or P100 to generate `outputs/shots/*.mp4`.
-4. Open [kaggle/ace_step_music_notebook.ipynb](file:///d:/tenx/challenges/ch2-ai-content-generation/kaggle/ace_step_music_notebook.ipynb) on Kaggle with GPU T4 to synthesize `outputs/music/soundtrack.wav`.
-5. Place the downloaded files in `outputs/shots/` and `outputs/music/`.
-6. Run `python -m pipeline.cli assemble` to assemble both 16:9 and 9:16 master MP4 films.
+1. `python -m pipeline.cli keyframes`, then `make kaggle-pack` builds `outputs/kaggle_bundle/` (upload as the Kaggle dataset `heritage-short-inputs`).
+2. Run `kaggle/wan2_ti2v_notebook.ipynb` and `kaggle/ace_step_music_notebook.ipynb` on a Kaggle GPU (steps in [kaggle/README.md](kaggle/README.md)).
+3. `python kaggle/bundle.py unpack outputs_shots.zip soundtrack_bundle.zip` validates and imports the results, then `python -m pipeline.cli assemble`.
 
 ---
 

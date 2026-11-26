@@ -12,6 +12,7 @@ from pipeline.providers.gemini import GeminiProvider
 from pipeline.providers.kaggle import KaggleProvider
 from pipeline.stages.assembly import AssemblyStage
 from pipeline.stages.keyframes import KeyframesStage
+from pipeline.utils.media import is_real_audio, is_real_video
 from pipeline.stages.music import MusicStage
 from pipeline.stages.narration import NarrationStage
 from pipeline.stages.script import ScriptStage
@@ -329,13 +330,13 @@ def cmd_status(args: argparse.Namespace) -> int:
     existing_kfs = list(kf_dir.glob("shot_*.png")) if kf_dir.exists() else []
 
     shots_dir = cfg.output_dir / "shots"
-    existing_shots = list(shots_dir.glob("*.mp4")) if shots_dir.exists() else []
+    existing_shots = [f for f in shots_dir.glob("shot_*.mp4") if is_real_video(f)] if shots_dir.exists() else []
 
     narr_dir = cfg.output_dir / "narration"
     existing_narr = list(narr_dir.glob("shot_*.wav")) if narr_dir.exists() else []
 
     music_file = cfg.output_dir / "music" / "soundtrack.wav"
-    music_ok = music_file.exists()
+    music_ok = is_real_audio(music_file)
 
     exports_dir = cfg.output_dir / "exports"
     exp_9x16 = (exports_dir / "film_9x16.mp4").exists()

@@ -103,7 +103,7 @@ class MusicStage:
                 "status": "REQUIRES_KAGGLE_GPU",
                 "message": (
                     f"ACE-Step music manifest generated at: {batch_manifest_path}. "
-                    "Run Kaggle notebook 'kaggle/ace_step_runner.py' and place output at outputs/music/soundtrack.wav."
+                    "Run kaggle/ace_step_music_notebook.ipynb on a Kaggle GPU (see kaggle/README.md), then import with: python kaggle/bundle.py unpack soundtrack_bundle.zip"
                 ),
                 "batch_manifest": str(batch_manifest_path),
             }

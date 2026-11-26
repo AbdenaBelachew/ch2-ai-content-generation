@@ -176,7 +176,7 @@ class ShotsStage:
                 "message": (
                     f"{len(shots_to_generate)} shots need generation. "
                     f"Kaggle batch manifest prepared at: {batch_manifest_path}. "
-                    "Run Kaggle notebook 'kaggle/wan2_ti2v_runner.py' and place output MP4s in outputs/shots/."
+                    "Run kaggle/wan2_ti2v_notebook.ipynb on a Kaggle GPU (see kaggle/README.md), then import with: python kaggle/bundle.py unpack outputs_shots.zip"
                 ),
                 "batch_manifest": str(batch_manifest_path),
                 "pending_shots": [s["shot_id"] for s in shots_to_generate],

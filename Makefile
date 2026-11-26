@@ -20,7 +20,7 @@ else
     RUN_PY = $(VENV_PYTHON)
 endif
 
-.PHONY: web help install validate radio keyframes shots music film status test clean
+.PHONY: kaggle-pack web help install validate radio keyframes shots music film status test clean
 
 help:
 	@echo "AI Heritage Short Pipeline Commands:"
@@ -33,6 +33,7 @@ help:
 	@echo "  make film        - Orchestrate the full end-to-end filmmaking pipeline"
 	@echo "  make status      - Check health of providers, credentials, and generated assets"
 	@echo "  make test        - Run comprehensive test suite"
+	@echo "  make kaggle-pack - Build the Kaggle upload bundle (outputs/kaggle_bundle/)"
 	@echo "  make clean       - Remove cache, exports and assembly temp files"
 
 install:
@@ -62,6 +63,9 @@ status:
 
 test:
 	$(RUN_PY) -m pytest -v tests/
+
+kaggle-pack:
+	$(RUN_PY) kaggle/bundle.py pack
 
 clean:
 	@echo "Cleaning cache and derived outputs (exports, assembly temp). Generated keyframes/shots/narration/music are kept."

@@ -14,6 +14,7 @@ from pipeline.utils.ffmpeg import (
     is_ffmpeg_available,
     synthesize_fallback_ducked_mix,
 )
+from pipeline.utils.media import is_real_video
 from pipeline.validator import load_json
 
 
@@ -104,7 +105,7 @@ class AssemblyStage:
         missing_shots = [
             s["shot_id"]
             for s in shots
-            if not (shots_dir / f"{s['shot_id']}.mp4").exists()
+            if not is_real_video(shots_dir / f"{s['shot_id']}.mp4")
         ]
 
         narration_path = self.config.output_dir / "narration" / "full_narration.wav"
@@ -145,7 +146,8 @@ class AssemblyStage:
             # Concatenate all shots + end card (normalized to this aspect ratio) into one silent video
             concat_video = self.output_dir / f"concat_{ratio_slug}.mp4"
             concat_inputs = [shots_dir / f"{s['shot_id']}.mp4" for s in shots] + [end_card_clip]
-            concat_cmd = build_scaled_concat_command(concat_inputs, concat_video, aspect)
+            planned = [float(s.get("duration", 0)) or None for s in shots] + [None]
+            concat_cmd = build_scaled_concat_command(concat_inputs, concat_video, aspect, durations=planned)
             results["commands"][f"concat_{ratio_slug}"] = concat_cmd
 
             assembly_cmd = build_final_assembly_command(

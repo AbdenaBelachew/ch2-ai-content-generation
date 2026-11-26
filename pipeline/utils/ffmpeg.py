@@ -220,10 +220,14 @@ def build_scaled_concat_command(
     output_path: str | Path,
     aspect_ratio: str = "16:9",
     fps: int = 24,
+    durations: Optional[List[Optional[float]]] = None,
 ) -> List[str]:
     """Build FFmpeg command that normalizes every clip to the target aspect/fps and concatenates them.
 
     Re-encodes (concat filter) so clips with differing sizes, e.g. shots and the end card, can be joined.
+
+    `durations` gives the planned length per clip (None = keep as is). A longer clip is trimmed; a
+    shorter one is padded by holding its last frame. Footage is never time-stretched.
     """
     ffmpeg_bin = get_config().ffmpeg.ffmpeg_path
     aspect_filter = build_aspect_ratio_filter(aspect_ratio)
@@ -231,7 +235,11 @@ def build_scaled_concat_command(
     parts = []
     for i, p in enumerate(video_paths):
         cmd.extend(["-i", str(p)])
-        parts.append(f"[{i}:v]{aspect_filter},fps={fps},format=yuv420p[v{i}]")
+        dur = durations[i] if durations and i < len(durations) else None
+        fit = ""
+        if dur:
+            fit = f",tpad=stop_mode=clone:stop_duration={dur:.3f},trim=duration={dur:.3f},setpts=PTS-STARTPTS"
+        parts.append(f"[{i}:v]{aspect_filter},fps={fps}{fit},format=yuv420p[v{i}]")
     labels = "".join(f"[v{i}]" for i in range(len(video_paths)))
     graph = ";".join(parts) + f";{labels}concat=n={len(video_paths)}:v=1:a=0[vcat]"
     cmd.extend([

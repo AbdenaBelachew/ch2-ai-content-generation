@@ -55,3 +55,9 @@ Thumbs.db
 
 # Web UI job output
 web_jobs/
+
+# Generated Kaggle batch manifests / upload bundle (rebuild with `make kaggle-pack`)
+kaggle/wan_batch.json
+kaggle/acestep_batch.json
+outputs/kaggle_bundle/
+outputs/kaggle_bundle.zip

@@ -1,58 +1,62 @@
-# Kaggle GPU Execution Guide: Wan 2.2 TI2V-5B & ACE-Step 1.5
+# Kaggle GPU runs: Wan 2.2 TI2V-5B (video) and ACE-Step 1.5 (music)
 
-This directory contains standalone execution scripts, batch manifests, and Jupyter notebooks for running GPU workloads on Kaggle's free GPU tier (T4x2 or P100) or Google Cloud Vertex AI / RunPod.
+| File | Purpose |
+| :--- | :--- |
+| `wan2_ti2v_runner.py` | Real Wan 2.2 TI2V-5B image-to-video logic (single source of truth) |
+| `ace_step_runner.py` | Real ACE-Step 1.5 text-to-music logic |
+| `wan2_ti2v_notebook.ipynb` | Thin notebook: install, GPU check, smoke test on one shot, full batch |
+| `ace_step_music_notebook.ipynb` | Thin notebook: install ACE-Step, generate, package |
+| `bundle.py` | `pack` builds the upload bundle; `unpack` validates and imports results |
 
----
+> **Status: written from the official docs, not yet executed on a Kaggle GPU.** The first real run is
+> the verification. The runners never write placeholders: if a model fails to load or a file comes out
+> tiny, they raise. Treat any "success" as real only after `bundle.py unpack` accepts the files.
 
-## 1. Workload Architecture
-
-| Workload | Model | Hardware | Notebook / Script | Output |
-| :--- | :--- | :--- | :--- | :--- |
-| **Moving Shots** | Wan 2.2 TI2V-5B | Kaggle GPU (T4 x 2 or P100 16GB) | `kaggle/wan2_ti2v_notebook.ipynb` | `outputs/shots/{shot_id}.mp4` |
-| **Soundtrack** | ACE-Step 1.5 | Kaggle GPU (T4 16GB) | `kaggle/ace_step_music_notebook.ipynb` | `outputs/music/soundtrack.wav` |
-
----
-
-## 2. Interactive Notebook Execution on Kaggle (Turnkey)
-
-### A. Video Generation (Wan 2.2 TI2V-5B)
-1. **Prepare Batch**: Run `python -m pipeline.cli shots` locally. This ensures all keyframes in `outputs/keyframes/` and `kaggle/wan_batch.json` are generated.
-2. **Upload Notebook**: On [Kaggle](https://www.kaggle.com/code), click **New Notebook** $\to$ **File** $\to$ **Import Notebook** $\to$ upload `kaggle/wan2_ti2v_notebook.ipynb`.
-3. **Attach Dataset**: Upload `outputs/keyframes/` and `kaggle/wan_batch.json` as a Kaggle dataset named `heritage-short-inputs` and attach it to the notebook.
-4. **Set Accelerator**: In the right sidebar under **Notebook options**, select **GPU T4 x 2** (or **P100**).
-5. **Run All**: Click **Run All**. The notebook renders each 7.5s video clip and packages them into `/kaggle/working/outputs_shots.zip`.
-6. **Import to Pipeline**: Download `outputs_shots.zip` and extract its contents into your local workspace at `outputs/shots/`.
-
-### B. Music Generation (ACE-Step 1.5)
-1. **Prepare Batch**: Run `python -m pipeline.cli music` locally to generate `kaggle/acestep_batch.json`.
-2. **Upload Notebook**: Import `kaggle/ace_step_music_notebook.ipynb` to Kaggle.
-3. **Run All**: The notebook generates the 78s traditional Ethiopian acoustic soundtrack (*Masenqo*, *Washint*, *Krar*, *Kebero* at 68 BPM) and saves it to `/kaggle/working/outputs/music/soundtrack.wav`.
-4. **Import to Pipeline**: Download `soundtrack.wav` into your local workspace at `outputs/music/soundtrack.wav`.
-
----
-
-## 3. Automated CLI Execution via Kaggle API
-
-If you have Kaggle API credentials configured in `.env` (`KAGGLE_USERNAME` and `KAGGLE_KEY`):
+## 1. Prepare inputs (on your PC)
 
 ```bash
-# Push and execute video generation kernel
-kaggle kernels push -p kaggle/
-
-# Check status
-kaggle kernels status <username>/wan-2-2-ti2v-heritage-short
-
-# Download outputs directly into pipeline directory
-kaggle kernels output <username>/wan-2-2-ti2v-heritage-short -p outputs/shots/
+python -m pipeline.cli keyframes      # keyframes must exist
+make kaggle-pack                      # or: python kaggle/bundle.py pack
 ```
 
----
+This creates `outputs/kaggle_bundle/` (`wan_batch.json`, `acestep_batch.json`, `keyframes/`, both runners)
+and a `.zip`.
 
-## 4. Pipeline Integration & Caching
+## 2. Kaggle setup (once)
 
-Once output files are placed into `outputs/shots/` and `outputs/music/`:
+1. Sign in at kaggle.com and **verify your phone number** (required for GPU and Internet access).
+2. **Datasets, New Dataset**: upload the *contents* of `outputs/kaggle_bundle/` and name it `heritage-short-inputs`.
+3. **Code, New Notebook, File, Import Notebook**: import a notebook from this folder.
+4. In the notebook sidebar: **Add Input** and attach `heritage-short-inputs`. Set **Accelerator** to GPU (T4 x2 or P100) and **Internet** to On (weights download from Hugging Face).
+
+## 3. Video (Wan 2.2 TI2V-5B)
+
+1. Run cells 1 to 5. Cell 4 generates **only `shot_01`**, so you can check quality, time and memory first.
+2. If you hit CUDA out-of-memory, lower `MAX_AREA` or `MAX_FRAMES` in cell 4 (`MAX_FRAMES` must be 4k+1, e.g. 81).
+3. Run cell 6 (all shots), then cell 7. Download `/kaggle/working/outputs_shots.zip` from the **Output** tab.
+
+Notes: the model's native clip is 24 fps. Defaults give 121 frames (about 5 s) at about 480x832 area. Planned shots are 7.5 s, so assembly holds the last frame to fill the slot. It never time-stretches. Raise `MAX_FRAMES` if your GPU allows.
+
+## 4. Music (ACE-Step 1.5)
+
+Import the second notebook, attach the same dataset, run all cells, and download `soundtrack_bundle.zip`.
+If the install cell fails, the ACE-Step docs describe a `uv sync` route; see https://github.com/ACE-Step/ACE-Step-1.5.
+On out-of-memory set `THINKING = False`.
+
+## 5. Import results (on your PC)
+
 ```bash
+python kaggle/bundle.py unpack outputs_shots.zip soundtrack_bundle.zip
 python -m pipeline.cli status
 python -m pipeline.cli assemble
 ```
-The content-addressed caching engine automatically verifies file hashes and proceeds to assemble the final 9:16 and 16:9 master MP4 films.
+
+`unpack` rejects placeholder or truncated files, copies good ones into `outputs/shots/` and
+`outputs/music/`, updates the cache, and appends `runs.jsonl` records using only the timings Kaggle
+measured (`gpu_minutes` is the generation time; model load time is excluded).
+
+## If something fails
+
+- **`WanImageToVideoPipeline` rejects the checkpoint:** the TI2V-5B model card documents text-to-video only. Copy the full error into `FAILURES.md`; the image-conditioned path is the unverified part.
+- **ACE-Step signature errors:** `ace_step_runner.py` only passes keyword arguments the installed version accepts and prints those it skipped. Compare with `docs/en/INFERENCE.md` in the ACE-Step repo.
+- **Automated `kaggle kernels push`:** not verified (the API smoke test returned HTTP 404). The manual notebook route above is the supported path.
