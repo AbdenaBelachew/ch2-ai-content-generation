@@ -181,11 +181,13 @@ blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);ba
 
 /* footer */
 footer{position:fixed;left:0;right:0;bottom:0;z-index:40;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
-.bar1{display:flex;align-items:center;justify-content:space-between;gap:18px;height:46px;font-size:13px;color:var(--muted);white-space:nowrap}
+.bar1{display:flex;align-items:center;gap:18px;height:46px;font-size:13px;color:var(--muted);white-space:nowrap}
+.bar1 .ai{flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis}
 .bar1 a{text-decoration:none}.bar1 a:hover{text-decoration:underline}
 .author{display:flex;align-items:center;gap:9px;margin:0;color:var(--text);font-size:13.5px}
 .ini{width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:11px;flex:none}
 body{padding-bottom:50px}
+@media(max-width:760px){.bar1 .ai{display:none}.bar1{justify-content:space-between}}
 @media(max-width:460px){.bar1 .cr{display:none}}
 
 /* lightbox */
@@ -261,7 +263,7 @@ dialog#lb button{position:absolute;right:-6px;top:-44px;font:600 14px var(--sans
 <footer>
   <div class="wrap bar1">
     <div class="author"><span class="ini">AB</span><span>Abdena Belachew · <a href="https://github.com/AbdenaBelachew/ch2-ai-content-generation" rel="noopener">Source on GitHub ↗</a></span></div>
-    <span class="cr">&copy; 2026 Abdena Belachew</span>
+      <span class="cr">&copy; 2026 Abdena Belachew</span>
   </div>
 </footer>
 <dialog id="lb"><button type="button">Close</button><img alt=""><p></p></dialog>
