@@ -180,12 +180,12 @@ def with_toc(body_html: str) -> tuple:
 # --------------------------------------------------------------------------- design
 
 CSS = """
-:root{--bg:#0f0b08;--bg2:#15100c;--panel:#1b1510;--panel2:#251c15;--line:#352a20;--text:#f3e9db;--muted:#b0a08b;
---accent:#e7ac58;--accent2:#cf7a35;--green:#4b9b5f;--red:#d9573f;--gold:#f0c24b;--blue:#6f9fd8;--ink:#1b1007;
---shadow:0 30px 80px -28px rgba(0,0,0,.75);--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+:root{--bg:#fbf8f2;--bg2:#f3ece0;--panel:#ffffff;--panel2:#f5eee3;--line:#e5dac8;--text:#241b13;--muted:#6b5b48;
+--accent:#b4531c;--accent2:#8f3f12;--green:#2d7a43;--red:#b53a2a;--gold:#8a6100;--blue:#2c64a6;--ink:#ffffff;
+--shadow:0 20px 44px -24px rgba(60,40,20,.35);--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
 --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--ethiopic:"Noto Sans Ethiopic",Nyala,"Abyssinica SIL",var(--sans)}
-:root[data-theme=light]{--bg:#faf3e8;--bg2:#f3e8d8;--panel:#fffbf4;--panel2:#f2e6d3;--line:#e2d1b8;--text:#2b2016;--muted:#7a6753;
---accent:#b4651a;--accent2:#8f4a0e;--green:#2f7d44;--red:#b3402f;--gold:#9a7400;--blue:#3d6fae;--ink:#fffaf0;--shadow:0 24px 60px -28px rgba(80,50,20,.45)}
+:root[data-theme=dark]{--bg:#0f0b08;--bg2:#15100c;--panel:#1b1510;--panel2:#251c15;--line:#352a20;--text:#f3e9db;--muted:#b0a08b;
+--accent:#e7ac58;--accent2:#f2bf76;--green:#4b9b5f;--red:#d9573f;--gold:#f0c24b;--blue:#6f9fd8;--ink:#1b1007;--shadow:0 30px 80px -28px rgba(0,0,0,.75)}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:128px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font:16.5px/1.7 var(--sans);overflow-x:hidden}
 ::selection{background:var(--accent);color:var(--ink)}
@@ -193,14 +193,14 @@ a{color:var(--accent);text-underline-offset:3px}a:hover{color:var(--accent2)}
 img{max-width:100%}
 .skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;background:var(--accent);color:var(--ink);padding:8px 12px;border-radius:10px;z-index:99}
 .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
-#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:60}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:60}
 
 /* header */
 .top{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
-.flag{height:3px;background:linear-gradient(90deg,#2f9e44 0 33.33%,#f2c500 0 66.66%,#da1212 0)}
+.flag{height:3px;display:grid;grid-template-columns:repeat(3,1fr)}.flag i:nth-child(1){background:#2f9e44}.flag i:nth-child(2){background:#f2c500}.flag i:nth-child(3){background:#da1212}
 .bar{display:flex;align-items:center;gap:14px;padding:11px 0}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
-.mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;box-shadow:0 6px 18px -6px var(--accent2)}
+.mark{width:38px;height:38px;border-radius:11px;background:var(--accent);display:grid;place-items:center}
 .mark svg{width:22px;height:22px;fill:var(--ink)}
 .brand small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;line-height:1.1}
 .brand b{display:block;font:700 19px/1.15 var(--serif);letter-spacing:0;text-transform:none}
@@ -229,10 +229,7 @@ img{max-width:100%}
 }
 
 /* hero */
-.hero{position:relative;isolation:isolate;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero .bg{position:absolute;inset:-40px;z-index:-2;background-size:cover;background-position:center;filter:blur(34px) saturate(1.2) brightness(.38);transform:scale(1.15)}
-:root[data-theme=light] .hero .bg{filter:blur(34px) saturate(1.1) brightness(.95) opacity(.55)}
-.hero:after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(1200px 500px at 20% 0,transparent,var(--bg) 85%),linear-gradient(180deg,transparent 55%,var(--bg))}
+.hero{position:relative;background:var(--bg2);border-bottom:1px solid var(--line)}
 .hero .in{padding:76px 22px 40px;display:grid;gap:36px;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center}
 @media(max-width:900px){.hero .in{grid-template-columns:1fr;padding-top:48px}}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--accent);font-weight:800;letter-spacing:.16em;font-size:12px;text-transform:uppercase}
@@ -242,9 +239,9 @@ h1.title .am{font-family:var(--ethiopic);display:block;font-weight:800}
 h1.title .en{display:block;font-size:.5em;color:var(--accent);font-style:italic;margin-top:6px}
 .lede{color:var(--muted);font-size:18px;max-width:60ch;margin:0 0 20px}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 4px}
-.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:15px;padding:12px 20px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--accent2));color:var(--ink);border:0;cursor:pointer;box-shadow:0 10px 26px -10px var(--accent2);transition:.2s}
-.btn:hover{transform:translateY(-2px);color:var(--ink);box-shadow:0 16px 30px -10px var(--accent2)}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:15px;padding:12px 20px;border-radius:12px;background:var(--accent);color:var(--ink);border:0;cursor:pointer;box-shadow:0 8px 20px -10px var(--accent);transition:.2s}
+.btn:hover{transform:translateY(-2px);color:var(--ink);background:var(--accent2);box-shadow:0 12px 24px -10px var(--accent)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}.btn.ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--panel2)}
 .btn.sm{padding:8px 14px;font-size:13.5px;border-radius:10px}
 .stats{display:flex;gap:26px;flex-wrap:wrap;margin-top:26px}.stats div b{display:block;font:700 30px/1 var(--serif);color:var(--text)}.stats div span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
 .heroart{position:relative}
@@ -258,7 +255,6 @@ section{padding:72px 0 8px}
 .sh .num{font:800 54px/1 var(--serif);color:transparent;-webkit-text-stroke:1.5px var(--accent);opacity:.8}
 .sh h2{font:700 clamp(28px,4vw,40px)/1.1 var(--serif);margin:2px 0 0}
 .sub{color:var(--muted);max-width:68ch;margin:0 0 22px;font-size:17px}
-.tibeb{height:10px;margin:0;border:0;opacity:.6;border-radius:6px;background:repeating-linear-gradient(90deg,var(--accent) 0 14px,transparent 14px 20px,var(--green) 20px 34px,transparent 34px 40px,var(--red) 40px 54px,transparent 54px 60px)}
 
 /* player */
 .tabs{display:inline-flex;gap:4px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:99px;margin:0 0 16px}
@@ -306,7 +302,7 @@ details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--accent
 
 /* sound */
 .player-card{display:flex;gap:16px;align-items:center}
-.ico{flex:none;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center}.ico svg{width:26px;height:26px;fill:var(--ink)}
+.ico{flex:none;width:52px;height:52px;border-radius:14px;background:var(--accent);display:grid;place-items:center}.ico svg{width:26px;height:26px;fill:var(--ink)}
 audio{width:100%;margin-top:10px;accent-color:var(--accent)}
 
 /* pipeline */
@@ -379,7 +375,7 @@ JS = """
   var btn=document.getElementById('theme');
   function apply(t){root.setAttribute('data-theme',t);if(btn)btn.textContent=t==='dark'?'Light mode':'Dark mode';}
   var saved=null;try{saved=localStorage.getItem('theme');}catch(e){}
-  apply(saved||(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
+  apply(saved||'light');
   if(btn)btn.addEventListener('click',function(){var t=root.getAttribute('data-theme')==='dark'?'light':'dark';apply(t);try{localStorage.setItem('theme',t);}catch(e){}});
 
   var pg=document.getElementById('progress');
@@ -479,13 +475,13 @@ def shell(title: str, body: str, ctx: dict, depth: int, current_doc: str = "") -
                     '<meta name="twitter:card" content="summary_large_image">')
     desc = html.escape(ctx["desc"], quote=True)
     return f"""<!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#0f0b08">
+<meta name="theme-color" content="#fbf8f2">
 <meta property="og:title" content="{html.escape(title, quote=True)}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="video.other">
@@ -496,12 +492,12 @@ def shell(title: str, body: str, ctx: dict, depth: int, current_doc: str = "") -
 <body>
 <div id="progress"></div>
 <a class="skip" href="#app">Skip to content</a>
-<header class="top"><div class="flag"></div><div class="wrap">
+<header class="top"><div class="flag"><i></i><i></i><i></i></div><div class="wrap">
   <div class="bar">
     <a class="brand" href="{base}#film"><span class="mark">{MARK_SVG}</span><span><small>Heritage Short</small><b>{html.escape(ctx['short_title'])}</b></span></a>
     <nav class="navwrap" id="nav" aria-label="Main">{main_nav}</nav>
     <span class="spacer"></span>
-    <button class="theme" id="theme" type="button" aria-label="Toggle colour theme">Light mode</button>
+    <button class="theme" id="theme" type="button" aria-label="Toggle colour theme">Dark mode</button>
     <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
   </div>
 </div></header>
@@ -509,7 +505,7 @@ def shell(title: str, body: str, ctx: dict, depth: int, current_doc: str = "") -
 {body}
 </main>
 <footer>
-  <div class="flag"></div>
+  <div class="flag"><i></i><i></i><i></i></div>
   <div class="wrap">
     <div class="cols">
       <div>{author}<h4>Made with AI</h4>
@@ -549,8 +545,11 @@ def probe(path: Path) -> dict:
 
 
 def encode(src: Path, dst: Path, size: str) -> None:
-    r = run("ffmpeg", "-y", "-loglevel", "error", "-i", str(src), "-vf", f"scale={size}", "-c:v", "libx264", "-crf", "23",
-            "-preset", "slow", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(dst))
+    # Standard (limited) colour range, BT.709 and High profile: plays everywhere, including Safari and phones.
+    r = run("ffmpeg", "-y", "-loglevel", "error", "-i", str(src), "-vf", f"scale={size}:out_range=tv,format=yuv420p",
+            "-c:v", "libx264", "-crf", "23", "-preset", "slow", "-profile:v", "high", "-level", "4.1",
+            "-color_range", "tv", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709",
+            "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-movflags", "+faststart", str(dst))
     if r.returncode != 0:
         raise SystemExit(f"ffmpeg failed encoding {src.name}: {r.stderr[-300:]}")
 
@@ -613,7 +612,6 @@ def build_sections(ctx: dict, sb: dict, films: dict, info: dict, tele: dict, tes
 
     film = f"""
 <div class="hero">
-  <div class="bg" style="background-image:url(img/poster.jpg)"></div>
   <div class="wrap in">
     <div>
       <div class="eyebrow">AI Heritage Short</div>
