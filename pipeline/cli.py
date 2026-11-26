@@ -326,7 +326,7 @@ def cmd_status(args: argparse.Namespace) -> int:
         shots_count = len(sb_data.get("shots", []))
 
     kf_dir = cfg.output_dir / "keyframes"
-    existing_kfs = list(kf_dir.glob("*.png")) if kf_dir.exists() else []
+    existing_kfs = list(kf_dir.glob("shot_*.png")) if kf_dir.exists() else []
 
     shots_dir = cfg.output_dir / "shots"
     existing_shots = list(shots_dir.glob("*.mp4")) if shots_dir.exists() else []
