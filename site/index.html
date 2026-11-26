@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ጣዕመ ትውፊት (Taste of Heritage)</title>
+<meta name="description" content="An intimate visual poem where grandmother Emaye Ayelech prepares a traditional Ethiopian coffee ceremony in the highland morning light, narrating the deeper meaning of patience, community, and ancestral roots passed across generations.">
+<meta name="theme-color" content="#0f0b08">
+<meta property="og:title" content="ጣዕመ ትውፊት (Taste of Heritage)">
+<meta property="og:description" content="An intimate visual poem where grandmother Emaye Ayelech prepares a traditional Ethiopian coffee ceremony in the highland morning light, narrating the deeper meaning of patience, community, and ancestral roots passed across generations.">
+<meta property="og:type" content="video.other">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#0f0b08;--bg2:#15100c;--panel:#1b1510;--panel2:#251c15;--line:#352a20;--text:#f3e9db;--muted:#b0a08b;
+--accent:#e7ac58;--accent2:#cf7a35;--green:#4b9b5f;--red:#d9573f;--gold:#f0c24b;--blue:#6f9fd8;--ink:#1b1007;
+--shadow:0 30px 80px -28px rgba(0,0,0,.75);--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--ethiopic:"Noto Sans Ethiopic",Nyala,"Abyssinica SIL",var(--sans)}
+:root[data-theme=light]{--bg:#faf3e8;--bg2:#f3e8d8;--panel:#fffbf4;--panel2:#f2e6d3;--line:#e2d1b8;--text:#2b2016;--muted:#7a6753;
+--accent:#b4651a;--accent2:#8f4a0e;--green:#2f7d44;--red:#b3402f;--gold:#9a7400;--blue:#3d6fae;--ink:#fffaf0;--shadow:0 24px 60px -28px rgba(80,50,20,.45)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:128px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16.5px/1.7 var(--sans);overflow-x:hidden}
+::selection{background:var(--accent);color:var(--ink)}
+a{color:var(--accent);text-underline-offset:3px}a:hover{color:var(--accent2)}
+img{max-width:100%}
+.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;background:var(--accent);color:var(--ink);padding:8px 12px;border-radius:10px;z-index:99}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:60}
+
+/* header */
+.top{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.flag{height:3px;background:linear-gradient(90deg,#2f9e44 0 33.33%,#f2c500 0 66.66%,#da1212 0)}
+.bar{display:flex;align-items:center;gap:14px;padding:10px 0 4px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;box-shadow:0 6px 18px -6px var(--accent2)}
+.mark svg{width:22px;height:22px;fill:var(--ink)}
+.brand small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;line-height:1.1}
+.brand b{display:block;font:700 19px/1.15 var(--serif);letter-spacing:0;text-transform:none}
+.spacer{flex:1}
+.theme{font:600 13px var(--sans);cursor:pointer;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:99px;padding:7px 14px;transition:.2s}
+.theme:hover{border-color:var(--accent);transform:translateY(-1px)}
+nav.main{display:flex;gap:2px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}nav.main::-webkit-scrollbar{display:none}
+nav.main a{position:relative;white-space:nowrap;text-decoration:none;color:var(--muted);padding:6px 13px;border-radius:99px;font-size:14px;font-weight:600;transition:.2s}
+nav.main a:hover{color:var(--text);background:var(--panel2)}
+nav.main a.on{color:var(--ink);background:var(--accent)}
+.docsnav{display:flex;gap:4px 16px;flex-wrap:wrap;padding:0 0 10px;font-size:13px;align-items:center}
+.docsnav b{color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:11px}
+.docsnav a{color:var(--muted);text-decoration:none;padding:1px 0;border-bottom:1px solid transparent}.docsnav a:hover,.docsnav a.on{color:var(--accent);border-color:var(--accent)}
+
+/* hero */
+.hero{position:relative;isolation:isolate;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .bg{position:absolute;inset:-40px;z-index:-2;background-size:cover;background-position:center;filter:blur(34px) saturate(1.2) brightness(.38);transform:scale(1.15)}
+:root[data-theme=light] .hero .bg{filter:blur(34px) saturate(1.1) brightness(.95) opacity(.55)}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(1200px 500px at 20% 0,transparent,var(--bg) 85%),linear-gradient(180deg,transparent 55%,var(--bg))}
+.hero .in{padding:76px 0 40px;display:grid;gap:36px;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center}
+@media(max-width:900px){.hero .in{grid-template-columns:1fr;padding-top:48px}}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--accent);font-weight:800;letter-spacing:.16em;font-size:12px;text-transform:uppercase}
+.eyebrow:before{content:"";width:28px;height:2px;background:var(--accent);border-radius:2px}
+h1.title{font:700 clamp(36px,6.4vw,72px)/1.04 var(--serif);margin:14px 0 8px;letter-spacing:-.01em}
+h1.title .am{font-family:var(--ethiopic);display:block;font-weight:800}
+h1.title .en{display:block;font-size:.5em;color:var(--accent);font-style:italic;margin-top:6px}
+.lede{color:var(--muted);font-size:18px;max-width:60ch;margin:0 0 20px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 4px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:15px;padding:12px 20px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--accent2));color:var(--ink);border:0;cursor:pointer;box-shadow:0 10px 26px -10px var(--accent2);transition:.2s}
+.btn:hover{transform:translateY(-2px);color:var(--ink);box-shadow:0 16px 30px -10px var(--accent2)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn.sm{padding:8px 14px;font-size:13.5px;border-radius:10px}
+.stats{display:flex;gap:26px;flex-wrap:wrap;margin-top:26px}.stats div b{display:block;font:700 30px/1 var(--serif);color:var(--text)}.stats div span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
+.heroart{position:relative}
+.heroart img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:22px;box-shadow:var(--shadow);border:1px solid var(--line);display:block}
+.heroart:before{content:"";position:absolute;inset:14px -14px -14px 14px;border:2px solid var(--accent);opacity:.5;border-radius:22px;z-index:-1}
+.heroart .tag{position:absolute;left:14px;bottom:14px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);padding:6px 12px;border-radius:99px;font-size:12.5px}
+
+/* sections */
+section{padding:72px 0 8px}
+.sh{display:flex;gap:18px;align-items:flex-end;margin-bottom:22px}
+.sh .num{font:800 54px/1 var(--serif);color:transparent;-webkit-text-stroke:1.5px var(--accent);opacity:.8}
+.sh h2{font:700 clamp(28px,4vw,40px)/1.1 var(--serif);margin:2px 0 0}
+.sub{color:var(--muted);max-width:68ch;margin:0 0 22px;font-size:17px}
+.tibeb{height:10px;margin:0;border:0;opacity:.6;border-radius:6px;background:repeating-linear-gradient(90deg,var(--accent) 0 14px,transparent 14px 20px,var(--green) 20px 34px,transparent 34px 40px,var(--red) 40px 54px,transparent 54px 60px)}
+
+/* player */
+.tabs{display:inline-flex;gap:4px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:99px;margin:0 0 16px}
+.tab{font:600 14px var(--sans);cursor:pointer;background:transparent;color:var(--muted);border:0;padding:8px 18px;border-radius:99px;transition:.2s}
+.tab[aria-pressed=true]{background:var(--accent);color:var(--ink)}
+.stage{position:relative;background:#000;border-radius:20px;overflow:hidden;display:grid;place-items:center;border:1px solid var(--line);box-shadow:var(--shadow)}
+video{display:block;width:100%;max-height:80vh;background:#000}video.vertical{width:auto;height:78vh;max-width:100%}
+.dl{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x proximity;padding:16px 2px 12px;margin-top:6px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ch{flex:0 0 186px;scroll-snap-align:start;text-align:left;font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px;cursor:pointer;transition:.25s}
+.ch:hover{transform:translateY(-3px);border-color:var(--accent)}
+.ch.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 16px 30px -16px var(--accent2);background:var(--panel2)}
+.ch img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:9px;display:block}
+.ch .t{display:flex;justify-content:space-between;font-size:12px;color:var(--accent);font-weight:800;letter-spacing:.06em;margin:8px 2px 2px}
+.ch p{margin:0 2px;font-size:12.5px;line-height:1.4;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}.chip{font-size:12.5px;padding:4px 12px;border-radius:99px;border:1px solid var(--line);background:var(--panel);color:var(--muted)}
+
+/* cards, grids */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:0 1px 0 rgba(255,255,255,.03) inset}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.sumcards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:0 0 20px}
+.sumcards div{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:14px 18px}.sumcards b{display:block;font:700 34px/1 var(--serif)}.sumcards span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.sumcards .ok b{color:var(--green)}.sumcards .part b{color:var(--gold)}.sumcards .no b{color:var(--red)}
+.tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--panel2);font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}tr:last-child td{border-bottom:0}tbody tr:hover td{background:color-mix(in srgb,var(--panel2) 55%,transparent)}
+.badge{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.04em;padding:3px 10px;border-radius:99px;white-space:nowrap;border:1px solid currentColor}
+.badge.ok{color:var(--green)}.badge.part{color:var(--gold)}.badge.no{color:var(--red)}.badge.cached{color:var(--blue)}
+.small{font-size:13px;color:var(--muted)}
+
+/* storyboard */
+.char{display:grid;gap:22px;grid-template-columns:minmax(0,300px) 1fr;align-items:center;margin-bottom:26px}
+.char img{width:100%;border-radius:14px;cursor:zoom-in;display:block}
+.scene{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:26px;align-items:center;margin:22px 0;padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:22px;transition:.3s}
+.scene:hover{border-color:color-mix(in srgb,var(--accent) 60%,var(--line));box-shadow:var(--shadow)}
+.scene.alt .pic{order:2}
+.pic{overflow:hidden;border-radius:14px;position:relative;cursor:zoom-in;border:0;padding:0;background:none;display:block;width:100%}
+.pic img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .6s}.pic:hover img{transform:scale(1.05)}
+.pic .no{position:absolute;left:12px;top:12px;background:var(--accent);color:var(--ink);font-weight:800;font-size:12px;letter-spacing:.08em;padding:4px 11px;border-radius:99px}
+.scene .am{font:700 clamp(19px,2.2vw,25px)/1.5 var(--ethiopic);margin:0 0 8px}
+.scene .en{font:italic 17px/1.55 var(--serif);color:var(--muted);margin:0 0 12px}
+.meta{font-size:13px;color:var(--muted)}.meta b{color:var(--text)}
+details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--accent);font-weight:600}details p{color:var(--muted)}
+@media(max-width:760px){.scene,.char{grid-template-columns:1fr}.scene.alt .pic{order:0}}
+
+/* sound */
+.player-card{display:flex;gap:16px;align-items:center}
+.ico{flex:none;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center}.ico svg{width:26px;height:26px;fill:var(--ink)}
+audio{width:100%;margin-top:10px;accent-color:var(--accent)}
+
+/* pipeline */
+.flow{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));counter-reset:s;position:relative}
+.step{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 14px 14px;transition:.25s}
+.step:hover{transform:translateY(-4px);border-color:var(--accent)}
+.step:before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--ink);font-weight:800;font-size:13px;margin-bottom:10px}
+.step b{display:block;font:700 17px var(--serif)}.step small{display:block;color:var(--muted);line-height:1.45;margin-top:4px}
+pre{background:#0b0805;color:#f1e6d8;border:1px solid var(--line);border-radius:14px;padding:16px 18px;overflow:auto;font-size:13.5px;line-height:1.6}
+:root[data-theme=light] pre{background:#2b2016;color:#fbf2e4}
+code{font-family:ui-monospace,"Cascadia Code",Consolas,monospace;font-size:.9em}
+p code,li code,td code{background:var(--panel2);padding:2px 6px;border-radius:6px;border:1px solid var(--line)}
+pre code{background:none;border:0;padding:0}
+
+/* telemetry */
+.bars{display:grid;gap:12px;margin:16px 0}
+.bar-row{display:grid;grid-template-columns:110px 1fr 40px;gap:12px;align-items:center;font-size:14px}
+.track{display:flex;height:16px;border-radius:99px;overflow:hidden;background:var(--panel2);border:1px solid var(--line)}
+.track i{display:block;height:100%}.s-ok{background:var(--green)}.s-cached{background:var(--blue)}.s-fail{background:var(--red)}.s-other{background:var(--gold)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:0 0 18px}
+.stat div{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 18px}.stat b{display:block;font:700 34px/1 var(--serif);color:var(--accent)}.stat span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+/* downloads */
+.files{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.file{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px;text-decoration:none;color:var(--text);transition:.25s}
+.file:hover{transform:translateY(-3px);border-color:var(--accent);color:var(--text)}
+.ext{flex:none;width:48px;height:56px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-weight:800;font-size:11.5px;color:var(--accent);letter-spacing:.04em}
+.file b{display:block;font-size:15px;word-break:break-all}.file small{display:block;color:var(--muted);line-height:1.4;margin-top:2px}.file .sz{color:var(--accent);font-weight:700}
+
+/* prose + journal + docs */
+.prose{max-width:76ch}.prose h1{font:700 clamp(30px,4vw,44px)/1.15 var(--serif)}.prose h2{font:700 28px/1.2 var(--serif);margin:2em 0 .4em}.prose h3{font:700 20px var(--serif);margin:1.6em 0 .3em}
+.prose p,.prose li{color:color-mix(in srgb,var(--text) 90%,var(--muted))}.prose li{margin:.25em 0}.prose hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);background:var(--panel);border-radius:0 12px 12px 0}blockquote p{margin:.4em 0}
+.journal h2{position:relative;padding-left:28px;font:700 24px/1.25 var(--serif);margin:2em 0 .5em}
+.journal h2:before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 25%,transparent)}
+.journal{border-left:2px solid var(--line);padding-left:10px;margin-left:6px}
+.docgrid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:44px;align-items:start}
+.toc{position:sticky;top:140px;display:grid;gap:2px;font-size:14px;border-left:2px solid var(--line);padding-left:14px}
+.toc b{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:6px}.toc a{color:var(--muted);text-decoration:none;padding:3px 0}.toc a:hover{color:var(--accent)}
+@media(max-width:960px){.docgrid{grid-template-columns:1fr}.toc{display:none}}
+.notice{margin:0 0 26px;padding:14px 18px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--panel);border-radius:0 14px 14px 0;font-size:15px}
+
+/* footer */
+footer{margin-top:90px;background:var(--bg2);border-top:1px solid var(--line)}
+footer .flag{margin-bottom:34px}
+footer .cols{display:grid;gap:30px;grid-template-columns:1.4fr 1fr 1fr}
+@media(max-width:760px){footer .cols{grid-template-columns:1fr}}
+footer h4{margin:0 0 10px;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+footer p,footer li{color:var(--muted);font-size:14px;margin:.3em 0}footer ul{list-style:none;margin:0;padding:0}footer a{text-decoration:none}footer a:hover{text-decoration:underline}
+.fine{border-top:1px solid var(--line);margin-top:30px;padding:18px 0 40px;font-size:13px;color:var(--muted)}
+.author{display:flex;align-items:center;gap:10px;margin-bottom:12px}.ini{width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:13px}
+
+/* lightbox */
+dialog#lb{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh;overflow:visible}
+dialog#lb::backdrop{background:rgba(5,3,2,.88);backdrop-filter:blur(6px)}
+dialog#lb img{display:block;max-width:96vw;max-height:88vh;border-radius:14px;box-shadow:0 30px 100px rgba(0,0,0,.7)}
+dialog#lb p{color:#f3e9db;text-align:center;margin:10px 0 0;font-size:14px}
+dialog#lb button{position:absolute;right:-6px;top:-44px;font:600 14px var(--sans);background:var(--accent);color:var(--ink);border:0;border-radius:99px;padding:6px 14px;cursor:pointer}
+
+/* motion */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}.js .rv{opacity:1;transform:none}}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<a class="skip" href="#app">Skip to content</a>
+<header class="top"><div class="flag"></div><div class="wrap">
+  <div class="bar">
+    <a class="brand" href="index.html#film"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h12v6c0 4-2.4 7-6 7s-6-3-6-7z"/><path d="M17 5h2a3 3 0 0 1 0 6h-2V9h2a1 1 0 0 0 0-2h-2z"/><rect x="4" y="19" width="14" height="2" rx="1"/></svg></span><span><small>Heritage Short</small><b>Taste of Heritage</b></span></a>
+    <span class="spacer"></span>
+    <button class="theme" id="theme" type="button" aria-label="Toggle colour theme">Light mode</button>
+  </div>
+  <nav class="main" aria-label="Sections"><a href="index.html#film">Film</a><a href="index.html#review">For reviewers</a><a href="index.html#storyboard">Storyboard</a><a href="index.html#sound">Sound</a><a href="index.html#pipeline">Pipeline</a><a href="index.html#wan">Motion · Kaggle Wan 2.2</a><a href="index.html#telemetry">Telemetry</a><a href="index.html#downloads">Downloads</a><a href="index.html#journal">Journal</a></nav>
+</div></header>
+<main id="app">
+
+<div class="hero">
+  <div class="bg" style="background-image:url(img/poster.jpg)"></div>
+  <div class="wrap in">
+    <div>
+      <div class="eyebrow">AI Heritage Short</div>
+      <h1 class="title"><span class="am">ጣዕመ ትውፊት</span><span class="en">Taste of Heritage</span></h1>
+      <p class="lede">An intimate visual poem where grandmother Emaye Ayelech prepares a traditional Ethiopian coffee ceremony in the highland morning light, narrating the deeper meaning of patience, community, and ancestral roots passed across generations.</p>
+      <div class="cta"><a class="btn" href="#player">&#9654; Watch the film</a><a class="btn ghost" href="#review">For reviewers</a><a class="btn ghost" href="#pipeline">How it was made</a></div>
+      <div class="stats"><div><b>79s</b><span>Runtime</span></div><div><b>10</b><span>Shots</span></div><div><b>2</b><span>Formats</span></div><div><b>100%</b><span>AI, disclosed</span></div></div>
+    </div>
+    <div class="heroart"><img src="img/poster.jpg" alt="Still from the film: an elderly Ethiopian grandmother in a white netela" fetchpriority="high"><span class="tag">AI-generated, fictional character</span></div>
+  </div>
+</div>
+<section id="film" style="padding-top:56px">
+  <div class="wrap">
+    <div class="sh rv"><span class="num">01</span><div><div class="eyebrow">The film</div><h2>Watch</h2></div></div>
+    <div class="tabs" role="group" aria-label="Video format"><button class="tab" data-k="16:9" aria-pressed="false">Widescreen 16:9</button><button class="tab" data-k="9:16" aria-pressed="false">Vertical 9:16</button></div>
+    <div class="stage" id="player"><video id="v" controls playsinline preload="metadata" poster="img/poster.jpg"></video></div>
+    <div class="dl" id="dl"></div>
+    <div class="rail" id="rail" aria-label="Chapters"><button class="ch" type="button" aria-label="Jump to shot 1"><img loading="lazy" src="img/shot_01.jpg" alt=""><div class="t"><span>SHOT 1</span><span>0:00</span></div><p>As the sun rises over the highland hills, the memories of our ancestors whisper through the wind.</p></button><button class="ch" type="button" aria-label="Jump to shot 2"><img loading="lazy" src="img/shot_02.jpg" alt=""><div class="t"><span>SHOT 2</span><span>0:07</span></div><p>Each day is a fresh blessing; each morning carries a new story waiting to be told.</p></button><button class="ch" type="button" aria-label="Jump to shot 3"><img loading="lazy" src="img/shot_03.jpg" alt=""><div class="t"><span>SHOT 3</span><span>0:15</span></div><p>Coffee cannot be rushed; like life itself, it asks for patience and mindful care.</p></button><button class="ch" type="button" aria-label="Jump to shot 4"><img loading="lazy" src="img/shot_04.jpg" alt=""><div class="t"><span>SHOT 4</span><span>0:22</span></div><p>Just as the beans release their richest aroma through heat, human character discovers its strength through trials.</p></button><button class="ch" type="button" aria-label="Jump to shot 5"><img loading="lazy" src="img/shot_05.jpg" alt=""><div class="t"><span>SHOT 5</span><span>0:30</span></div><p>Receive this aroma; it is the fragrance of peace and togetherness.</p></button><button class="ch" type="button" aria-label="Jump to shot 6"><img loading="lazy" src="img/shot_06.jpg" alt=""><div class="t"><span>SHOT 6</span><span>0:37</span></div><p>The steady rhythm of each strike echoes the heartbeat of our community.</p></button><button class="ch" type="button" aria-label="Jump to shot 7"><img loading="lazy" src="img/shot_07.jpg" alt=""><div class="t"><span>SHOT 7</span><span>0:45</span></div><p>The water simmering within the Jebena carries the flow of wisdom from generation to generation.</p></button><button class="ch" type="button" aria-label="Jump to shot 8"><img loading="lazy" src="img/shot_08.jpg" alt=""><div class="t"><span>SHOT 8</span><span>0:52</span></div><p>As the incense ascends toward heaven, it carries the quiet prayers of our mothers.</p></button><button class="ch" type="button" aria-label="Jump to shot 9"><img loading="lazy" src="img/shot_09.jpg" alt=""><div class="t"><span>SHOT 9</span><span>1:00</span></div><p>When we gather to drink as one, our differences dissolve, and love reigns.</p></button><button class="ch" type="button" aria-label="Jump to shot 10"><img loading="lazy" src="img/shot_10.jpg" alt=""><div class="t"><span>SHOT 10</span><span>1:07</span></div><p>Heritage is our true essence; hold it closely, and pass its light to your children.</p></button></div>
+    <div class="chips"><span class="chip">Amharic narration</span><span class="chip">English captions</span><span class="chip">Solo guitar score</span><span class="chip">AI end card</span><span class="chip">1080p</span></div>
+  </div>
+</section>
+<section id="review"><div class="wrap">
+  <div class="sh rv"><span class="num">02</span><div><div class="eyebrow">Evidence</div><h2>For reviewers</h2></div></div>
+  <p class="sub rv">Each requirement, whether it was met, and the evidence. Figures were measured from the delivered files when this site was built.</p>
+  <div class="sumcards rv"><div class="ok"><b>8</b><span>Met</span></div><div class="part"><b>3</b><span>Partly met</span></div><div class="no"><b>0</b><span>Not met</span></div></div>
+  <div class="tablewrap rv"><table><thead><tr><th>Requirement</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td><b>60-90 s film</b></td><td><span class="badge ok">Met</span></td><td>16:9 export is 79.0 s; vertical is 79.0 s (10 shots x 7.5 s plus a 4 s end card).</td></tr><tr><td><b>Amharic narration (Ge'ez script)</b></td><td><span class="badge ok">Met</span></td><td>10 narrated lines, one per shot, spoken by Gemini TTS. See <a href='docs/STORY.html'>Full narration</a>. Not yet reviewed by a native speaker.</td></tr><tr><td><b>English subtitles</b></td><td><span class="badge ok">Met</span></td><td>Burned in, shown only while each line is spoken (timed from the actual narration clip lengths).</td></tr><tr><td><b>Dual aspect ratios</b></td><td><span class="badge ok">Met</span></td><td>16:9 at 1920x1080 and 9:16 at 1080x1920. Centre-cropped, never stretched.</td></tr><tr><td><b>Original soundtrack</b></td><td><span class="badge part">Partly met</span></td><td>A clean solo guitar score synthesised in code (original, but a digital instrument). The ACE-Step 1.5 notebook is prepared but was not run.</td></tr><tr><td><b>Moving shots</b></td><td><span class="badge part">Partly met</span></td><td>Camera motion (push-in, pan, tilt, zoom-out) over FLUX keyframes via FFmpeg. Wan 2.2 generation is prepared but was not run; see the Wan section.</td></tr><tr><td><b>Consistent character</b></td><td><span class="badge part">Partly met</span></td><td>A character reference sheet was generated and every shot prompt repeats the character's traits. FLUX schnell takes text only, so the face is similar across shots, not identical.</td></tr><tr><td><b>Mandatory AI disclosure</b></td><td><span class="badge ok">Met</span></td><td>Visible end card at the end of both films, plus the footer of this site.</td></tr><tr><td><b>Loudness and ducking</b></td><td><span class="badge ok">Met</span></td><td>Narration lines gain-matched to the same level (within about 0.7 dB), music ducked beneath the voice, final mix normalised to -16 LUFS.</td></tr><tr><td><b>Reproducible and auditable</b></td><td><span class="badge ok">Met</span></td><td>One <code>storyboard.json</code> drives everything; content-addressed cache; every model call logged (623 entries, see Telemetry); 39 automated tests.</td></tr><tr><td><b>Cost transparency</b></td><td><span class="badge ok">Met</span></td><td>See <a href='docs/COSTS.html'>Costs</a>.</td></tr></tbody></table></div>
+  <p class="sub rv">What is not claimed: the film does not use generated video (Wan 2.2) or the ACE-Step model, and the Amharic has not been native-reviewed. Both gaps are recorded in <a href="docs/FAILURES.html">Failures</a> and the Journal below.</p>
+</div></section>
+<section id="storyboard"><div class="wrap">
+  <div class="sh rv"><span class="num">03</span><div><div class="eyebrow">Scene by scene</div><h2>Storyboard</h2></div></div>
+  <p class="sub rv">The single source of truth is <code>storyboard.json</code>: 10 shots, 75.0 s of footage, validated against a JSON Schema before any model is called. Click an image to enlarge it.</p>
+  <div class="card char rv"><img src="img/character.jpg" data-lb="img/lg/character.jpg" data-cap="Character reference sheet" alt="Character reference sheet: three views of the grandmother">
+<div><div class="eyebrow">Character</div><h3 style="font:700 26px var(--serif);margin:8px 0">Emaye Ayelech (Fictional Character)</h3><p>A gentle 72-year-old Ethiopian grandmother with kind, expressive eyes, radiating wisdom, dignity, and maternal warmth. Completely fictional AI-generated character.</p><p class="small">A fictional AI-generated character. The reference sheet anchors her traits, which every shot prompt repeats.</p></div></div>
+  <article class="scene rv"><button class="pic" type="button" data-lb="img/lg/shot_01.jpg" data-cap="As the sun rises over the highland hills, the memories of our ancestors whisper through the wind." aria-label="Enlarge shot 1"><img loading="lazy" src="img/shot_01.jpg" alt="Dawn light breaking across the misty green terraced mountains of Wollo, Ethiopia, illuminating a traditional stone home surrounded by eucalyptus trees."><span class="no">SHOT 1</span></button>
+<div><p class="am" lang="am">ፀሐይ በደጋው ኮረብታዎች ላይ ስትወጣ፣ የቀደምት አባቶቻችን ትዝታ ከነፋሱ ጋር ይነጋገራል።</p><p class="en">As the sun rises over the highland hills, the memories of our ancestors whisper through the wind.</p>
+<p class="meta"><b>Camera</b> Slow forward dolly &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; Establish geographic context, spiritual grounding, and peaceful highland dawn atmosphere.</p>
+<details><summary>Image and motion prompts</summary><p>Cinematic wide establishing shot of misty Ethiopian highland mountain ridge at dawn, traditional stone and thatch tukul house nestled among eucalyptus, warm golden morning sunbeams breaking through mist, Kodak 250D film style, hyper-detailed, photorealistic.</p><p><b>Motion:</b> Slow aerial dolly forward over mist drifting across highland greenery toward the traditional stone home, golden light slowly intensifying.</p></details></div></article><article class="scene rv alt"><button class="pic" type="button" data-lb="img/lg/shot_02.jpg" data-cap="Each day is a fresh blessing; each morning carries a new story waiting to be told." aria-label="Enlarge shot 2"><img loading="lazy" src="img/shot_02.jpg" alt="Emaye Ayelech sitting peacefully in the sunlit doorway of her home, smiling warmly at the new morning while adjusting her white Netela."><span class="no">SHOT 2</span></button>
+<div><p class="am" lang="am">እያንዳንዱ ቀን አዲስ በረከት ነው፤ እያንዳንዱ ጥዋት ደግሞ የሚነገር አዲስ ታሪክ አለው።</p><p class="en">Each day is a fresh blessing; each morning carries a new story waiting to be told.</p>
+<p class="meta"><b>Camera</b> Subtle push-in &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; Introduce the protagonist Emaye Ayelech with emotional warmth, dignity, and visual consistency.</p>
+<details><summary>Image and motion prompts</summary><p>Medium close-up portrait of Emaye Ayelech, a 72-year-old Ethiopian grandmother with gentle laugh lines and serene eyes, wearing a white cotton Habesha Kemis with green and gold Tibeb embroidery and white Netela shawl, sitting by wooden doorway with golden morning light on her face, photorealistic, 8k resolution.</p><p><b>Motion:</b> Subtle camera push-in, gentle movement of Netela shawl in morning breeze, eyes softening with a warm maternal smile.</p></details></div></article><article class="scene rv"><button class="pic" type="button" data-lb="img/lg/shot_03.jpg" data-cap="Coffee cannot be rushed; like life itself, it asks for patience and mindful care." aria-label="Enlarge shot 3"><img loading="lazy" src="img/shot_03.jpg" alt="Grandmother&#x27;s weathered hands gently washing raw green coffee beans in clean water within a traditional carved clay bowl."><span class="no">SHOT 3</span></button>
+<div><p class="am" lang="am">ቡና በችኮላ አይዘጋጅም፤ ልክ እንደ ሕይወት፣ ጥንቃቄን እና ትግሥትን ይሻል።</p><p class="en">Coffee cannot be rushed; like life itself, it asks for patience and mindful care.</p>
+<p class="meta"><b>Camera</b> Static high angle macro &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; Highlight mindfulness, craftsmanship, and tactile connection to raw natural elements.</p>
+<details><summary>Image and motion prompts</summary><p>Extreme close-up shot of weathered, graceful elderly Ethiopian hands washing fresh green coffee beans in clear mountain water inside an authentic dark clay basin, water droplets catching morning light, vibrant green beans, tactile documentary feel, 50mm lens.</p><p><b>Motion:</b> Slow swirling motion of hands gently swirling beans through shimmering water, water ripples catching morning glints.</p></details></div></article><article class="scene rv alt"><button class="pic" type="button" data-lb="img/lg/shot_04.jpg" data-cap="Just as the beans release their richest aroma through heat, human character discovers its strength through trials." aria-label="Enlarge shot 4"><img loading="lazy" src="img/shot_04.jpg" alt="Coffee beans crackling and turning a rich dark chocolate color on a flat iron pan (baret metad) over glowing charcoal embers."><span class="no">SHOT 4</span></button>
+<div><p class="am" lang="am">በእሳት ላይ እያረረ መልካም መዓዛው እንደሚወጣ፣ የሰው ልጅም በፈተና ውስጥ ጥንካሬን ያገኛል።</p><p class="en">Just as the beans release their richest aroma through heat, human character discovers its strength through trials.</p>
+<p class="meta"><b>Camera</b> Gentle orbit around pan &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; Visual metaphor of transformation through fire and time, rich sensory roasting textures.</p>
+<details><summary>Image and motion prompts</summary><p>Close-up cinematic shot of roasting coffee beans crackling on a flat iron baret metad pan above glowing red charcoal embers, beans turning deep glistening chocolate brown with rising aromatic smoke ribbons, glowing amber sparks, high texture contrast.</p><p><b>Motion:</b> Gentle rhythmic shaking of the pan back and forth, swirling aromatic smoke spirals, embers softly pulsating with orange light.</p></details></div></article><article class="scene rv"><button class="pic" type="button" data-lb="img/lg/shot_05.jpg" data-cap="Receive this aroma; it is the fragrance of peace and togetherness." aria-label="Enlarge shot 5"><img loading="lazy" src="img/shot_05.jpg" alt="Emaye Ayelech holding up the steaming roasting pan, waving the fragrant smoke toward the viewer with her hand in the customary sign of hospitality."><span class="no">SHOT 5</span></button>
+<div><p class="am" lang="am">ይህንን መዓዛ ተቀበሉ፤ የሰላም እና የአንድነት መዓዛ ነው።</p><p class="en">Receive this aroma; it is the fragrance of peace and togetherness.</p>
+<p class="meta"><b>Camera</b> Slow pan right &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; Establish direct emotional connection with audience through the quintessential gesture of Buna hospitality.</p>
+<details><summary>Image and motion prompts</summary><p>Medium eye-level shot of grandmother Emaye Ayelech smiling gently as she wafts aromatic white coffee smoke with her hand from the dark roasting pan toward the viewer, traditional Ethiopian living room with woven Mesob in background, soft amber lighting.</p><p><b>Motion:</b> Graceful hand wafting gesture guiding fragrant smoke toward camera, grandmother nodding with welcoming reverence.</p></details></div></article><article class="scene rv alt"><button class="pic" type="button" data-lb="img/lg/shot_06.jpg" data-cap="The steady rhythm of each strike echoes the heartbeat of our community." aria-label="Enlarge shot 6"><img loading="lazy" src="img/shot_06.jpg" alt="Crushing the roasted beans with a heavy wooden pestle in a carved wooden mortar (mukecha and zenezena)."><span class="no">SHOT 6</span></button>
+<div><p class="am" lang="am">የእያንዳንዷ ድብደባ ድምፅ፣ የልባችንን ምት ያስታውሰናል።</p><p class="en">The steady rhythm of each strike echoes the heartbeat of our community.</p>
+<p class="meta"><b>Camera</b> Slight low angle tilt &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; Show rhythmic ancestral labor and physical dedication required for communion.</p>
+<details><summary>Image and motion prompts</summary><p>Medium close-up shot of rhythmic traditional coffee grinding using a wooden mukecha and heavy iron zenezena, coarse dark coffee grounds flying gently inside the carved wooden vessel, warm side lighting highlighting dust and wood grain.</p><p><b>Motion:</b> Rhythmic up and down motion of pestle grinding coffee beans, fine dark grounds shifting inside the mortar.</p></details></div></article><article class="scene rv"><button class="pic" type="button" data-lb="img/lg/shot_07.jpg" data-cap="The water simmering within the Jebena carries the flow of wisdom from generation to generation." aria-label="Enlarge shot 7"><img loading="lazy" src="img/shot_07.jpg" alt="The iconic spherical black clay Jebena pot resting on the stove, thin vapor escaping from its slender curved spout as coffee simmers."><span class="no">SHOT 7</span></button>
+<div><p class="am" lang="am">በጀበናው ውስጥ የሚፈላው ውሃ፣ ከትውልድ ወደ ትውልድ የሚፈሰውን እውቀት ያመለክታል።</p><p class="en">The water simmering within the Jebena carries the flow of wisdom from generation to generation.</p>
+<p class="meta"><b>Camera</b> Slow pedestal up &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; Iconic cultural symbol of the Jebena embodying community, heritage, and alchemy of elements.</p>
+<details><summary>Image and motion prompts</summary><p>Close-up macro of classic Ethiopian black clay Jebena coffee pot resting on warm brazier, delicate steam wisps curling out of its elegant spout, horsehair filter plugged in neck, glistening textured clay body, cinematic warm documentary aesthetic.</p><p><b>Motion:</b> Gentle boiling vibrations in pot, smooth wisps of steam curling and dissipating upward in soft light rays.</p></details></div></article><article class="scene rv alt"><button class="pic" type="button" data-lb="img/lg/shot_08.jpg" data-cap="As the incense ascends toward heaven, it carries the quiet prayers of our mothers." aria-label="Enlarge shot 8"><img loading="lazy" src="img/shot_08.jpg" alt="White frankincense (itan) incense smoke rising beside fresh green Ketema grass strewn gracefully across the clean earthen floor."><span class="no">SHOT 8</span></button>
+<div><p class="am" lang="am">የዕጣኑ ጢስ ወደ ሰማይ ሲወጣ፣ የጸሎታችን መልእክተኛ ሆኖ ያገለግላል።</p><p class="en">As the incense ascends toward heaven, it carries the quiet prayers of our mothers.</p>
+<p class="meta"><b>Camera</b> Slow tilt up &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; Spiritual reverence, sacred ambiance, sensory depth of the Ethiopian traditional setting.</p>
+<details><summary>Image and motion prompts</summary><p>Low-angle cinematic shot of fragrant frankincense smoke rising in elegant ribbons from a clay censer beside fresh green Ketema grass scattered across the floor, yellow wildflowers, soft heavenly lighting shafts, peaceful sacred mood.</p><p><b>Motion:</b> Slow curling incense smoke billowing gracefully upwards through atmospheric dust motes, blades of Ketema grass resting still.</p></details></div></article><article class="scene rv"><button class="pic" type="button" data-lb="img/lg/shot_09.jpg" data-cap="When we gather to drink as one, our differences dissolve, and love reigns." aria-label="Enlarge shot 9"><img loading="lazy" src="img/shot_09.jpg" alt="Emaye Ayelech pouring a steady, flawless arc of rich dark coffee from high above into small handle-less ceramic cups (sini) without spilling a drop."><span class="no">SHOT 9</span></button>
+<div><p class="am" lang="am">በአንድነት ተሰብስበን ስንጠጣ፣ በልባችን ውስጥ ያለው ልዩነት ይቀልጣል፤ ፍቅርም ይነግሣል።</p><p class="en">When we gather to drink as one, our differences dissolve, and love reigns.</p>
+<p class="meta"><b>Camera</b> Subtle tracking down with the stream &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; The pinnacle moment of mastery and grace in the Buna ceremony.</p>
+<details><summary>Image and motion prompts</summary><p>High angle close-up of grandmother Emaye Ayelech expertly pouring steaming dark coffee from high above with the Jebena into small decorated sini cups arranged on a wooden tray, dark liquid cascading in an unbroken glass-like stream, golden reflections.</p><p><b>Motion:</b> Fluid continuous stream of hot coffee filling the porcelain sini cup until foam crowns the brim, steam swirling upwards.</p></details></div></article><article class="scene rv alt"><button class="pic" type="button" data-lb="img/lg/shot_10.jpg" data-cap="Heritage is our true essence; hold it closely, and pass its light to your children." aria-label="Enlarge shot 10"><img loading="lazy" src="img/shot_10.jpg" alt="Emaye Ayelech holding her warm sini cup, looking at her grandchild with boundless love and offering her maternal blessing."><span class="no">SHOT 10</span></button>
+<div><p class="am" lang="am">ትውፊት የእኛ ማንነት ነው፤ እንዳይጠፋ አጥብቃችሁ ያዙት፣ ለልጆቻችሁም አውርሱት።</p><p class="en">Heritage is our true essence; hold it closely, and pass its light to your children.</p>
+<p class="meta"><b>Camera</b> Slow zoom out to reveal warm room &nbsp;·&nbsp; <b>7.5 s</b> &nbsp;·&nbsp; Culminating emotional beat of enduring cultural pride, transmission of love and identity.</p>
+<details><summary>Image and motion prompts</summary><p>Cinematic golden hour medium shot of grandmother Emaye Ayelech smiling with deep maternal tenderness while holding a steaming sini cup, sitting by the warm fireplace inside the traditional room, surrounded by soft glowing light, heartwarming cinematic finale.</p><p><b>Motion:</b> Gentle nod of benediction, warm grandmotherly smile expanding with tenderness, slow fade toward soft light.</p></details></div></article>
+</div></section>
+<section id="sound"><div class="wrap">
+  <div class="sh rv"><span class="num">04</span><div><div class="eyebrow">Audio</div><h2>Sound</h2></div></div>
+  <p class="sub rv">The audio behind the film, separately. Narration is one Gemini TTS take per shot, gain-matched so every line is equally loud. The score is a clean solo guitar synthesised in code (a digital instrument, not a recording).</p>
+  <div class="grid">
+    <div class="card rv"><div class="player-card"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11z"/></svg></span><div><b>Amharic narration</b><div class="small">10 lines · 75 s · one per shot</div></div></div><audio controls preload="none" src="assets/narration.mp3"></audio></div>
+    <div class="card rv"><div class="player-card"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v11.6A3.5 3.5 0 1 0 11 18V8h6V3z"/></svg></span><div><b>Solo guitar score</b><div class="small">Tizita-style D minor · 68 BPM</div></div></div><audio controls preload="none" src="assets/soundtrack.mp3"></audio></div>
+  </div>
+</div></section>
+<section id="pipeline"><div class="wrap">
+  <div class="sh rv"><span class="num">05</span><div><div class="eyebrow">How it works</div><h2>Pipeline</h2></div></div>
+  <p class="sub rv">Seven stages, each a command in one CLI, each cached by content hash so unchanged work is never repeated or paid for twice.</p>
+  <div class="flow"><div class='step rv'><b>Storyboard</b><small>JSON Schema + validator<br>storyboard.json</small></div><div class='step rv'><b>Script</b><small>Gemini<br>Amharic + English check</small></div><div class='step rv'><b>Keyframes</b><small>Cloudflare FLUX.1 schnell<br>character sheet + 1 image per shot</small></div><div class='step rv'><b>Narration</b><small>Gemini TTS<br>1 clip per shot, loudness-matched</small></div><div class='step rv'><b>Music</b><small>Synth guitar (ACE-Step prepared)<br>full-length score</small></div><div class='step rv'><b>Motion</b><small>FFmpeg Ken Burns (Wan 2.2 prepared)<br>7.5 s clip per shot</small></div><div class='step rv'><b>Assembly</b><small>FFmpeg<br>captions, ducking, loudnorm, end card</small></div></div>
+  <h3 style="font:700 22px var(--serif);margin:34px 0 10px">Run the stages</h3>
+<pre class="rv"><code>python -m pipeline.cli validate
+python -m pipeline.cli keyframes
+python -m pipeline.cli narration
+python -m pipeline.cli music --synth
+python -m pipeline.cli shots --kenburns
+python -m pipeline.cli assemble</code></pre>
+  <h3 style="font:700 22px var(--serif);margin:30px 0 10px">Reproduce it</h3>
+<pre class="rv"><code>python -m venv .venv &amp;&amp; .venv\Scripts\activate     # Windows (use source .venv/bin/activate elsewhere)
+pip install -r requirements.txt
+copy .env.example .env      # add GEMINI_API_KEY, CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN
+python -m pipeline.cli film # or run the stages one by one as above</code></pre>
+  <p class="sub">Read more: <a href="docs/ARCHITECTURE.html">Architecture</a> · <a href="docs/DESIGN.html">Design &amp; audience</a> · <a href="docs/EXPERIMENTS.html">Experiments</a>.</p>
+</div></section>
+<section id="wan"><div class="wrap">
+  <div class="sh rv"><span class="num">06</span><div><div class="eyebrow">GPU stage</div><h2>Motion · Kaggle Wan 2.2</h2></div></div>
+  <p class="sub rv">The design calls for Wan 2.2 TI2V-5B to turn each keyframe into a moving clip on a free Kaggle GPU. The batch manifest and notebooks are ready; the model was <b>not run</b> for this delivery.</p>
+  <div class="grid">
+    <div class="card rv"><div class="eyebrow">What you see instead</div><p>Camera moves (push-in, pan, tilt, zoom-out) applied to the still keyframes with FFmpeg, chosen from each shot's <code>camera_movement</code>. Subjects inside the frame do not move.</p></div>
+    <div class="card rv"><div class="eyebrow">To use Wan</div><p>Upload <code>keyframes.zip</code> and <code>wan_batch.json</code> as a Kaggle dataset, run the notebook on a T4 x2, put the <code>shot_XX.mp4</code> files in <code>outputs/shots/</code> and run <code>assemble</code>. See the <a href="docs/KAGGLE.html">Kaggle guide</a> and <a href="#downloads">Downloads</a>.</p></div>
+  </div>
+</div></section>
+<section id="telemetry"><div class="wrap">
+  <div class="sh rv"><span class="num">07</span><div><div class="eyebrow">Audit trail</div><h2>Telemetry</h2></div></div>
+  <p class="sub rv">Every model call appends one line to <code>runs.jsonl</code>. Failures are kept: they include rate limits, a retired model name and invalid-parameter errors that were fixed along the way. Counts include development and offline mock runs. Prompts and file paths are not shown here.</p>
+  <div class="stat rv"><div><b>623</b><span>logged runs</span></div><div><b>130</b><span>generated</span></div><div><b>481</b><span>from cache</span></div><div><b>10</b><span>failed, then fixed</span></div></div>
+  <div class="card rv"><b>Runs per stage</b>
+    <div class="bars"><div class="bar-row"><span>narration</span><div class="track"><i class="s-ok" style="width:3.56%" title="12"></i><i class="s-cached" style="width:95.55%" title="322"></i><i class="s-fail" style="width:0.89%" title="3"></i></div><span class="small">337</span></div><div class="bar-row"><span>keyframes</span><div class="track"><i class="s-ok" style="width:20.37%" title="22"></i><i class="s-cached" style="width:73.15%" title="79"></i><i class="s-fail" style="width:6.48%" title="7"></i></div><span class="small">108</span></div><div class="bar-row"><span>music</span><div class="track"><i class="s-ok" style="width:12.73%" title="7"></i><i class="s-cached" style="width:87.27%" title="48"></i></div><span class="small">55</span></div><div class="bar-row"><span>shots</span><div class="track"><i class="s-ok" style="width:39.62%" title="21"></i><i class="s-cached" style="width:60.38%" title="32"></i></div><span class="small">53</span></div><div class="bar-row"><span>assemble</span><div class="track"><i class="s-ok" style="width:95.45%" title="42"></i><i class="s-other" style="width:4.55%" title="2"></i></div><span class="small">44</span></div><div class="bar-row"><span>radio</span><div class="track"><i class="s-ok" style="width:100.00%" title="24"></i></div><span class="small">24</span></div><div class="bar-row"><span>script</span><div class="track"><i class="s-ok" style="width:100.00%" title="2"></i></div><span class="small">2</span></div></div>
+    <div class="legend"><span><i class="s-ok"></i>Generated</span><span><i class="s-cached"></i>From cache</span><span><i class="s-fail"></i>Failed</span><span><i class="s-other"></i>Other</span></div></div>
+  <details class="rv"><summary>Breakdown by stage and provider</summary><div class="tablewrap"><table><thead><tr><th>Stage</th><th>Provider</th><th>Status</th><th>Count</th></tr></thead><tbody><tr><td>assemble</td><td>ffmpeg</td><td><span class="badge part">PENDING_INPUTS</span></td><td>2</td></tr><tr><td>assemble</td><td>ffmpeg</td><td><span class="badge ok">SUCCESS</span></td><td>42</td></tr><tr><td>keyframes</td><td>cloudflare</td><td><span class="badge cached">CACHED</span></td><td>79</td></tr><tr><td>keyframes</td><td>cloudflare</td><td><span class="badge no">FAILED</span></td><td>6</td></tr><tr><td>keyframes</td><td>cloudflare</td><td><span class="badge ok">SUCCESS</span></td><td>22</td></tr><tr><td>keyframes</td><td>gemini</td><td><span class="badge no">FAILED</span></td><td>1</td></tr><tr><td>music</td><td>kaggle</td><td><span class="badge cached">CACHED</span></td><td>48</td></tr><tr><td>music</td><td>mock</td><td><span class="badge ok">SUCCESS</span></td><td>1</td></tr><tr><td>music</td><td>synth</td><td><span class="badge ok">SUCCESS</span></td><td>6</td></tr><tr><td>narration</td><td>gemini</td><td><span class="badge cached">CACHED</span></td><td>322</td></tr><tr><td>narration</td><td>gemini</td><td><span class="badge no">FAILED</span></td><td>3</td></tr><tr><td>narration</td><td>gemini</td><td><span class="badge ok">SUCCESS</span></td><td>12</td></tr><tr><td>radio</td><td>ffmpeg</td><td><span class="badge ok">SUCCESS</span></td><td>18</td></tr><tr><td>radio</td><td>python_synth</td><td><span class="badge ok">SUCCESS</span></td><td>6</td></tr><tr><td>script</td><td>local</td><td><span class="badge ok">SUCCESS</span></td><td>2</td></tr><tr><td>shots</td><td>ffmpeg</td><td><span class="badge ok">SUCCESS</span></td><td>10</td></tr><tr><td>shots</td><td>kaggle</td><td><span class="badge cached">CACHED</span></td><td>32</td></tr><tr><td>shots</td><td>mock</td><td><span class="badge ok">SUCCESS</span></td><td>11</td></tr></tbody></table></div></details>
+  <details class="rv"><summary>Most recent runs</summary><div class="tablewrap"><table><thead><tr><th>Time (UTC)</th><th>Stage</th><th>Provider</th><th>Model</th><th>Status</th></tr></thead><tbody><tr><td>2026-11-26 12:07:55</td><td>assemble</td><td>ffmpeg</td><td>ffmpeg-7</td><td><span class="badge ok">SUCCESS</span></td></tr><tr><td>2026-11-26 12:07:55</td><td>music</td><td>kaggle</td><td>ACE-Step-1.5</td><td><span class="badge cached">CACHED</span></td></tr><tr><td>2026-11-26 12:07:55</td><td>shots</td><td>kaggle</td><td>Wan2.2-TI2V-5B</td><td><span class="badge cached">CACHED</span></td></tr><tr><td>2026-11-26 12:07:53</td><td>narration</td><td>gemini</td><td>gemini-2.5-flash-preview-tts</td><td><span class="badge cached">CACHED</span></td></tr><tr><td>2026-11-26 12:07:53</td><td>keyframes</td><td>cloudflare</td><td>@cf/black-forest-labs/flux-1-schnell</td><td><span class="badge cached">CACHED</span></td></tr><tr><td>2026-11-26 12:07:53</td><td>keyframes</td><td>cloudflare</td><td>@cf/black-forest-labs/flux-1-schnell</td><td><span class="badge cached">CACHED</span></td></tr><tr><td>2026-11-26 12:07:53</td><td>radio</td><td>ffmpeg</td><td>sidechain_compressor</td><td><span class="badge ok">SUCCESS</span></td></tr><tr><td>2026-11-26 12:07:52</td><td>music</td><td>kaggle</td><td>ACE-Step-1.5</td><td><span class="badge cached">CACHED</span></td></tr><tr><td>2026-11-26 12:07:50</td><td>narration</td><td>gemini</td><td>gemini-2.5-flash-preview-tts</td><td><span class="badge cached">CACHED</span></td></tr><tr><td>2026-11-26 12:07:50</td><td>narration</td><td>gemini</td><td>gemini-2.5-flash-preview-tts</td><td><span class="badge cached">CACHED</span></td></tr></tbody></table></div></details>
+</div></section>
+<section id="downloads"><div class="wrap">
+  <div class="sh rv"><span class="num">08</span><div><div class="eyebrow">Take it with you</div><h2>Downloads</h2></div></div>
+  <p class="sub rv">Everything needed to inspect or reproduce the film. The videos are re-encoded for the web from the 1080p masters.</p>
+  <div class="files">
+    <a class="file rv" href="films/film-16x9.mp4" download><span class="ext">MP4</span><span><b>film-16x9.mp4</b><small>Widescreen 1920x1080 with burned-in English captions and the AI end card</small><small class="sz">15.1 MB</small></span></a>
+    <a class="file rv" href="films/film-9x16.mp4" download><span class="ext">MP4</span><span><b>film-9x16.mp4</b><small>Vertical 1080x1920 for phones</small><small class="sz">15.6 MB</small></span></a>
+    <a class="file rv" href="assets/captions.srt" download><span class="ext">SRT</span><span><b>captions.srt</b><small>English captions, timed to the spoken lines</small><small class="sz">1 KB</small></span></a>
+    <a class="file rv" href="assets/narration.mp3" download><span class="ext">MP3</span><span><b>narration.mp3</b><small>Amharic narration track, loudness-matched</small><small class="sz">487 KB</small></span></a>
+    <a class="file rv" href="assets/soundtrack.mp3" download><span class="ext">MP3</span><span><b>soundtrack.mp3</b><small>Synthesised solo guitar score</small><small class="sz">812 KB</small></span></a>
+    <a class="file rv" href="assets/storyboard.json" download><span class="ext">JSON</span><span><b>storyboard.json</b><small>The single source of truth for the film</small><small class="sz">16 KB</small></span></a>
+    <a class="file rv" href="assets/storyboard.schema.json" download><span class="ext">JSON</span><span><b>storyboard.schema.json</b><small>JSON Schema the storyboard is validated against</small><small class="sz">5 KB</small></span></a>
+    <a class="file rv" href="assets/keyframes.zip" download><span class="ext">ZIP</span><span><b>keyframes.zip</b><small>Full-resolution FLUX keyframes and the character sheet</small><small class="sz">6.4 MB</small></span></a>
+    <a class="file rv" href="assets/kaggle/wan_batch.json" download><span class="ext">JSON</span><span><b>wan_batch.json</b><small>Batch manifest for the Wan 2.2 notebook</small><small class="sz">4 KB</small></span></a>
+    <a class="file rv" href="assets/kaggle/wan2_ti2v_notebook.ipynb" download><span class="ext">IPYNB</span><span><b>wan2_ti2v_notebook.ipynb</b><small>Kaggle notebook: image-to-video with Wan 2.2 TI2V-5B</small><small class="sz">5 KB</small></span></a>
+    <a class="file rv" href="assets/kaggle/ace_step_music_notebook.ipynb" download><span class="ext">IPYNB</span><span><b>ace_step_music_notebook.ipynb</b><small>Kaggle notebook: ACE-Step 1.5 music</small><small class="sz">5 KB</small></span></a>
+  </div>
+</div></section><section id="journal"><div class="wrap"><div class="sh rv"><span class="num">09</span><div><div class="eyebrow">Honest account</div><h2>Journal</h2></div></div><div class="prose journal"><p>A plain account of how the pipeline went from a design to a finished film, including what broke. Dates are 24-26 November 2026.</p>
+<h2>1. Foundation (24 Nov)</h2>
+<p>The first commits set up the contract: a JSON Schema for <code>storyboard.json</code> (8-12 shots, 60-90 s total), a validator, content-addressed caching, an append-only <code>runs.jsonl</code> audit log, and one CLI (<code>python -m pipeline.cli</code>) with a command per stage. Every stage has an offline <code>--mock</code> mode so the whole pipeline can be exercised without API keys or a GPU.</p>
+<h2>2. First real run (25 Nov)</h2>
+<p>Running the pipeline with real keys exposed a chain of problems that mock mode had hidden:</p>
+<ul><li>
+<strong>Black picture, silent audio.</strong> The earlier mock runs had left 1x1-pixel images, 36-byte "videos" and silent WAV files in <code>outputs/</code>. The status command only counted that files existed, so it reported everything as generated. Lesson: validate content, not just presence.
+</li><li>
+<strong>Assembly used only the first shot.</strong> The final FFmpeg command took <code>shot_01.mp4</code> as its only video input and never built the end card. It now normalises every clip to the target aspect ratio, joins all shots and the disclosure end card, then mixes audio.
+</li><li>
+<strong>Gemini TTS returned HTTP 400.</strong> The request asked for an audio MIME type; Gemini TTS needs <code>responseModalities: ["AUDIO"]</code> plus a prebuilt voice, and returns base64 PCM. The default model name (<code>gemini-2.5-flash-tts</code>) did not exist; <code>gemini-2.5-flash-preview-tts</code> does.
+</li><li>
+<strong>Cloudflare showed <code>AUTH_FAILED</code> with a valid token.</strong> The health check used the account-token verify endpoint; user-owned tokens verify at <code>/user/tokens/verify</code>. Separately, FLUX schnell now rejects <code>num_steps</code> (it wants <code>steps</code>) and <code>seed</code>.
+</li><li>
+<strong>Free-tier image generation is unavailable in Gemini</strong> (quota 0), so a Gemini image fallback was written but is not usable on a free key. Cloudflare FLUX is the working image provider.
+</li></ul>
+<h2>3. Making it watchable and listenable (25-26 Nov)</h2>
+<ul><li>
+<strong>Motion.</strong> The Wan 2.2 notebooks need a Kaggle GPU. As a local alternative, a Ken Burns stage animates each keyframe with a camera move (push-in, pan, tilt, zoom-out) chosen from the shot's <code>camera_movement</code>. This is camera motion over stills, not generated video.
+</li><li>
+<strong>Music.</strong> The ACE-Step notebook was not run. A procedural generator now synthesises a clean solo fingerpicked guitar (Tizita-style D minor mode, 68 BPM) so the film has a full-length score. It sounds like a digital instrument, not a recording.
+</li><li>
+<strong>Narration sync.</strong> Per-shot voice clips were being joined at their natural lengths, so speech drifted from the picture, and a stale combined track once held only the first line. Each clip is now placed on its own 7.5 s shot (slightly long clips are sped up, at most 1.25x), and the combined track is always rebuilt from every clip on disk.
+</li><li>
+<strong>Loudness.</strong> The ten clips differed by about 5 dB. Each is now measured and gain-matched to the same level, within about 0.7 dB.
+</li><li>
+<strong>Captions.</strong> English captions appear only while the line is spoken, timed from the actual clip lengths, with an outline for readability.
+</li><li>
+<strong>Mix.</strong> Music sits at a low level and ducks under the voice; the narration is padded so the music continues through the end card.
+</li></ul>
+<h2>4. Web studio (26 Nov)</h2>
+<p>A small standard-library web app turns a form (story idea, character, setting, length, voice, music, formats) into a storyboard with Gemini, validates it against the same schema, then runs the identical pipeline commands in an isolated folder. One run of an 8-shot film took about nine minutes, most of it the storyboard step. Google had retired <code>gemini-2.5-flash</code> for new keys, so the text model default became <code>gemini-flash-latest</code> with fallbacks.</p>
+<h2>5. Known limits</h2>
+<ul><li>
+Motion is Ken Burns camera movement; Wan 2.2 video generation is prepared (<code>kaggle/wan_batch.json</code>, notebook) but was not run.
+</li><li>
+Music is synthesised, not ACE-Step.
+</li><li>
+Narration is a separate Gemini TTS take per shot; tone can differ slightly between shots even though loudness is matched.
+</li><li>
+FLUX schnell is prompted with repeated character traits, so the character is similar across shots but not identical.
+</li><li>
+Amharic narration and translation were produced by AI and have not been reviewed by a native speaker. Treat them as a draft until they are.
+</li></ul></div></div></section>
+</main>
+<footer>
+  <div class="flag"></div>
+  <div class="wrap">
+    <div class="cols">
+      <div><h4>Made with AI</h4>
+      <p>The story, images, Amharic narration and music are AI-generated. The characters and events are fictional and depict no real person. The Amharic text is machine-written and has not been reviewed by a native speaker.</p></div>
+      <div><h4>Built with</h4><ul><li>Gemini: storyboard &amp; speech</li><li>FLUX.1 schnell: images</li><li>Synthesised guitar score</li><li>FFmpeg: motion, captions, mix</li></ul></div>
+      <div><h4>Explore</h4><ul><li><a href="index.html#review">For reviewers</a></li><li><a href="docs/ETHICS.html">Ethics &amp; labelling</a></li><li><a href="index.html#downloads">Downloads</a></li><li><a href="index.html#journal">Build journal</a></li></ul></div>
+    </div>
+    <div class="fine">Independent challenge submission. © 2026 </div>
+  </div>
+</footer>
+<dialog id="lb"><button type="button">Close</button><img alt=""><p></p></dialog>
+<script>window.FILMS={"16:9": {"src": "films/film-16x9.mp4"}, "9:16": {"src": "films/film-9x16.mp4"}};window.SHOT_SECONDS=7.5;</script>
+<script>
+(function(){
+  var root=document.documentElement;root.classList.add('js');
+  var btn=document.getElementById('theme');
+  function apply(t){root.setAttribute('data-theme',t);if(btn)btn.textContent=t==='dark'?'Light mode':'Dark mode';}
+  var saved=null;try{saved=localStorage.getItem('theme');}catch(e){}
+  apply(saved||(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
+  if(btn)btn.addEventListener('click',function(){var t=root.getAttribute('data-theme')==='dark'?'light':'dark';apply(t);try{localStorage.setItem('theme',t);}catch(e){}});
+
+  var pg=document.getElementById('progress');
+  function prog(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;pg.style.width=(m>0?(h.scrollTop/m*100):0)+'%';}
+  addEventListener('scroll',prog,{passive:true});prog();
+
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
+    rv.forEach(function(el){ro.observe(el);});
+  }else{rv.forEach(function(el){el.classList.add('in');});}
+
+  var v=document.getElementById('v'),dl=document.getElementById('dl'),rail=document.getElementById('rail');
+  if(v&&window.FILMS){
+    var keys=Object.keys(FILMS),SHOT=window.SHOT_SECONDS||7.5,chs=rail?[].slice.call(rail.querySelectorAll('.ch')):[],cur=-1;
+    window.showFilm=function(k){var f=FILMS[k];if(!f)return;var t=v.currentTime,was=!v.paused;v.className=k==='9:16'?'vertical':'';v.src=f.src;v.load();
+      v.addEventListener('loadedmetadata',function(){if(t)v.currentTime=t;if(was)v.play();},{once:true});
+      document.querySelectorAll('.tab').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.k===k));});
+      dl.innerHTML=keys.map(function(x){return '<a class="btn sm'+(x===k?'':' ghost')+'" href="'+FILMS[x].src+'" download>Download '+x+'</a>';}).join('');};
+    document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){showFilm(b.dataset.k);});});
+    showFilm(keys[0]);
+    chs.forEach(function(c,i){c.addEventListener('click',function(){v.currentTime=i*SHOT+0.05;v.play();document.getElementById('player').scrollIntoView({behavior:'smooth',block:'center'});});});
+    v.addEventListener('timeupdate',function(){
+      var i=Math.min(chs.length-1,Math.floor(v.currentTime/SHOT));
+      if(i!==cur){cur=i;chs.forEach(function(c,j){c.classList.toggle('on',j===i);});
+        if(chs[i]&&rail&&!v.paused){rail.scrollTo({left:chs[i].offsetLeft-rail.clientWidth/2+chs[i].clientWidth/2,behavior:'smooth'});}}
+    });
+  }
+
+  var lb=document.getElementById('lb');
+  if(lb&&lb.showModal){
+    var li=lb.querySelector('img'),lp=lb.querySelector('p');
+    document.querySelectorAll('[data-lb]').forEach(function(el){el.addEventListener('click',function(){li.src=el.dataset.lb;li.alt=el.dataset.cap||'';lp.textContent=el.dataset.cap||'';lb.showModal();});});
+    lb.addEventListener('click',function(e){if(e.target===lb||e.target.tagName==='BUTTON')lb.close();});
+  }
+
+  var links=[].slice.call(document.querySelectorAll('nav.main a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id);});}});},{rootMargin:'-30% 0px -62% 0px'});
+    links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)io.observe(s);});
+  }
+})();
+</script>
+</body>
+</html>

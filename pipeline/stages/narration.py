@@ -160,24 +160,34 @@ class NarrationStage:
 
     @staticmethod
     def _fit_to_slot(audio_path: Path, slot: float, sample_rate: int, n_channels: int, samp_width: int) -> bytes:
-        """Return PCM bytes for a clip, sped up if it is longer than its shot slot."""
+        """Return PCM bytes for a clip: sped up if longer than its shot slot, and loudness-matched.
+
+        Every clip is brought to the same loudness (TARGET_LUFS) so the narrator sounds consistent
+        from shot to shot, whatever level the TTS happened to produce.
+        """
         import subprocess
         import tempfile
         import wave
+        from pipeline.utils.audio import measure_loudnorm, normalized_filter
         from pipeline.utils.ffmpeg import is_ffmpeg_available
 
         with wave.open(str(audio_path), "rb") as wf:
             length = wf.getnframes() / float(wf.getframerate())
             raw = wf.readframes(wf.getnframes())
-            src_rate = wf.getframerate()
-        if length <= slot or not is_ffmpeg_available():
-            return raw if src_rate == sample_rate else raw
-        rate = min(1.25, length / slot * 1.01)
+        if not is_ffmpeg_available():
+            return raw
+
+        prefilter = ""
+        if length > slot:
+            prefilter = f"atempo={min(1.25, length / slot * 1.01):.4f}"
+        chain = normalized_filter(measure_loudnorm(audio_path, prefilter), prefilter)
+        if not chain:
+            return raw
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "fit.wav"
             subprocess.run(
-                ["ffmpeg", "-y", "-loglevel", "error", "-i", str(audio_path),
-                 "-af", f"atempo={rate:.4f}", "-ar", str(sample_rate), "-ac", str(n_channels), "-c:a", "pcm_s16le", str(out)],
+                ["ffmpeg", "-y", "-loglevel", "error", "-i", str(audio_path), "-af", chain,
+                 "-ar", str(sample_rate), "-ac", str(n_channels), "-c:a", "pcm_s16le", str(out)],
                 check=True,
             )
             with wave.open(str(out), "rb") as wf:

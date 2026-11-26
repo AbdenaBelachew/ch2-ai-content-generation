@@ -1,0 +1,258 @@
+{
+  "project_metadata": {
+    "project_name": "AI Heritage Short - Grandmother's Buna",
+    "pipeline_version": "1.0.0",
+    "target_total_duration": 75.0,
+    "created_at": "2026-11-24T20:00:00Z",
+    "updated_at": "2026-11-24T20:00:00Z",
+    "description": "A poetic Ethiopian heritage short film exploring ancestral wisdom through the timeless ritual of the coffee ceremony (Buna)."
+  },
+  "film_title": "ጣዕመ ትውፊት (Taste of Heritage)",
+  "story_description": "An intimate visual poem where grandmother Emaye Ayelech prepares a traditional Ethiopian coffee ceremony in the highland morning light, narrating the deeper meaning of patience, community, and ancestral roots passed across generations.",
+  "target_audience": "Global cultural heritage enthusiasts and the Ethiopian diaspora seeking authentic cultural preservation.",
+  "narration_language": "Amharic",
+  "subtitle_language": "English",
+  "output_aspect_ratios": [
+    "9:16",
+    "16:9"
+  ],
+  "character_references": [
+    {
+      "character_id": "char_grandmother_ayelech",
+      "name": "Emaye Ayelech (Fictional Character)",
+      "description": "A gentle 72-year-old Ethiopian grandmother with kind, expressive eyes, radiating wisdom, dignity, and maternal warmth. Completely fictional AI-generated character.",
+      "visual_traits": {
+        "estimated_age": "72 years old",
+        "attire": "Handwoven Ethiopian cotton dress (Habesha Kemis) with intricate green and gold Tibeb embroidery along the neckline and hem, draped with a soft white Netela shawl.",
+        "facial_features": "Warm deep brown skin tone, gentle smile lines, weathered hands of craft and care, silver-streaked braided hair tucked elegantly under a Netela.",
+        "hair": "Braided traditional Shuruba with soft silver highlights"
+      },
+      "reference_image_path": null
+    }
+  ],
+  "visual_style": {
+    "art_style": "Cinematic heritage documentary, warm photorealistic 35mm film aesthetic, rich textural detail",
+    "lighting": "Soft golden morning sun rays cutting through gentle haze, warm hearth amber glow, natural directional lighting",
+    "color_palette": "Earthy ochre, terracotta, roasted espresso brown, emerald highland green, and radiant golden yellow accents",
+    "camera_lens": "Arri Alexa LF look, 50mm f/1.4 prime lens, shallow depth of field, creamy bokeh",
+    "film_grain": "Subtle organic Kodak Vision3 250D grain",
+    "negative_prompt": "modern technology, plastic, fluorescent lighting, cartoon, low resolution, blurred details, modern western clothing, synthetic materials, deformed hands, distorted anatomy"
+  },
+  "music_settings": {
+    "prompt": "Authentic Ethiopian traditional acoustic instrumental music, featuring meditative Masenqo bowed strings, gentle wooden Washint flute melodies, soft acoustic Krar plucking, and a slow, grounding Kebero drum rhythm evoking ancestral reverence and warmth.",
+    "genre": "Ethiopian Traditional Acoustic / Tizita Heritage",
+    "instrumentation": [
+      "Masenqo",
+      "Washint",
+      "Krar",
+      "Kebero"
+    ],
+    "tempo_bpm": 68,
+    "mood": "Meditative, nostalgic, warm, reverent",
+    "target_duration": 78.0,
+    "ducking_attenuation_db": -14.0
+  },
+  "end_card_settings": {
+    "title": "AI Heritage Short",
+    "disclosure_text": "This film was created using an AI filmmaking pipeline honoring cultural preservation. Character Emaye Ayelech is a fictional synthesis of Ethiopian matriarchal heritage. Directed & Orchestrated with Antigravity CLI.",
+    "duration_seconds": 4.0,
+    "background_color": "#120e0b",
+    "font_color": "#e8d8c8"
+  },
+  "shots": [
+    {
+      "shot_id": "shot_01",
+      "duration": 7.5,
+      "scene_description": "Dawn light breaking across the misty green terraced mountains of Wollo, Ethiopia, illuminating a traditional stone home surrounded by eucalyptus trees.",
+      "narration_amharic": "ፀሐይ በደጋው ኮረብታዎች ላይ ስትወጣ፣ የቀደምት አባቶቻችን ትዝታ ከነፋሱ ጋር ይነጋገራል።",
+      "english_translation": "As the sun rises over the highland hills, the memories of our ancestors whisper through the wind.",
+      "image_prompt": "Cinematic wide establishing shot of misty Ethiopian highland mountain ridge at dawn, traditional stone and thatch tukul house nestled among eucalyptus, warm golden morning sunbeams breaking through mist, Kodak 250D film style, hyper-detailed, photorealistic.",
+      "motion_prompt": "Slow aerial dolly forward over mist drifting across highland greenery toward the traditional stone home, golden light slowly intensifying.",
+      "camera_movement": "Slow forward dolly",
+      "character_reference_ids": [],
+      "visual_purpose": "Establish geographic context, spiritual grounding, and peaceful highland dawn atmosphere.",
+      "generation_settings": {
+        "seed": 42001,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    },
+    {
+      "shot_id": "shot_02",
+      "duration": 7.5,
+      "scene_description": "Emaye Ayelech sitting peacefully in the sunlit doorway of her home, smiling warmly at the new morning while adjusting her white Netela.",
+      "narration_amharic": "እያንዳንዱ ቀን አዲስ በረከት ነው፤ እያንዳንዱ ጥዋት ደግሞ የሚነገር አዲስ ታሪክ አለው።",
+      "english_translation": "Each day is a fresh blessing; each morning carries a new story waiting to be told.",
+      "image_prompt": "Medium close-up portrait of Emaye Ayelech, a 72-year-old Ethiopian grandmother with gentle laugh lines and serene eyes, wearing a white cotton Habesha Kemis with green and gold Tibeb embroidery and white Netela shawl, sitting by wooden doorway with golden morning light on her face, photorealistic, 8k resolution.",
+      "motion_prompt": "Subtle camera push-in, gentle movement of Netela shawl in morning breeze, eyes softening with a warm maternal smile.",
+      "camera_movement": "Subtle push-in",
+      "character_reference_ids": [
+        "char_grandmother_ayelech"
+      ],
+      "visual_purpose": "Introduce the protagonist Emaye Ayelech with emotional warmth, dignity, and visual consistency.",
+      "generation_settings": {
+        "seed": 42002,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    },
+    {
+      "shot_id": "shot_03",
+      "duration": 7.5,
+      "scene_description": "Grandmother's weathered hands gently washing raw green coffee beans in clean water within a traditional carved clay bowl.",
+      "narration_amharic": "ቡና በችኮላ አይዘጋጅም፤ ልክ እንደ ሕይወት፣ ጥንቃቄን እና ትግሥትን ይሻል።",
+      "english_translation": "Coffee cannot be rushed; like life itself, it asks for patience and mindful care.",
+      "image_prompt": "Extreme close-up shot of weathered, graceful elderly Ethiopian hands washing fresh green coffee beans in clear mountain water inside an authentic dark clay basin, water droplets catching morning light, vibrant green beans, tactile documentary feel, 50mm lens.",
+      "motion_prompt": "Slow swirling motion of hands gently swirling beans through shimmering water, water ripples catching morning glints.",
+      "camera_movement": "Static high angle macro",
+      "character_reference_ids": [
+        "char_grandmother_ayelech"
+      ],
+      "visual_purpose": "Highlight mindfulness, craftsmanship, and tactile connection to raw natural elements.",
+      "generation_settings": {
+        "seed": 42003,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    },
+    {
+      "shot_id": "shot_04",
+      "duration": 7.5,
+      "scene_description": "Coffee beans crackling and turning a rich dark chocolate color on a flat iron pan (baret metad) over glowing charcoal embers.",
+      "narration_amharic": "በእሳት ላይ እያረረ መልካም መዓዛው እንደሚወጣ፣ የሰው ልጅም በፈተና ውስጥ ጥንካሬን ያገኛል።",
+      "english_translation": "Just as the beans release their richest aroma through heat, human character discovers its strength through trials.",
+      "image_prompt": "Close-up cinematic shot of roasting coffee beans crackling on a flat iron baret metad pan above glowing red charcoal embers, beans turning deep glistening chocolate brown with rising aromatic smoke ribbons, glowing amber sparks, high texture contrast.",
+      "motion_prompt": "Gentle rhythmic shaking of the pan back and forth, swirling aromatic smoke spirals, embers softly pulsating with orange light.",
+      "camera_movement": "Gentle orbit around pan",
+      "character_reference_ids": [
+        "char_grandmother_ayelech"
+      ],
+      "visual_purpose": "Visual metaphor of transformation through fire and time, rich sensory roasting textures.",
+      "generation_settings": {
+        "seed": 42004,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    },
+    {
+      "shot_id": "shot_05",
+      "duration": 7.5,
+      "scene_description": "Emaye Ayelech holding up the steaming roasting pan, waving the fragrant smoke toward the viewer with her hand in the customary sign of hospitality.",
+      "narration_amharic": "ይህንን መዓዛ ተቀበሉ፤ የሰላም እና የአንድነት መዓዛ ነው።",
+      "english_translation": "Receive this aroma; it is the fragrance of peace and togetherness.",
+      "image_prompt": "Medium eye-level shot of grandmother Emaye Ayelech smiling gently as she wafts aromatic white coffee smoke with her hand from the dark roasting pan toward the viewer, traditional Ethiopian living room with woven Mesob in background, soft amber lighting.",
+      "motion_prompt": "Graceful hand wafting gesture guiding fragrant smoke toward camera, grandmother nodding with welcoming reverence.",
+      "camera_movement": "Slow pan right",
+      "character_reference_ids": [
+        "char_grandmother_ayelech"
+      ],
+      "visual_purpose": "Establish direct emotional connection with audience through the quintessential gesture of Buna hospitality.",
+      "generation_settings": {
+        "seed": 42005,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    },
+    {
+      "shot_id": "shot_06",
+      "duration": 7.5,
+      "scene_description": "Crushing the roasted beans with a heavy wooden pestle in a carved wooden mortar (mukecha and zenezena).",
+      "narration_amharic": "የእያንዳንዷ ድብደባ ድምፅ፣ የልባችንን ምት ያስታውሰናል።",
+      "english_translation": "The steady rhythm of each strike echoes the heartbeat of our community.",
+      "image_prompt": "Medium close-up shot of rhythmic traditional coffee grinding using a wooden mukecha and heavy iron zenezena, coarse dark coffee grounds flying gently inside the carved wooden vessel, warm side lighting highlighting dust and wood grain.",
+      "motion_prompt": "Rhythmic up and down motion of pestle grinding coffee beans, fine dark grounds shifting inside the mortar.",
+      "camera_movement": "Slight low angle tilt",
+      "character_reference_ids": [
+        "char_grandmother_ayelech"
+      ],
+      "visual_purpose": "Show rhythmic ancestral labor and physical dedication required for communion.",
+      "generation_settings": {
+        "seed": 42006,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    },
+    {
+      "shot_id": "shot_07",
+      "duration": 7.5,
+      "scene_description": "The iconic spherical black clay Jebena pot resting on the stove, thin vapor escaping from its slender curved spout as coffee simmers.",
+      "narration_amharic": "በጀበናው ውስጥ የሚፈላው ውሃ፣ ከትውልድ ወደ ትውልድ የሚፈሰውን እውቀት ያመለክታል።",
+      "english_translation": "The water simmering within the Jebena carries the flow of wisdom from generation to generation.",
+      "image_prompt": "Close-up macro of classic Ethiopian black clay Jebena coffee pot resting on warm brazier, delicate steam wisps curling out of its elegant spout, horsehair filter plugged in neck, glistening textured clay body, cinematic warm documentary aesthetic.",
+      "motion_prompt": "Gentle boiling vibrations in pot, smooth wisps of steam curling and dissipating upward in soft light rays.",
+      "camera_movement": "Slow pedestal up",
+      "character_reference_ids": [],
+      "visual_purpose": "Iconic cultural symbol of the Jebena embodying community, heritage, and alchemy of elements.",
+      "generation_settings": {
+        "seed": 42007,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    },
+    {
+      "shot_id": "shot_08",
+      "duration": 7.5,
+      "scene_description": "White frankincense (itan) incense smoke rising beside fresh green Ketema grass strewn gracefully across the clean earthen floor.",
+      "narration_amharic": "የዕጣኑ ጢስ ወደ ሰማይ ሲወጣ፣ የጸሎታችን መልእክተኛ ሆኖ ያገለግላል።",
+      "english_translation": "As the incense ascends toward heaven, it carries the quiet prayers of our mothers.",
+      "image_prompt": "Low-angle cinematic shot of fragrant frankincense smoke rising in elegant ribbons from a clay censer beside fresh green Ketema grass scattered across the floor, yellow wildflowers, soft heavenly lighting shafts, peaceful sacred mood.",
+      "motion_prompt": "Slow curling incense smoke billowing gracefully upwards through atmospheric dust motes, blades of Ketema grass resting still.",
+      "camera_movement": "Slow tilt up",
+      "character_reference_ids": [],
+      "visual_purpose": "Spiritual reverence, sacred ambiance, sensory depth of the Ethiopian traditional setting.",
+      "generation_settings": {
+        "seed": 42008,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    },
+    {
+      "shot_id": "shot_09",
+      "duration": 7.5,
+      "scene_description": "Emaye Ayelech pouring a steady, flawless arc of rich dark coffee from high above into small handle-less ceramic cups (sini) without spilling a drop.",
+      "narration_amharic": "በአንድነት ተሰብስበን ስንጠጣ፣ በልባችን ውስጥ ያለው ልዩነት ይቀልጣል፤ ፍቅርም ይነግሣል።",
+      "english_translation": "When we gather to drink as one, our differences dissolve, and love reigns.",
+      "image_prompt": "High angle close-up of grandmother Emaye Ayelech expertly pouring steaming dark coffee from high above with the Jebena into small decorated sini cups arranged on a wooden tray, dark liquid cascading in an unbroken glass-like stream, golden reflections.",
+      "motion_prompt": "Fluid continuous stream of hot coffee filling the porcelain sini cup until foam crowns the brim, steam swirling upwards.",
+      "camera_movement": "Subtle tracking down with the stream",
+      "character_reference_ids": [
+        "char_grandmother_ayelech"
+      ],
+      "visual_purpose": "The pinnacle moment of mastery and grace in the Buna ceremony.",
+      "generation_settings": {
+        "seed": 42009,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    },
+    {
+      "shot_id": "shot_10",
+      "duration": 7.5,
+      "scene_description": "Emaye Ayelech holding her warm sini cup, looking at her grandchild with boundless love and offering her maternal blessing.",
+      "narration_amharic": "ትውፊት የእኛ ማንነት ነው፤ እንዳይጠፋ አጥብቃችሁ ያዙት፣ ለልጆቻችሁም አውርሱት።",
+      "english_translation": "Heritage is our true essence; hold it closely, and pass its light to your children.",
+      "image_prompt": "Cinematic golden hour medium shot of grandmother Emaye Ayelech smiling with deep maternal tenderness while holding a steaming sini cup, sitting by the warm fireplace inside the traditional room, surrounded by soft glowing light, heartwarming cinematic finale.",
+      "motion_prompt": "Gentle nod of benediction, warm grandmotherly smile expanding with tenderness, slow fade toward soft light.",
+      "camera_movement": "Slow zoom out to reveal warm room",
+      "character_reference_ids": [
+        "char_grandmother_ayelech"
+      ],
+      "visual_purpose": "Culminating emotional beat of enduring cultural pride, transmission of love and identity.",
+      "generation_settings": {
+        "seed": 42010,
+        "steps": 30,
+        "guidance_scale": 7.5,
+        "fps": 24
+      }
+    }
+  ]
+}

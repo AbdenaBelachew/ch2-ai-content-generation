@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview - Taste of Heritage</title>
+<meta name="description" content="An intimate visual poem where grandmother Emaye Ayelech prepares a traditional Ethiopian coffee ceremony in the highland morning light, narrating the deeper meaning of patience, community, and ancestral roots passed across generations.">
+<meta name="theme-color" content="#0f0b08">
+<meta property="og:title" content="Overview - Taste of Heritage">
+<meta property="og:description" content="An intimate visual poem where grandmother Emaye Ayelech prepares a traditional Ethiopian coffee ceremony in the highland morning light, narrating the deeper meaning of patience, community, and ancestral roots passed across generations.">
+<meta property="og:type" content="video.other">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#0f0b08;--bg2:#15100c;--panel:#1b1510;--panel2:#251c15;--line:#352a20;--text:#f3e9db;--muted:#b0a08b;
+--accent:#e7ac58;--accent2:#cf7a35;--green:#4b9b5f;--red:#d9573f;--gold:#f0c24b;--blue:#6f9fd8;--ink:#1b1007;
+--shadow:0 30px 80px -28px rgba(0,0,0,.75);--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--ethiopic:"Noto Sans Ethiopic",Nyala,"Abyssinica SIL",var(--sans)}
+:root[data-theme=light]{--bg:#faf3e8;--bg2:#f3e8d8;--panel:#fffbf4;--panel2:#f2e6d3;--line:#e2d1b8;--text:#2b2016;--muted:#7a6753;
+--accent:#b4651a;--accent2:#8f4a0e;--green:#2f7d44;--red:#b3402f;--gold:#9a7400;--blue:#3d6fae;--ink:#fffaf0;--shadow:0 24px 60px -28px rgba(80,50,20,.45)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:128px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16.5px/1.7 var(--sans);overflow-x:hidden}
+::selection{background:var(--accent);color:var(--ink)}
+a{color:var(--accent);text-underline-offset:3px}a:hover{color:var(--accent2)}
+img{max-width:100%}
+.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;background:var(--accent);color:var(--ink);padding:8px 12px;border-radius:10px;z-index:99}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:60}
+
+/* header */
+.top{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.flag{height:3px;background:linear-gradient(90deg,#2f9e44 0 33.33%,#f2c500 0 66.66%,#da1212 0)}
+.bar{display:flex;align-items:center;gap:14px;padding:11px 0}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;box-shadow:0 6px 18px -6px var(--accent2)}
+.mark svg{width:22px;height:22px;fill:var(--ink)}
+.brand small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;line-height:1.1}
+.brand b{display:block;font:700 19px/1.15 var(--serif);letter-spacing:0;text-transform:none}
+.spacer{flex:1}
+.theme{font:600 13px var(--sans);cursor:pointer;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:99px;padding:7px 14px;transition:.2s}
+.theme:hover{border-color:var(--accent);transform:translateY(-1px)}
+.navwrap{display:flex;align-items:center;gap:2px;margin-left:22px}
+.nl{font:600 14px var(--sans);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;text-decoration:none;color:var(--muted);background:none;border:0;cursor:pointer;padding:8px 13px;border-radius:10px;transition:.18s}
+.nl:hover,.dd.open>.dd-btn{color:var(--text);background:var(--panel2)}
+.nl.on{color:var(--accent)}.nl.on:not(.dd-btn){background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.dd{position:relative}
+.dd-btn svg{width:12px;height:12px;transition:transform .2s}.dd.open .dd-btn svg{transform:rotate(180deg)}
+.dd-menu{display:none;position:absolute;left:0;top:calc(100% + 10px);min-width:280px;padding:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);z-index:70}
+.dd.open .dd-menu{display:grid;gap:2px;animation:ddin .16s ease}
+@keyframes ddin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.dd-menu a{display:block;text-decoration:none;color:var(--text);padding:9px 12px;border-radius:10px;font-size:14.5px;line-height:1.3}
+.dd-menu a small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.dd-menu a:hover,.dd-menu a.on,.dd-menu a[aria-current=page]{background:var(--panel2);color:var(--accent)}
+.burger{display:none;width:42px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--text);cursor:pointer;place-items:center}
+.burger svg{width:20px;height:20px}
+@media(max-width:900px){
+  .burger{display:grid}
+  .navwrap{display:none;position:absolute;left:0;right:0;top:100%;margin:0;padding:10px 16px 18px;flex-direction:column;align-items:stretch;gap:2px;background:var(--bg);border-bottom:1px solid var(--line);max-height:calc(100vh - 70px);overflow:auto}
+  .top.menu .navwrap{display:flex}
+  .dd-menu{position:static;box-shadow:none;border:0;background:transparent;padding:0 0 6px 12px;min-width:0;animation:none}
+}
+
+/* hero */
+.hero{position:relative;isolation:isolate;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .bg{position:absolute;inset:-40px;z-index:-2;background-size:cover;background-position:center;filter:blur(34px) saturate(1.2) brightness(.38);transform:scale(1.15)}
+:root[data-theme=light] .hero .bg{filter:blur(34px) saturate(1.1) brightness(.95) opacity(.55)}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(1200px 500px at 20% 0,transparent,var(--bg) 85%),linear-gradient(180deg,transparent 55%,var(--bg))}
+.hero .in{padding:76px 22px 40px;display:grid;gap:36px;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center}
+@media(max-width:900px){.hero .in{grid-template-columns:1fr;padding-top:48px}}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--accent);font-weight:800;letter-spacing:.16em;font-size:12px;text-transform:uppercase}
+.eyebrow:before{content:"";width:28px;height:2px;background:var(--accent);border-radius:2px}
+h1.title{font:700 clamp(36px,6.4vw,72px)/1.04 var(--serif);margin:14px 0 8px;letter-spacing:-.01em}
+h1.title .am{font-family:var(--ethiopic);display:block;font-weight:800}
+h1.title .en{display:block;font-size:.5em;color:var(--accent);font-style:italic;margin-top:6px}
+.lede{color:var(--muted);font-size:18px;max-width:60ch;margin:0 0 20px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 4px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:15px;padding:12px 20px;border-radius:12px;background:linear-gradient(180deg,var(--accent),var(--accent2));color:var(--ink);border:0;cursor:pointer;box-shadow:0 10px 26px -10px var(--accent2);transition:.2s}
+.btn:hover{transform:translateY(-2px);color:var(--ink);box-shadow:0 16px 30px -10px var(--accent2)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn.sm{padding:8px 14px;font-size:13.5px;border-radius:10px}
+.stats{display:flex;gap:26px;flex-wrap:wrap;margin-top:26px}.stats div b{display:block;font:700 30px/1 var(--serif);color:var(--text)}.stats div span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
+.heroart{position:relative}
+.heroart img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:22px;box-shadow:var(--shadow);border:1px solid var(--line);display:block}
+.heroart:before{content:"";position:absolute;inset:14px -14px -14px 14px;border:2px solid var(--accent);opacity:.5;border-radius:22px;z-index:-1}
+.heroart .tag{position:absolute;left:14px;bottom:14px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(8px);border:1px solid var(--line);padding:6px 12px;border-radius:99px;font-size:12.5px}
+
+/* sections */
+section{padding:72px 0 8px}
+.sh{display:flex;gap:18px;align-items:flex-end;margin-bottom:22px}
+.sh .num{font:800 54px/1 var(--serif);color:transparent;-webkit-text-stroke:1.5px var(--accent);opacity:.8}
+.sh h2{font:700 clamp(28px,4vw,40px)/1.1 var(--serif);margin:2px 0 0}
+.sub{color:var(--muted);max-width:68ch;margin:0 0 22px;font-size:17px}
+.tibeb{height:10px;margin:0;border:0;opacity:.6;border-radius:6px;background:repeating-linear-gradient(90deg,var(--accent) 0 14px,transparent 14px 20px,var(--green) 20px 34px,transparent 34px 40px,var(--red) 40px 54px,transparent 54px 60px)}
+
+/* player */
+.tabs{display:inline-flex;gap:4px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:99px;margin:0 0 16px}
+.tab{font:600 14px var(--sans);cursor:pointer;background:transparent;color:var(--muted);border:0;padding:8px 18px;border-radius:99px;transition:.2s}
+.tab[aria-pressed=true]{background:var(--accent);color:var(--ink)}
+.stage{position:relative;background:#000;border-radius:20px;overflow:hidden;display:grid;place-items:center;border:1px solid var(--line);box-shadow:var(--shadow)}
+video{display:block;width:100%;max-height:80vh;background:#000}video.vertical{width:auto;height:78vh;max-width:100%}
+.dl{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x proximity;padding:16px 2px 12px;margin-top:6px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ch{flex:0 0 186px;scroll-snap-align:start;text-align:left;font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px;cursor:pointer;transition:.25s}
+.ch:hover{transform:translateY(-3px);border-color:var(--accent)}
+.ch.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 16px 30px -16px var(--accent2);background:var(--panel2)}
+.ch img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:9px;display:block}
+.ch .t{display:flex;justify-content:space-between;font-size:12px;color:var(--accent);font-weight:800;letter-spacing:.06em;margin:8px 2px 2px}
+.ch p{margin:0 2px;font-size:12.5px;line-height:1.4;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0}.chip{font-size:12.5px;padding:4px 12px;border-radius:99px;border:1px solid var(--line);background:var(--panel);color:var(--muted)}
+
+/* cards, grids */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:0 1px 0 rgba(255,255,255,.03) inset}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.sumcards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:0 0 20px}
+.sumcards div{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:14px 18px}.sumcards b{display:block;font:700 34px/1 var(--serif)}.sumcards span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.sumcards .ok b{color:var(--green)}.sumcards .part b{color:var(--gold)}.sumcards .no b{color:var(--red)}
+.tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--panel2);font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}tr:last-child td{border-bottom:0}tbody tr:hover td{background:color-mix(in srgb,var(--panel2) 55%,transparent)}
+.badge{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.04em;padding:3px 10px;border-radius:99px;white-space:nowrap;border:1px solid currentColor}
+.badge.ok{color:var(--green)}.badge.part{color:var(--gold)}.badge.no{color:var(--red)}.badge.cached{color:var(--blue)}
+.small{font-size:13px;color:var(--muted)}
+
+/* storyboard */
+.char{display:grid;gap:22px;grid-template-columns:minmax(0,300px) 1fr;align-items:center;margin-bottom:26px}
+.char img{width:100%;border-radius:14px;cursor:zoom-in;display:block}
+.scene{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:26px;align-items:center;margin:22px 0;padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:22px;transition:.3s}
+.scene:hover{border-color:color-mix(in srgb,var(--accent) 60%,var(--line));box-shadow:var(--shadow)}
+.scene.alt .pic{order:2}
+.pic{overflow:hidden;border-radius:14px;position:relative;cursor:zoom-in;border:0;padding:0;background:none;display:block;width:100%}
+.pic img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .6s}.pic:hover img{transform:scale(1.05)}
+.pic .no{position:absolute;left:12px;top:12px;background:var(--accent);color:var(--ink);font-weight:800;font-size:12px;letter-spacing:.08em;padding:4px 11px;border-radius:99px}
+.scene .am{font:700 clamp(19px,2.2vw,25px)/1.5 var(--ethiopic);margin:0 0 8px}
+.scene .en{font:italic 17px/1.55 var(--serif);color:var(--muted);margin:0 0 12px}
+.meta{font-size:13px;color:var(--muted)}.meta b{color:var(--text)}
+details{margin-top:10px;font-size:14px}summary{cursor:pointer;color:var(--accent);font-weight:600}details p{color:var(--muted)}
+@media(max-width:760px){.scene,.char{grid-template-columns:1fr}.scene.alt .pic{order:0}}
+
+/* sound */
+.player-card{display:flex;gap:16px;align-items:center}
+.ico{flex:none;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center}.ico svg{width:26px;height:26px;fill:var(--ink)}
+audio{width:100%;margin-top:10px;accent-color:var(--accent)}
+
+/* pipeline */
+.flow{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));counter-reset:s;position:relative}
+.step{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 14px 14px;transition:.25s}
+.step:hover{transform:translateY(-4px);border-color:var(--accent)}
+.step:before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--ink);font-weight:800;font-size:13px;margin-bottom:10px}
+.step b{display:block;font:700 17px var(--serif)}.step small{display:block;color:var(--muted);line-height:1.45;margin-top:4px}
+pre{background:#0b0805;color:#f1e6d8;border:1px solid var(--line);border-radius:14px;padding:16px 18px;overflow:auto;font-size:13.5px;line-height:1.6}
+:root[data-theme=light] pre{background:#2b2016;color:#fbf2e4}
+code{font-family:ui-monospace,"Cascadia Code",Consolas,monospace;font-size:.9em}
+p code,li code,td code{background:var(--panel2);padding:2px 6px;border-radius:6px;border:1px solid var(--line)}
+pre code{background:none;border:0;padding:0}
+
+/* telemetry */
+.bars{display:grid;gap:12px;margin:16px 0}
+.bar-row{display:grid;grid-template-columns:110px 1fr 40px;gap:12px;align-items:center;font-size:14px}
+.track{display:flex;height:16px;border-radius:99px;overflow:hidden;background:var(--panel2);border:1px solid var(--line)}
+.track i{display:block;height:100%}.s-ok{background:var(--green)}.s-cached{background:var(--blue)}.s-fail{background:var(--red)}.s-other{background:var(--gold)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:0 0 18px}
+.stat div{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 18px}.stat b{display:block;font:700 34px/1 var(--serif);color:var(--accent)}.stat span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+/* downloads */
+.files{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.file{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px;text-decoration:none;color:var(--text);transition:.25s}
+.file:hover{transform:translateY(-3px);border-color:var(--accent);color:var(--text)}
+.ext{flex:none;width:48px;height:56px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-weight:800;font-size:11.5px;color:var(--accent);letter-spacing:.04em}
+.file b{display:block;font-size:15px;word-break:break-all}.file small{display:block;color:var(--muted);line-height:1.4;margin-top:2px}.file .sz{color:var(--accent);font-weight:700}
+
+/* prose + journal + docs */
+.prose{max-width:76ch}.prose h1{font:700 clamp(30px,4vw,44px)/1.15 var(--serif)}.prose h2{font:700 28px/1.2 var(--serif);margin:2em 0 .4em}.prose h3{font:700 20px var(--serif);margin:1.6em 0 .3em}
+.prose p,.prose li{color:color-mix(in srgb,var(--text) 90%,var(--muted))}.prose li{margin:.25em 0}.prose hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);background:var(--panel);border-radius:0 12px 12px 0}blockquote p{margin:.4em 0}
+.journal h2{position:relative;padding-left:28px;font:700 24px/1.25 var(--serif);margin:2em 0 .5em}
+.journal h2:before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 25%,transparent)}
+.journal{border-left:2px solid var(--line);padding-left:10px;margin-left:6px}
+.docgrid{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:48px;align-items:start}
+.toc{position:sticky;top:140px;display:grid;gap:2px;font-size:14px;border-left:2px solid var(--line);padding-left:14px}
+.toc b{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:6px}.toc a{color:var(--muted);text-decoration:none;padding:3px 0}.toc a:hover{color:var(--accent)}
+@media(max-width:960px){.docgrid{grid-template-columns:1fr}.toc{display:none}}
+.notice{margin:0 0 26px;padding:14px 18px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--panel);border-radius:0 14px 14px 0;font-size:15px}
+
+/* footer */
+footer{margin-top:90px;background:var(--bg2);border-top:1px solid var(--line)}
+footer .flag{margin-bottom:34px}
+footer .cols{display:grid;gap:30px;grid-template-columns:1.4fr 1fr 1fr}
+@media(max-width:760px){footer .cols{grid-template-columns:1fr}}
+footer h4{margin:0 0 10px;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+footer p,footer li{color:var(--muted);font-size:14px;margin:.3em 0}footer ul{list-style:none;margin:0;padding:0}footer a{text-decoration:none}footer a:hover{text-decoration:underline}
+.fine{border-top:1px solid var(--line);margin-top:30px;padding:18px 0 40px;font-size:13px;color:var(--muted)}
+.author{display:flex;align-items:center;gap:10px;margin-bottom:12px}.ini{width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:13px}
+
+/* lightbox */
+dialog#lb{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh;overflow:visible}
+dialog#lb::backdrop{background:rgba(5,3,2,.88);backdrop-filter:blur(6px)}
+dialog#lb img{display:block;max-width:96vw;max-height:88vh;border-radius:14px;box-shadow:0 30px 100px rgba(0,0,0,.7)}
+dialog#lb p{color:#f3e9db;text-align:center;margin:10px 0 0;font-size:14px}
+dialog#lb button{position:absolute;right:-6px;top:-44px;font:600 14px var(--sans);background:var(--accent);color:var(--ink);border:0;border-radius:99px;padding:6px 14px;cursor:pointer}
+
+/* motion */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}.js .rv{opacity:1;transform:none}}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<a class="skip" href="#app">Skip to content</a>
+<header class="top"><div class="flag"></div><div class="wrap">
+  <div class="bar">
+    <a class="brand" href="../index.html#film"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h12v6c0 4-2.4 7-6 7s-6-3-6-7z"/><path d="M17 5h2a3 3 0 0 1 0 6h-2V9h2a1 1 0 0 0 0-2h-2z"/><rect x="4" y="19" width="14" height="2" rx="1"/></svg></span><span><small>Heritage Short</small><b>Taste of Heritage</b></span></a>
+    <nav class="navwrap" id="nav" aria-label="Main"><a class="nl" href="../index.html#film">Film</a><a class="nl" href="../index.html#review">For reviewers</a><a class="nl" href="../index.html#storyboard">Storyboard</a><a class="nl" href="../index.html#sound">Sound</a><div class="dd"><button class="nl dd-btn" type="button" aria-expanded="false" aria-haspopup="true">How it&#x27;s made<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="dd-menu"><a href="../index.html#pipeline">Pipeline<small>Seven stages, from storyboard to film</small></a><a href="../index.html#wan">Motion · Kaggle Wan 2.2<small>What was and was not run</small></a><a href="../index.html#telemetry">Telemetry<small>Every model call, logged</small></a><a href="../index.html#journal">Journal<small>What broke and how it was fixed</small></a></div></div><a class="nl" href="../index.html#downloads">Downloads</a><div class="dd"><button class="nl dd-btn" type="button" aria-expanded="false" aria-haspopup="true">Documents<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="dd-menu"><a href="../docs/README.html" aria-current=page>Overview</a><a href="../docs/ARCHITECTURE.html">Architecture</a><a href="../docs/DESIGN.html">Design &amp; audience</a><a href="../docs/EXPERIMENTS.html">Experiments</a><a href="../docs/FAILURES.html">Failures</a><a href="../docs/COSTS.html">Costs</a><a href="../docs/ETHICS.html">Ethics &amp; labelling</a><a href="../docs/KAGGLE.html">Kaggle guide</a><a href="../docs/STORY.html">Full narration</a></div></div></nav>
+    <span class="spacer"></span>
+    <button class="theme" id="theme" type="button" aria-label="Toggle colour theme">Light mode</button>
+    <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>
+</div></header>
+<main id="app">
+<section style="padding-top:44px"><div class="wrap"><div class="eyebrow" style="margin-bottom:14px">Document</div><div class="notice"><b>Read this as design intent.</b> This document describes what the project set out to do. What the delivered film actually uses (synthesised guitar instead of ACE-Step, FFmpeg camera moves instead of Wan 2.2, no native-speaker review of the Amharic) is stated in <a href="../index.html#review">For reviewers</a>.</div><div class="docgrid"><div class="prose"><h1>AI Heritage Short — Pipeline Foundation &amp; Architecture</h1>
+<p>A reproducible, modular Python-based AI filmmaking pipeline designed to generate an authentic 60–90 second Ethiopian cultural heritage short film: <strong>"ጣዕመ ትውፊት" (Taste of Heritage)</strong>.</p>
+<p>The short film tells the story of <strong>Emaye Ayelech</strong>, an original fictional Ethiopian grandmother, as she prepares a traditional coffee ceremony (<em>Buna</em>) in the highland morning light, sharing ancestral wisdom on patience, community, and cultural roots passed across generations.</p>
+<hr>
+<h2 id="1-project-objective-standards">1. Project Objective &amp; Standards</h2>
+<ul><li>
+<strong>Narration</strong>: Authentic poetic Amharic narration in canonical Ge'ez Fidel script with timing and syllable pacing analysis.
+</li><li>
+<strong>Subtitles</strong>: Synchronized English subtitles (SRT timecodes and video burn-in).
+</li><li>
+<strong>Soundtrack</strong>: Original Ethiopian traditional acoustic soundtrack featuring indigenous instrumentation (<em>Masenqo</em>, <em>Washint</em>, <em>Krar</em>, <em>Kebero</em> at 68 BPM in the <em>Tizita</em> modal scale).
+</li><li>
+<strong>Radio Cut</strong>: Scratch mix combining Amharic narration and acoustic music with sidechain ducking and loudness normalization before video rendering.
+</li><li>
+<strong>Character Consistency</strong>: Dedicated character turnaround reference sheet generated with Cloudflare Workers AI FLUX to anchor cross-shot visual fidelity.
+</li><li>
+<strong>Video Diffusion</strong>: High-fidelity moving shots rendered via Wan 2.2 TI2V-5B on Kaggle GPUs.
+</li><li>
+<strong>Audio Mixing</strong>: Background music automatically ducked (-14 dB attenuation) beneath narration, normalized to EBU R128 (-16 LUFS, -1.5 dB true peak).
+</li><li>
+<strong>Dual Aspect Ratios</strong>: Horizontal <strong>16:9</strong> (1920×1080) for cinematic display and vertical <strong>9:16</strong> (1080×1920) for mobile without stretching or distortion.
+</li><li>
+<strong>Ethical AI Disclosure</strong>: Mandatory visible end card disclosing AI-orchestrated cultural preservation without copying any real person's likeness.
+</li></ul>
+<hr>
+<h2 id="2-technology-provider-stack">2. Technology &amp; Provider Stack</h2>
+<p>All model identifiers and endpoints are centralized in <code>pipeline/config.py</code> and environment variables.</p>
+<div class="tablewrap"><table><thead><tr><th>Stage</th><th>Provider / Technology</th><th>Model / Tool</th><th>Role</th></tr></thead><tbody><tr><td><strong>Story &amp; Script</strong></td><td>Google Gemini API</td><td><code>gemini-flash-latest</code></td><td>Validation, translation fidelity, script refinement</td></tr><tr><td><strong>Amharic Narration</strong></td><td>Google Gemini TTS</td><td><code>gemini-2.5-flash-preview-tts</code></td><td>Authentic Amharic speech audio synthesis</td></tr><tr><td><strong>Character Sheet &amp; Keyframes</strong></td><td>Cloudflare Workers AI</td><td><code>@cf/black-forest-labs/flux-1-schnell</code></td><td>Consistent character sheet &amp; shot keyframes</td></tr><tr><td><strong>Moving Shots</strong></td><td>Kaggle GPU Notebooks</td><td><code>Wan 2.2 TI2V-5B</code></td><td>Video generation from keyframe + motion prompt</td></tr><tr><td><strong>Original Music</strong></td><td>Kaggle GPU Notebooks</td><td><code>ACE-Step 1.5</code></td><td>Traditional Ethiopian acoustic soundtrack</td></tr><tr><td><strong>Radio Cut &amp; Assembly</strong></td><td>FFmpeg 7+ / Audio Synth</td><td>Native CLI / Python fallback</td><td>Radio cut, ducking, loudnorm, subtitles, end card, exports</td></tr></tbody></table></div>
+<hr>
+<h2 id="3-repository-structure">3. Repository Structure</h2>
+<pre><code>ch2-ai-content-generation/
+├── .env.example                     # Template for environment credentials
+├── .gitignore                       # Git ignore rules for media, venv, and cache
+├── Makefile                         # Unified CLI commands for workflow automation
+├── requirements.txt                 # Pinned dependencies (jsonschema, pytest, requests, python-dotenv)
+├── runs.jsonl                       # Append-only audit log for all model invocations
+├── storyboard.json                  # Single source of truth storyboard (10 shots, 75s)
+├── ARCHITECTURE.md                  # Comprehensive architectural design &amp; data flow
+├── DESIGN.md                        # Character profile, visual style &amp; sound design
+├── EXPERIMENTS.md                   # Experiment tracking framework and planned test backlog
+├── FAILURES.md                      # Failure mode taxonomy, recovery rules, and resolved issues
+├── COSTS.md                         # Unit economics, provider pricing &amp; run budgets
+├── ETHICS.md                        # Cultural representation, disclosure &amp; AI ethics
+├── README.md                        # Project documentation (this file)
+├── schema/
+│   └── storyboard.schema.json       # Draft 2020-12 JSON Schema contract for storyboard.json
+├── kaggle/
+│   ├── README.md                    # Instructions for running GPU workloads on Kaggle
+│   ├── wan2_ti2v_notebook.ipynb     # Turnkey Jupyter notebook for Wan 2.2 video generation
+│   ├── ace_step_music_notebook.ipynb# Turnkey Jupyter notebook for ACE-Step 1.5 music generation
+│   ├── wan2_ti2v_runner.py          # Standalone runner script for Wan 2.2 TI2V-5B
+│   └── ace_step_runner.py           # Standalone runner script for ACE-Step 1.5
+├── outputs/                         # Destination for generated assets (.gitkeep preserved)
+│   ├── keyframes/                   # Generated character sheet and shot keyframes (.png)
+│   ├── shots/                       # Rendered Wan 2.2 MP4 video shots (.mp4)
+│   ├── narration/                   # Amharic TTS audio files (.wav)
+│   ├── music/                       # ACE-Step instrumental soundtrack (.wav)
+│   ├── assembly/                    # Subtitles (.srt), end-card clips, and radio cut (.wav)
+│   └── exports/                     # Master MP4 exports (film_9x16.mp4 and film_16x9.mp4)
+├── pipeline/                        # Core Python package
+│   ├── __init__.py
+│   ├── cli.py                       # CLI entry point (validate, radio, keyframes, shots, etc.)
+│   ├── config.py                    # Centralized settings &amp; provider configs
+│   ├── cache.py                     # Deterministic content-addressed cache manager
+│   ├── logger.py                    # Honest audit logger for runs.jsonl
+│   ├── validator.py                 # Storyboard schema and business rules validator
+│   ├── providers/
+│   │   ├── __init__.py
+│   │   ├── base.py                  # Abstract provider base with backoff retries
+│   │   ├── cloudflare.py            # Cloudflare Workers AI FLUX provider &amp; character sheet
+│   │   ├── gemini.py                # Gemini script analysis, translation &amp; TTS provider
+│   │   └── kaggle.py                # Kaggle GPU payload prep &amp; API runner
+│   ├── stages/
+│   │   ├── __init__.py
+│   │   ├── script.py                # Stage 1: Storyboard &amp; script validation, pacing analysis
+│   │   ├── keyframes.py             # Stage 2: Character sheet &amp; keyframe generation
+│   │   ├── shots.py                 # Stage 3: Wan 2.2 video generation
+│   │   ├── music.py                 # Stage 4: ACE-Step music soundtrack
+│   │   ├── narration.py             # Stage 5: Amharic narration TTS
+│   │   └── assembly.py              # Stage 6: FFmpeg video assembly &amp; radio cut
+│   └── utils/
+│       ├── __init__.py
+│       ├── ffmpeg.py                # FFmpeg command builder, ducking, SRT &amp; fallback audio synth
+│       └── hash.py                  # SHA-256 content hashing utilities
+└── tests/                           # Comprehensive unit test suite (34 passed offline)
+    ├── __init__.py
+    ├── test_cache.py                # Caching, invalidation &amp; isolation tests
+    ├── test_cli.py                  # CLI command invocation, radio cut &amp; pacing tests
+    ├── test_ffmpeg.py               # FFmpeg filter construction, SRT &amp; ducking tests
+    ├── test_logger.py               # Runs logger schema &amp; appending tests
+    ├── test_schema.py               # JSON Schema validation tests
+    └── test_validator.py            # Business logic validation tests</code></pre>
+<hr>
+<h2 id="4-quickstart-installation-commands">4. Quickstart: Installation &amp; Commands</h2>
+<h3>Virtual Environment Setup</h3>
+<pre><code>python -m venv .venv
+
+# Activate environment:
+# Windows: .\.venv\Scripts\Activate.ps1
+# Linux/macOS: source .venv/bin/activate
+
+pip install -r requirements.txt</code></pre>
+<h3>Essential Workflow Commands</h3>
+<pre><code># 1. Pipeline Health &amp; Provider Smoke Tests
+make status
+# or: python -m pipeline.cli status
+
+# 2. Validate Storyboard Contract
+make validate
+# or: python -m pipeline.cli validate
+
+# 3. Generate Character Turnaround Sheet
+python -m pipeline.cli keyframes --character-sheet --mock
+
+# 4. Generate Radio Cut Scratch Mix (Narration + Ducked Music)
+make radio
+# or: python -m pipeline.cli radio --mock
+
+# 5. Generate Shot Keyframes
+make keyframes
+# or: python -m pipeline.cli keyframes --mock
+
+# 6. Prepare Kaggle GPU Batch Manifests
+make shots
+make music
+
+# 7. Run Full Pipeline Orchestration
+make film
+# or: python -m pipeline.cli film --mock --dry-run
+
+# 8. Run All Unit Tests
+make test
+# or: pytest -v tests/</code></pre>
+<hr>
+<h2 id="5-kaggle-gpu-execution-workflow">5. Kaggle GPU Execution Workflow</h2>
+<p>Heavy video diffusion (Wan 2.2 TI2V-5B) and music generation (ACE-Step 1.5) run on Kaggle GPUs:</p>
+<ol><li>
+<code>python -m pipeline.cli shots</code> produces <code>kaggle/wan_batch.json</code>.
+</li><li>
+<code>python -m pipeline.cli music</code> produces <code>kaggle/acestep_batch.json</code>.
+</li><li>
+Open kaggle/wan2_ti2v_notebook.ipynb on Kaggle with GPU T4x2 or P100 to generate <code>outputs/shots/*.mp4</code>.
+</li><li>
+Open kaggle/ace_step_music_notebook.ipynb on Kaggle with GPU T4 to synthesize <code>outputs/music/soundtrack.wav</code>.
+</li><li>
+Place the downloaded files in <code>outputs/shots/</code> and <code>outputs/music/</code>.
+</li><li>
+Run <code>python -m pipeline.cli assemble</code> to assemble both 16:9 and 9:16 master MP4 films.
+</li></ol>
+<hr>
+<h2 id="6-reproducibility-caching-guarantee">6. Reproducibility &amp; Caching Guarantee</h2>
+<ul><li>
+<strong>Keyframes</strong>: Cached using <code>SHA256(prompt + ref_image_hash + model_id + settings + seed)</code>.
+</li><li>
+<strong>Moving Shots</strong>: Cached using <code>SHA256(keyframe_image_hash + motion_prompt + model_id + settings)</code>.
+</li><li>
+<strong>Narration</strong>: Cached using <code>SHA256(amharic_text + voice_config + model_id)</code>.
+</li><li>
+<strong>Music</strong>: Cached using <code>SHA256(music_prompt + settings + model_id)</code>.
+</li><li>
+<strong>Single Shot Regeneration</strong>: Changing a prompt or seed in shot 4 invalidates only shot 4; all other 9 shots remain cached and untouched.
+</li></ul>
+<hr>
+<h2 id="7-audit-logging-runs-jsonl">7. Audit Logging (<code>runs.jsonl</code>)</h2>
+<p>Every model invocation, cache hit, or failure is appended to <code>runs.jsonl</code> with:</p>
+<ul><li>
+Exact ISO 8601 UTC timestamp
+</li><li>
+Stage, Provider, and Model
+</li><li>
+Shot ID where applicable
+</li><li>
+Prompt and prompt hash
+</li><li>
+Parameters, seeds, and file paths
+</li><li>
+Measured execution duration
+</li><li>
+Truthful status (<code>SUCCESS</code>, <code>FAILED</code>, <code>CACHED</code>) without fabricated metrics.
+</li></ul>
+<hr>
+<h2 id="web-ui-studio">Web UI (Studio)</h2>
+<p>A local web app: fill in a form, and the pipeline writes the storyboard (Gemini), paints the scenes (Cloudflare FLUX), records Amharic narration (Gemini TTS), composes music, adds camera motion and English captions, then renders 16:9 and/or 9:16 films you can play and download.</p>
+<pre><code>.\.venv\Scripts\Activate.ps1
+python -m web.server          # then open http://127.0.0.1:8000</code></pre>
+<ul><li>
+Inputs: title, story idea, main character, setting, length (8-12 shots), narration voice, music style, formats.
+</li><li>
+Needs <code>GEMINI_API_KEY</code>, <code>CLOUDFLARE_ACCOUNT_ID</code> and <code>CLOUDFLARE_API_TOKEN</code> in <code>.env</code>, and FFmpeg on PATH.
+</li><li>
+Each film is built in its own folder under <code>web_jobs/</code> (git-ignored) with the standard pipeline commands.
+</li><li>
+The server binds to localhost only; API keys stay on the server and are never sent to the browser.
+</li><li>
+A film takes roughly 5-10 minutes; films are generated one at a time.
+</li></ul></div><aside class="toc" aria-label="On this page"><b>On this page</b><a href="#1-project-objective-standards">1. Project Objective &amp; Standards</a><a href="#2-technology-provider-stack">2. Technology &amp; Provider Stack</a><a href="#3-repository-structure">3. Repository Structure</a><a href="#4-quickstart-installation-commands">4. Quickstart: Installation &amp; Commands</a><a href="#5-kaggle-gpu-execution-workflow">5. Kaggle GPU Execution Workflow</a><a href="#6-reproducibility-caching-guarantee">6. Reproducibility &amp; Caching Guarantee</a><a href="#7-audit-logging-runs-jsonl">7. Audit Logging (runs.jsonl)</a><a href="#web-ui-studio">Web UI (Studio)</a></aside></div></div></section>
+</main>
+<footer>
+  <div class="flag"></div>
+  <div class="wrap">
+    <div class="cols">
+      <div><h4>Made with AI</h4>
+      <p>The story, images, Amharic narration and music are AI-generated. The characters and events are fictional and depict no real person. The Amharic text is machine-written and has not been reviewed by a native speaker.</p></div>
+      <div><h4>Built with</h4><ul><li>Gemini: storyboard &amp; speech</li><li>FLUX.1 schnell: images</li><li>Synthesised guitar score</li><li>FFmpeg: motion, captions, mix</li></ul></div>
+      <div><h4>Documents</h4><ul><li><a href="../docs/README.html" aria-current=page>Overview</a></li><li><a href="../docs/ARCHITECTURE.html">Architecture</a></li><li><a href="../docs/DESIGN.html">Design &amp; audience</a></li><li><a href="../docs/EXPERIMENTS.html">Experiments</a></li><li><a href="../docs/FAILURES.html">Failures</a></li><li><a href="../docs/COSTS.html">Costs</a></li><li><a href="../docs/ETHICS.html">Ethics &amp; labelling</a></li><li><a href="../docs/KAGGLE.html">Kaggle guide</a></li><li><a href="../docs/STORY.html">Full narration</a></li></ul></div>
+    </div>
+    <div class="fine">Independent challenge submission. © 2026 </div>
+  </div>
+</footer>
+<dialog id="lb"><button type="button">Close</button><img alt=""><p></p></dialog>
+<script></script>
+<script>
+(function(){
+  var root=document.documentElement;root.classList.add('js');
+  var btn=document.getElementById('theme');
+  function apply(t){root.setAttribute('data-theme',t);if(btn)btn.textContent=t==='dark'?'Light mode':'Dark mode';}
+  var saved=null;try{saved=localStorage.getItem('theme');}catch(e){}
+  apply(saved||(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
+  if(btn)btn.addEventListener('click',function(){var t=root.getAttribute('data-theme')==='dark'?'light':'dark';apply(t);try{localStorage.setItem('theme',t);}catch(e){}});
+
+  var pg=document.getElementById('progress');
+  function prog(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;pg.style.width=(m>0?(h.scrollTop/m*100):0)+'%';}
+  addEventListener('scroll',prog,{passive:true});prog();
+
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
+    rv.forEach(function(el){ro.observe(el);});
+  }else{rv.forEach(function(el){el.classList.add('in');});}
+
+  var v=document.getElementById('v'),dl=document.getElementById('dl'),rail=document.getElementById('rail');
+  if(v&&window.FILMS){
+    var keys=Object.keys(FILMS),SHOT=window.SHOT_SECONDS||7.5,chs=rail?[].slice.call(rail.querySelectorAll('.ch')):[],cur=-1;
+    window.showFilm=function(k){var f=FILMS[k];if(!f)return;var t=v.currentTime,was=!v.paused;v.className=k==='9:16'?'vertical':'';v.src=f.src;v.load();
+      v.addEventListener('loadedmetadata',function(){if(t)v.currentTime=t;if(was)v.play();},{once:true});
+      document.querySelectorAll('.tab').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.k===k));});
+      dl.innerHTML=keys.map(function(x){return '<a class="btn sm'+(x===k?'':' ghost')+'" href="'+FILMS[x].src+'" download>Download '+x+'</a>';}).join('');};
+    document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){showFilm(b.dataset.k);});});
+    showFilm(keys[0]);
+    chs.forEach(function(c,i){c.addEventListener('click',function(){v.currentTime=i*SHOT+0.05;v.play();document.getElementById('player').scrollIntoView({behavior:'smooth',block:'center'});});});
+    v.addEventListener('timeupdate',function(){
+      var i=Math.min(chs.length-1,Math.floor(v.currentTime/SHOT));
+      if(i!==cur){cur=i;chs.forEach(function(c,j){c.classList.toggle('on',j===i);});
+        if(chs[i]&&rail&&!v.paused){rail.scrollTo({left:chs[i].offsetLeft-rail.clientWidth/2+chs[i].clientWidth/2,behavior:'smooth'});}}
+    });
+  }
+
+  var lb=document.getElementById('lb');
+  if(lb&&lb.showModal){
+    var li=lb.querySelector('img'),lp=lb.querySelector('p');
+    document.querySelectorAll('[data-lb]').forEach(function(el){el.addEventListener('click',function(){li.src=el.dataset.lb;li.alt=el.dataset.cap||'';lp.textContent=el.dataset.cap||'';lb.showModal();});});
+    lb.addEventListener('click',function(e){if(e.target===lb||e.target.tagName==='BUTTON')lb.close();});
+  }
+
+  var top=document.querySelector('.top'),burger=document.getElementById('burger'),dds=[].slice.call(document.querySelectorAll('.dd'));
+  function closeAll(ex){dds.forEach(function(d){if(d!==ex){d.classList.remove('open');d.querySelector('.dd-btn').setAttribute('aria-expanded','false');}});}
+  function closeMenu(){closeAll();if(top)top.classList.remove('menu');if(burger)burger.setAttribute('aria-expanded','false');}
+  dds.forEach(function(d){var b=d.querySelector('.dd-btn');b.addEventListener('click',function(e){e.stopPropagation();var o=!d.classList.contains('open');closeAll(d);d.classList.toggle('open',o);b.setAttribute('aria-expanded',String(o));});});
+  document.addEventListener('click',function(e){if(!e.target.closest('.dd'))closeAll();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+  if(burger)burger.addEventListener('click',function(){var o=!top.classList.contains('menu');top.classList.toggle('menu',o);burger.setAttribute('aria-expanded',String(o));});
+  document.querySelectorAll('.navwrap a').forEach(function(a){a.addEventListener('click',closeMenu);});
+
+  var links=[].slice.call(document.querySelectorAll('.navwrap a[href^="#"]'));
+  if(links.length&&'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var h='#'+e.target.id;
+      links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')===h);});
+      dds.forEach(function(d){d.querySelector('.dd-btn').classList.toggle('on',!!d.querySelector('a.on'));});}});},{rootMargin:'-30% 0px -62% 0px'});
+    links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)io.observe(s);});
+  }
+})();
+</script>
+</body>
+</html>

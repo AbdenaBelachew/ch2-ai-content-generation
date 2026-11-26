@@ -4,6 +4,7 @@ import base64
 import io
 import json
 import math
+import os
 import wave
 from pathlib import Path
 import re
@@ -197,7 +198,7 @@ class GeminiProvider(BaseProvider):
         headers = {"Content-Type": "application/json"}
         # Gemini TTS returns base64 audio inside the JSON response (responseModalities=AUDIO).
         # voice_name here is a legacy Cloud-TTS style id; Gemini uses prebuilt voice names.
-        gemini_voice = voice_name if voice_name and not voice_name.startswith("am-") else "Kore"
+        gemini_voice = os.getenv("GEMINI_TTS_VOICE") or (voice_name if voice_name and not voice_name.startswith("am-") else "Kore")
         body = {
             "contents": [{"parts": [{"text": f"Read the following Amharic narration clearly, warmly, and authentically: {amharic_text}"}]}],
             "generationConfig": {

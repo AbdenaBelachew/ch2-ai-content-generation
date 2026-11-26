@@ -19,8 +19,8 @@ except ImportError:
 @dataclass(frozen=True)
 class GeminiConfig:
     api_key: Optional[str] = field(default_factory=lambda: os.getenv("GEMINI_API_KEY"))
-    text_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL_TEXT", "gemini-2.5-flash"))
-    tts_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL_TTS", "gemini-2.5-flash-tts"))
+    text_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL_TEXT", "gemini-flash-latest"))
+    tts_model: str = field(default_factory=lambda: os.getenv("GEMINI_MODEL_TTS", "gemini-2.5-flash-preview-tts"))
     api_endpoint: str = field(
         default_factory=lambda: os.getenv("GEMINI_API_ENDPOINT", "https://generativelanguage.googleapis.com/v1beta")
     )

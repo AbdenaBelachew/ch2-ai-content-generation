@@ -26,7 +26,7 @@ All model identifiers and endpoints are centralized in `pipeline/config.py` and 
 
 | Stage | Provider / Technology | Model / Tool | Role |
 | :--- | :--- | :--- | :--- |
-| **Story & Script** | Google Gemini API | `gemini-2.5-flash` | Validation, translation fidelity, script refinement |
+| **Story & Script** | Google Gemini API | `gemini-flash-latest` | Validation, translation fidelity, script refinement |
 | **Amharic Narration** | Google Gemini TTS | `gemini-2.5-flash-preview-tts` | Authentic Amharic speech audio synthesis |
 | **Character Sheet & Keyframes**| Cloudflare Workers AI | `@cf/black-forest-labs/flux-1-schnell` | Consistent character sheet & shot keyframes |
 | **Moving Shots** | Kaggle GPU Notebooks | `Wan 2.2 TI2V-5B` | Video generation from keyframe + motion prompt |
@@ -185,3 +185,22 @@ Every model invocation, cache hit, or failure is appended to `runs.jsonl` with:
 - Parameters, seeds, and file paths
 - Measured execution duration
 - Truthful status (`SUCCESS`, `FAILED`, `CACHED`) without fabricated metrics.
+
+---
+
+## Web UI (Studio)
+
+A local web app: fill in a form, and the pipeline writes the storyboard (Gemini), paints the scenes
+(Cloudflare FLUX), records Amharic narration (Gemini TTS), composes music, adds camera motion and
+English captions, then renders 16:9 and/or 9:16 films you can play and download.
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m web.server          # then open http://127.0.0.1:8000
+```
+
+- Inputs: title, story idea, main character, setting, length (8-12 shots), narration voice, music style, formats.
+- Needs `GEMINI_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` in `.env`, and FFmpeg on PATH.
+- Each film is built in its own folder under `web_jobs/` (git-ignored) with the standard pipeline commands.
+- The server binds to localhost only; API keys stay on the server and are never sent to the browser.
+- A film takes roughly 5-10 minutes; films are generated one at a time.

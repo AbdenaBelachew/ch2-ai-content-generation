@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Heritage Short Studio</title>
+<style>
+  :root {
+    --bg: #14100c; --panel: #1d1712; --panel2: #261e17; --line: #3a2e24;
+    --text: #f1e6d8; --muted: #a89782; --accent: #e0a458; --accent2: #c97b3a;
+    --ok: #7fbf7f; --err: #e07a6a; --radius: 14px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg: #f6efe6; --panel: #fffaf3; --panel2: #f0e5d6; --line: #dcc9b2; --text: #2a2017; --muted: #7b6955; --accent: #b86a1c; --accent2: #9c5410; --ok: #3b8a3b; --err: #b3402f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, "Segoe UI", sans-serif; }
+  header { padding: 28px 16px 8px; max-width: 1180px; margin: 0 auto; }
+  header h1 { margin: 0; font-size: 26px; letter-spacing: .2px; }
+  header p { margin: 4px 0 0; color: var(--muted); }
+  main { max-width: 1180px; margin: 0 auto; padding: 16px; display: grid; gap: 20px; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); align-items: start; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .card h2 { margin: 0 0 12px; font-size: 16px; }
+  label { display: block; font-weight: 600; margin: 14px 0 5px; font-size: 13px; }
+  label small { font-weight: 400; color: var(--muted); }
+  input[type=text], textarea, select {
+    width: 100%; background: var(--panel2); color: var(--text); border: 1px solid var(--line);
+    border-radius: 10px; padding: 10px 12px; font: inherit;
+  }
+  textarea { min-height: 96px; resize: vertical; }
+  input:focus, textarea:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .row > * { flex: 1 1 140px; }
+  .checks { display: flex; gap: 16px; flex-wrap: wrap; font-weight: 400; }
+  .checks label { display: flex; align-items: center; gap: 6px; font-weight: 400; margin: 0; }
+  .hint { color: var(--muted); font-size: 12.5px; margin-top: 4px; }
+  button { font: inherit; cursor: pointer; border: 0; border-radius: 10px; padding: 11px 18px; font-weight: 700; }
+  .primary { background: linear-gradient(180deg, var(--accent), var(--accent2)); color: #1b1007; width: 100%; margin-top: 18px; font-size: 16px; }
+  .primary:disabled { opacity: .55; cursor: not-allowed; }
+  .ghost { background: transparent; color: var(--accent); border: 1px solid var(--line); padding: 6px 12px; font-weight: 600; font-size: 13px; }
+  .err { color: var(--err); margin-top: 10px; min-height: 1.2em; }
+
+  .steps { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 6px; }
+  .steps li { display: flex; align-items: center; gap: 10px; color: var(--muted); }
+  .dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; font-size: 12px; flex: none; }
+  .steps li.active { color: var(--text); font-weight: 600; }
+  .steps li.active .dot { border-color: var(--accent); animation: pulse 1.2s infinite; }
+  .steps li.done { color: var(--text); }
+  .steps li.done .dot { background: var(--ok); border-color: var(--ok); color: #0c1a0c; }
+  .steps li.failed .dot { background: var(--err); border-color: var(--err); color: #fff; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 5px rgba(224,164,88,.25); } }
+  .bar { height: 10px; background: var(--panel2); border-radius: 99px; overflow: hidden; border: 1px solid var(--line); }
+  .bar > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .6s; }
+  .meta { color: var(--muted); font-size: 13px; margin-top: 8px; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  pre.log { background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; padding: 10px; max-height: 240px; overflow: auto; font: 12px/1.45 ui-monospace, Consolas, monospace; white-space: pre-wrap; margin: 10px 0 0; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+  .tab { background: var(--panel2); color: var(--muted); border: 1px solid var(--line); padding: 6px 14px; border-radius: 99px; font-weight: 600; }
+  .tab.on { background: var(--accent); color: #1b1007; border-color: var(--accent); }
+  .player { display: grid; place-items: center; background: #000; border-radius: 12px; overflow: hidden; }
+  video { width: 100%; max-height: 72vh; background: #000; display: block; }
+  video.vertical { width: auto; height: 70vh; max-width: 100%; }
+  .dl { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .dl a { color: #1b1007; background: var(--accent); text-decoration: none; padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 14px; }
+  .dl a.alt { background: var(--panel2); color: var(--text); border: 1px solid var(--line); }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+  .gallery img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+  .shot { border-top: 1px solid var(--line); padding: 10px 0; }
+  .shot b { color: var(--accent); }
+  .am { font-size: 17px; margin: 2px 0; }
+  .empty { color: var(--muted); text-align: center; padding: 38px 8px; }
+  .hist { display: grid; gap: 6px; }
+  .hist button { text-align: left; background: var(--panel2); color: var(--text); border: 1px solid var(--line); font-weight: 500; }
+  .hist .s { color: var(--muted); font-size: 12px; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>AI Heritage Short Studio</h1>
+  <p>Describe a story. The pipeline writes the storyboard, paints the scenes, records Amharic narration, adds music and captions, and renders the film.</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Your story</h2>
+    <form id="form" autocomplete="off">
+      <label for="title">Title <small>(optional - leave blank to let AI name it)</small></label>
+      <input type="text" id="title" maxlength="100" placeholder="e.g. Taste of Heritage">
+
+      <label for="idea">Story idea <small>(required)</small></label>
+      <textarea id="idea" maxlength="2000" placeholder="What is the film about? What should the viewer feel or learn?"></textarea>
+
+      <label for="character">Main character <small>(optional - fictional only)</small></label>
+      <textarea id="character" maxlength="600" style="min-height:64px" placeholder="e.g. A gentle 72-year-old grandmother in a white netela shawl"></textarea>
+
+      <label for="setting">Setting / culture <small>(optional)</small></label>
+      <input type="text" id="setting" maxlength="200" placeholder="e.g. Ethiopian highlands at dawn">
+
+      <label for="shots">Length: <span id="shotsLabel"></span></label>
+      <input type="range" id="shots" min="8" max="12" step="1" value="8">
+      <div class="hint">Each shot is 7.5 s, plus a 4 s end card that discloses the AI origin. More shots = longer film and more API calls.</div>
+
+      <div class="row">
+        <div>
+          <label for="voice">Narration voice</label>
+          <select id="voice"></select>
+        </div>
+        <div>
+          <label for="music">Background music</label>
+          <select id="music">
+            <option value="guitar">Solo guitar (clean)</option>
+            <option value="ensemble">Ensemble (drone, flute, drum)</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Video formats</label>
+      <div class="checks">
+        <label><input type="checkbox" class="aspect" value="16:9" checked> 16:9 widescreen</label>
+        <label><input type="checkbox" class="aspect" value="9:16" checked> 9:16 vertical</label>
+      </div>
+      <div class="hint">Narration is Amharic (Ge'ez script) with English captions shown only while each line is spoken.</div>
+
+      <button type="submit" class="primary" id="go">Generate film</button>
+      <div class="err" id="formErr"></div>
+      <button type="button" class="ghost" id="example">Fill with an example</button>
+    </form>
+  </section>
+
+  <section>
+    <div class="card" id="progressCard">
+      <h2 id="pTitle">Progress</h2>
+      <div id="idle" class="empty">Fill in the form and press <b>Generate film</b>.<br>A film takes about 5-10 minutes.</div>
+      <div id="active" class="hidden">
+        <ul class="steps" id="steps"></ul>
+        <div class="bar"><div id="barFill"></div></div>
+        <div class="meta"><span id="pStatus"></span><span id="pElapsed"></span></div>
+        <div class="err" id="jobErr"></div>
+        <button class="ghost" id="logBtn" type="button" style="margin-top:10px">Show log</button>
+        <pre class="log hidden" id="log"></pre>
+      </div>
+    </div>
+
+    <div class="card hidden" id="resultCard" style="margin-top:20px">
+      <h2 id="rTitle">Your film</h2>
+      <div class="tabs" id="tabs"></div>
+      <div class="player"><video id="video" controls playsinline preload="metadata"></video></div>
+      <div class="dl" id="dl"></div>
+      <h2 style="margin-top:22px">Scenes</h2>
+      <div class="gallery" id="gallery"></div>
+      <h2 style="margin-top:22px">Narration script</h2>
+      <div id="script"></div>
+    </div>
+
+    <div class="card" style="margin-top:20px" id="histCard">
+      <h2>Recent films</h2>
+      <div class="hist" id="hist"><span class="hint">None yet.</span></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const EXAMPLE = {
+  title: "Taste of Heritage",
+  idea: "A grandmother prepares the traditional Ethiopian coffee ceremony (Buna) in the morning light and shares what patience, community and roots mean.",
+  character: "Emaye Ayelech, a gentle 72-year-old grandmother with kind eyes, wearing a handwoven white dress with green and gold embroidery and a white netela shawl",
+  setting: "Ethiopian highlands at dawn, a traditional stone and thatch home",
+};
+let currentJob = null, timer = null, shownDone = null;
+
+function safe(s) { const d = document.createElement("div"); d.textContent = s ?? ""; return d.innerHTML; }
+function fmt(sec) { sec = Math.max(0, Math.round(sec)); return Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0"); }
+function updateShotsLabel() { const n = +$("#shots").value; $("#shotsLabel").textContent = n + " shots (~" + Math.round(n * 7.5 + 4) + " s film)"; }
+
+async function init() {
+  const cfg = await (await fetch("/api/config")).json();
+  $("#voice").innerHTML = cfg.voices.map(v => `<option>${v}</option>`).join("");
+  updateShotsLabel();
+  $("#shots").addEventListener("input", updateShotsLabel);
+  $("#example").addEventListener("click", () => {
+    for (const k in EXAMPLE) $("#" + k).value = EXAMPLE[k];
+  });
+  $("#form").addEventListener("submit", submit);
+  $("#logBtn").addEventListener("click", () => {
+    const l = $("#log"); l.classList.toggle("hidden");
+    $("#logBtn").textContent = l.classList.contains("hidden") ? "Show log" : "Hide log";
+  });
+  refreshHistory();
+  const saved = localStorage.getItem("lastJob");
+  if (saved) follow(saved);
+}
+
+async function submit(e) {
+  e.preventDefault();
+  $("#formErr").textContent = "";
+  const aspects = [...document.querySelectorAll(".aspect:checked")].map(c => c.value);
+  const body = {
+    title: $("#title").value, idea: $("#idea").value, character: $("#character").value,
+    setting: $("#setting").value, shots: +$("#shots").value, voice: $("#voice").value,
+    music: $("#music").value, aspects,
+  };
+  $("#go").disabled = true;
+  try {
+    const r = await fetch("/api/generate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || "Request failed");
+    localStorage.setItem("lastJob", j.id);
+    shownDone = null;
+    follow(j.id);
+  } catch (err) {
+    $("#formErr").textContent = err.message;
+  } finally {
+    $("#go").disabled = false;
+  }
+}
+
+function follow(id) {
+  currentJob = id;
+  clearInterval(timer);
+  $("#resultCard").classList.add("hidden");
+  poll();
+  timer = setInterval(poll, 2000);
+}
+
+async function poll() {
+  if (!currentJob) return;
+  let job;
+  try { job = await (await fetch("/api/jobs/" + currentJob)).json(); } catch { return; }
+  if (job.error && !job.status) { clearInterval(timer); return; }
+  render(job);
+  if (job.status === "done" || job.status === "failed") { clearInterval(timer); refreshHistory(); }
+}
+
+function render(job) {
+  $("#idle").classList.add("hidden");
+  $("#active").classList.remove("hidden");
+  $("#pTitle").textContent = job.film_title || "Progress";
+  const idx = job.stages.findIndex(s => s.key === job.stage);
+  $("#steps").innerHTML = job.stages.map((s, i) => {
+    let cls = "", mark = "";
+    if (job.status === "done" || i < idx) { cls = "done"; mark = "&#10003;"; }
+    else if (i === idx) { cls = job.status === "failed" ? "failed" : "active"; mark = job.status === "failed" ? "!" : ""; }
+    return `<li class="${cls}"><span class="dot">${mark}</span>${safe(s.label)}</li>`;
+  }).join("");
+  $("#barFill").style.width = (job.progress || 0) + "%";
+  const label = { queued: "Waiting in queue...", running: "Working...", done: "Finished", failed: "Failed" }[job.status] || job.status;
+  $("#pStatus").textContent = label + (job.stage_elapsed != null ? " (this step " + fmt(job.stage_elapsed) + ")" : "");
+  const total = (job.finished || Date.now() / 1000) - job.created;
+  $("#pElapsed").textContent = "Total " + fmt(total);
+  $("#jobErr").textContent = job.status === "failed" ? (job.error || "Something went wrong.") : "";
+  const log = $("#log");
+  const atEnd = log.scrollTop + log.clientHeight >= log.scrollHeight - 20;
+  log.textContent = (job.log || []).join("\n");
+  if (atEnd) log.scrollTop = log.scrollHeight;
+  if (job.status === "done" && shownDone !== job.id) { shownDone = job.id; showResult(job); }
+}
+
+function showResult(job) {
+  $("#resultCard").classList.remove("hidden");
+  $("#rTitle").textContent = job.film_title || "Your film";
+  const formats = Object.keys(job.videos || {});
+  const tabs = $("#tabs");
+  tabs.innerHTML = formats.map(f => `<button type="button" class="tab" data-f="${f}">${f === "16:9" ? "16:9 widescreen" : "9:16 vertical"}</button>`).join("");
+  const play = (f) => {
+    const v = $("#video");
+    v.className = f === "9:16" ? "vertical" : "";
+    v.src = job.videos[f];
+    tabs.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.f === f));
+    $("#dl").innerHTML = formats.map(x => `<a class="${x === f ? "" : "alt"}" href="${job.videos[x]}?download=1">Download ${x}</a>`).join("")
+      + `<a class="alt" href="/jobs/${job.id}/storyboard.json?download=1">Storyboard JSON</a>`;
+  };
+  tabs.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => play(t.dataset.f)));
+  if (formats.length) play(formats[0]);
+  $("#gallery").innerHTML = (job.keyframes || []).map(u => `<img loading="lazy" src="${u}" alt="">`).join("");
+  $("#script").innerHTML = (job.shots || []).map((s, i) =>
+    `<div class="shot"><b>${i + 1}.</b> <span class="hint">${safe(s.scene)}</span><div class="am">${safe(s.amharic)}</div><div>${safe(s.english)}</div></div>`).join("");
+  $("#resultCard").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+async function refreshHistory() {
+  let jobs = [];
+  try { jobs = await (await fetch("/api/jobs")).json(); } catch { return; }
+  const h = $("#hist");
+  if (!jobs.length) { h.innerHTML = '<span class="hint">None yet.</span>'; return; }
+  h.innerHTML = jobs.map(j => {
+    const when = new Date(j.created * 1000).toLocaleString();
+    return `<button type="button" data-id="${j.id}">${safe(j.film_title || (j.inputs && j.inputs.title) || "Untitled")}<div class="s">${when} - ${safe(j.status)}</div></button>`;
+  }).join("");
+  h.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { shownDone = null; localStorage.setItem("lastJob", b.dataset.id); follow(b.dataset.id); }));
+}
+
+init();
+</script>
+</body>
+</html>

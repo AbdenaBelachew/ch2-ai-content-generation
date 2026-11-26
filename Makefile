@@ -20,7 +20,7 @@ else
     RUN_PY = $(VENV_PYTHON)
 endif
 
-.PHONY: help install validate radio keyframes shots music film status test clean
+.PHONY: web help install validate radio keyframes shots music film status test clean
 
 help:
 	@echo "AI Heritage Short Pipeline Commands:"
@@ -67,3 +67,5 @@ clean:
 	@echo "Cleaning output files and cache..."
 	python -c "import shutil, os; [shutil.rmtree(p, ignore_errors=True) for p in ['.cache', '__pycache__']]; print('Cache cleaned.')"
 
+web:
+	$(RUN_PY) -m web.server

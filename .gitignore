@@ -52,3 +52,6 @@ Thumbs.db
 .vscode/
 .idea/
 
+
+# Web UI job output
+web_jobs/

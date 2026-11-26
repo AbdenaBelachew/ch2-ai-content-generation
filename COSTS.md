@@ -9,7 +9,7 @@
 
 | Provider | Service / Model | List Price Basis | Typical Unit Cost |
 | :--- | :--- | :--- | :--- |
-| **Google Gemini API** | `gemini-2.5-flash` (Script & Translation) | Per 1M input/output tokens | ~$0.075 / 1M input, $0.30 / 1M output tokens |
+| **Google Gemini API** | `gemini-flash-latest` (Script & Translation) | Per 1M input/output tokens | ~$0.075 / 1M input, $0.30 / 1M output tokens |
 | **Google Gemini API** | `gemini-2.5-flash-preview-tts` (Amharic Speech) | Per 1M audio characters / tokens | ~$0.000016 per character (~$0.01 per minute) |
 | **Cloudflare Workers AI** | `@cf/black-forest-labs/flux-1-schnell` | Free tier (10k Neurons/day) or $0.00028 per step | ~$0.0011 per 4-step image |
 | **Kaggle** | Wan 2.2 TI2V-5B (Video Generation) | Free tier quota (30 GPU hours/week) | **$0.00** on Kaggle ($0.55/hr equivalent on GCP T4) |
