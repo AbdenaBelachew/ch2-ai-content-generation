@@ -24,14 +24,14 @@ class MusicStage:
         self.output_dir = self.config.output_dir / "music"
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    def generate_synth(self, storyboard_path: Optional[str | Path] = None) -> Dict[str, Any]:
+    def generate_synth(self, storyboard_path: Optional[str | Path] = None, style: str = "guitar") -> Dict[str, Any]:
         """Synthesize a full-length offline soundtrack (stand-in for ACE-Step; no GPU needed)."""
         path = Path(storyboard_path or self.config.storyboard_path)
         settings = load_json(path).get("music_settings", {})
         # Cover the whole film including the end card (target_duration + end card)
         duration = float(settings.get("target_duration", 78.0)) + 4.0
         out_file = self.output_dir / "soundtrack.wav"
-        synthesize_soundtrack(out_file, duration=duration, tempo_bpm=float(settings.get("tempo_bpm", 68)))
+        synthesize_soundtrack(out_file, duration=duration, tempo_bpm=float(settings.get("tempo_bpm", 68)), style=style)
         self.logger.log(
             stage="music",
             provider="synth",

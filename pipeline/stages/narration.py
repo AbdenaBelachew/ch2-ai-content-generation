@@ -41,6 +41,7 @@ class NarrationStage:
         }
         model_id = self.provider.config.tts_model
         results: Dict[str, Path] = {}
+        failed: Dict[str, str] = {}
 
         for shot in shots:
             shot_id = shot["shot_id"]
@@ -69,15 +70,21 @@ class NarrationStage:
                 results[shot_id] = out_file
                 continue
 
-            # Generate via provider
+            # Generate via provider. One failing shot (e.g. API rate limit) must not lose the others.
             shot_duration = float(shot.get("duration", 7.5))
-            generated_path = self.provider.generate_amharic_tts(
-                amharic_text=amharic_text,
-                output_audio_path=out_file,
-                voice_name=voice_config["voice_name"],
-                target_duration=shot_duration,
-                mock_if_unconfigured=self.mock_if_unconfigured,
-            )
+            try:
+                generated_path = self.provider.generate_amharic_tts(
+                    amharic_text=amharic_text,
+                    output_audio_path=out_file,
+                    voice_name=voice_config["voice_name"],
+                    target_duration=shot_duration,
+                    mock_if_unconfigured=self.mock_if_unconfigured,
+                )
+            except Exception as exc:
+                failed[shot_id] = str(exc)[:200]
+                if out_file.is_file():
+                    results[shot_id] = out_file  # keep the previously generated clip
+                continue
 
             self.cache.put(
                 stage="narration",
@@ -87,8 +94,17 @@ class NarrationStage:
             )
             results[shot_id] = generated_path
 
-        # Create combined full narration audio track
-        self._combine_narration_audio(shots, results, self.output_dir / "full_narration.wav")
+        # Create combined full narration track from every shot clip on disk (not only this run's results)
+        all_clips = {s["shot_id"]: self.output_dir / f"{s['shot_id']}.wav" for s in shots}
+        all_clips.update(results)
+        self._combine_narration_audio(shots, all_clips, self.output_dir / "full_narration.wav")
+
+        if failed:
+            details = "; ".join(f"{k}: {v}" for k, v in failed.items())
+            raise RuntimeError(
+                f"Narration failed for {len(failed)} shot(s) ({', '.join(failed)}). "
+                f"Re-run `narration` to retry only those. {details}"
+            )
 
         return results
 

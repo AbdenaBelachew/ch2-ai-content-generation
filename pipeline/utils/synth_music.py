@@ -74,7 +74,7 @@ def _kebero(dur: float = 0.45, accent: float = 1.0) -> list:
     return out
 
 
-def synthesize_soundtrack(
+def synthesize_ensemble(
     output_path: str | Path,
     duration: float = 80.0,
     tempo_bpm: float = 68.0,
@@ -138,3 +138,99 @@ def synthesize_soundtrack(
         wf.setframerate(SR)
         wf.writeframes(b"".join(struct.pack("<h", int(max(-1.0, min(1.0, v * scale)) * 32767)) for v in buf))
     return out_path
+
+
+def _guitar_note(freq: float, dur: float, rng: random.Random, bright: float = 0.5) -> list:
+    """Warm plucked nylon-string tone: Karplus-Strong with a smoothed excitation and gentle damping."""
+    n = int(dur * SR)
+    period = max(2, int(SR / freq))
+    ring = [rng.uniform(-1, 1) for _ in range(period)]
+    # Smooth the excitation (low-pass) so the pluck is soft, not hissy.
+    for _ in range(3 if bright < 0.6 else 1):
+        ring = [(ring[i] + ring[(i + 1) % period]) * 0.5 for i in range(period)]
+    out = []
+    for i in range(n):
+        k = i % period
+        v = 0.5 * (ring[k] + ring[(k + 1) % period]) * 0.9975
+        ring[k] = v
+        out.append(v)
+    f = min(400, n)
+    for i in range(f):
+        out[n - 1 - i] *= i / f
+    return out
+
+
+def synthesize_guitar(
+    output_path: str | Path,
+    duration: float = 82.0,
+    tempo_bpm: float = 68.0,
+    seed: int = 11,
+) -> Path:
+    """Clean solo fingerpicked guitar in a Tizita-style D minor pentatonic mode, with a touch of room."""
+    rng = random.Random(seed)
+    total = int(duration * SR)
+    buf = [0.0] * total
+    beat = 60.0 / tempo_bpm
+    step = beat / 2  # eighth notes
+
+    # (bass, [arpeggio tones]) per bar: Dm, Dm, Bb, A
+    bars = [
+        (73.42, [146.83, 174.61, 220.00, 293.66, 349.23]),
+        (73.42, [146.83, 174.61, 220.00, 293.66, 349.23]),
+        (116.54, [174.61, 233.08, 293.66, 349.23]),
+        (110.00, [220.00, 293.66, 349.23, 440.00]),
+    ]
+    pattern = [None, 1, 2, 3, 2, 3, 2, 1]  # None = bass note; ints index into the chord tones
+
+    t = 1.0
+    bar = 0
+    while t < duration - 4:
+        bass, tones = bars[bar % len(bars)]
+        for pos, p_ in enumerate(pattern):
+            when = t + pos * step
+            if when >= duration - 3:
+                break
+            if p_ is None:
+                _mix_into(buf, when, _guitar_note(bass, 2.4, rng, 0.4), 0.55)
+            else:
+                f = tones[min(p_, len(tones) - 1)]
+                if bar % 8 == 7 and pos == 7:  # little melodic lift at the end of a phrase
+                    f *= 2
+                _mix_into(buf, when, _guitar_note(f, 1.8, rng), 0.34 if pos % 2 else 0.28)
+        t += 8 * step
+        bar += 1
+
+    # Gentle room: two feedback combs
+    for delay_s, fb in ((0.083, 0.30), (0.127, 0.22)):
+        d = int(delay_s * SR)
+        for i in range(d, total):
+            buf[i] += buf[i - d] * fb
+
+    fi, fo = int(2.5 * SR), int(5.0 * SR)
+    for i in range(min(fi, total)):
+        buf[i] *= i / fi
+    for i in range(min(fo, total)):
+        buf[total - 1 - i] *= i / fo
+    peak = max(1e-9, max(abs(v) for v in buf))
+    scale = 0.85 / peak
+
+    out_path = Path(output_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with wave.open(str(out_path), "wb") as wf:
+        wf.setnchannels(1)
+        wf.setsampwidth(2)
+        wf.setframerate(SR)
+        wf.writeframes(b"".join(struct.pack("<h", int(max(-1.0, min(1.0, v * scale)) * 32767)) for v in buf))
+    return out_path
+
+
+def synthesize_soundtrack(
+    output_path: str | Path,
+    duration: float = 80.0,
+    tempo_bpm: float = 68.0,
+    style: str = "guitar",
+) -> Path:
+    """Offline soundtrack. style='guitar' (clean solo guitar, default) or 'ensemble' (drone+flute+drum)."""
+    if style == "ensemble":
+        return synthesize_ensemble(output_path, duration=duration, tempo_bpm=tempo_bpm)
+    return synthesize_guitar(output_path, duration=duration, tempo_bpm=tempo_bpm)
