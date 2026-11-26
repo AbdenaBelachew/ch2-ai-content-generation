@@ -33,7 +33,7 @@ help:
 	@echo "  make film        - Orchestrate the full end-to-end filmmaking pipeline"
 	@echo "  make status      - Check health of providers, credentials, and generated assets"
 	@echo "  make test        - Run comprehensive test suite"
-	@echo "  make clean       - Remove cached artifacts and temporary exports"
+	@echo "  make clean       - Remove cache, exports and assembly temp files"
 
 install:
 	$(RUN_PY) -m pip install -r requirements.txt
@@ -42,8 +42,8 @@ validate:
 	$(RUN_PY) -m pipeline.cli validate
 
 radio:
-	@echo "Building Radio Cut (Amharic Narration + Music Scratch Mix with Ducking)..."
-	$(RUN_PY) -m pipeline.cli radio --mock
+	@echo "Building Radio Cut (narration + ducked music). For offline mocks run: python -m pipeline.cli radio --mock"
+	$(RUN_PY) -m pipeline.cli radio
 
 keyframes:
 	$(RUN_PY) -m pipeline.cli keyframes
@@ -64,8 +64,8 @@ test:
 	$(RUN_PY) -m pytest -v tests/
 
 clean:
-	@echo "Cleaning output files and cache..."
-	python -c "import shutil, os; [shutil.rmtree(p, ignore_errors=True) for p in ['.cache', '__pycache__']]; print('Cache cleaned.')"
+	@echo "Cleaning cache and derived outputs (exports, assembly temp). Generated keyframes/shots/narration/music are kept."
+	python -c "import shutil; [shutil.rmtree(p, ignore_errors=True) for p in ['.cache', '.pytest_cache', 'outputs/exports', 'outputs/assembly']]; print('Cleaned.')"
 
 web:
 	$(RUN_PY) -m web.server
