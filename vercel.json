@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [{ "src": "site/**", "use": "@vercel/static" }],
+  "routes": [
+    {
+      "src": "/films/(.*)",
+      "dest": "/site/films/$1",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" }
+    },
+    {
+      "src": "/img/(.*)",
+      "dest": "/site/img/$1",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" }
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/site/assets/$1",
+      "headers": { "cache-control": "public, max-age=86400" }
+    },
+    { "src": "/docs/([A-Za-z]+)$", "dest": "/site/docs/$1.html" },
+    { "src": "/docs/(.*)", "dest": "/site/docs/$1" },
+    { "src": "/", "dest": "/site/index.html" },
+    { "src": "/(.*)", "dest": "/site/$1" },
+    { "handle": "error" },
+    { "status": 404, "src": "/(.*)", "dest": "/site/404.html" }
+  ]
+}
