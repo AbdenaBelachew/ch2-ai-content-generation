@@ -97,7 +97,7 @@ class AssemblyStage:
 
         # 1. Generate subtitles SRT
         srt_path = self.output_dir / "subtitles.srt"
-        generate_srt(shots, srt_path)
+        generate_srt(shots, srt_path, narration_dir=self.config.output_dir / "narration")
 
         # 2. Check prerequisites
         shots_dir = self.config.output_dir / "shots"

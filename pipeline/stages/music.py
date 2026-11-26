@@ -6,6 +6,7 @@ from pipeline.cache import get_cache
 from pipeline.config import get_config
 from pipeline.logger import get_logger
 from pipeline.providers.kaggle import KaggleProvider
+from pipeline.utils.synth_music import synthesize_soundtrack
 from pipeline.validator import load_json
 
 
@@ -22,6 +23,23 @@ class MusicStage:
         self.mock_if_unconfigured = mock_if_unconfigured
         self.output_dir = self.config.output_dir / "music"
         self.output_dir.mkdir(parents=True, exist_ok=True)
+
+    def generate_synth(self, storyboard_path: Optional[str | Path] = None) -> Dict[str, Any]:
+        """Synthesize a full-length offline soundtrack (stand-in for ACE-Step; no GPU needed)."""
+        path = Path(storyboard_path or self.config.storyboard_path)
+        settings = load_json(path).get("music_settings", {})
+        # Cover the whole film including the end card (target_duration + end card)
+        duration = float(settings.get("target_duration", 78.0)) + 4.0
+        out_file = self.output_dir / "soundtrack.wav"
+        synthesize_soundtrack(out_file, duration=duration, tempo_bpm=float(settings.get("tempo_bpm", 68)))
+        self.logger.log(
+            stage="music",
+            provider="synth",
+            model="procedural-tizita-v1",
+            status="SUCCESS",
+            output_paths=[str(out_file)],
+        )
+        return {"status": "COMPLETED_SYNTH", "soundtrack_path": out_file}
 
     def run(
         self,

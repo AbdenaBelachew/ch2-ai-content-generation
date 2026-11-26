@@ -168,10 +168,14 @@ def cmd_music(args: argparse.Namespace) -> int:
     print("=" * 60)
     stage = MusicStage(mock_if_unconfigured=args.mock)
     try:
-        res = stage.run(
-            storyboard_path=args.storyboard,
-            force_regenerate=args.force,
-        )
+        if getattr(args, "synth", False):
+            print("Mode: offline synthesized soundtrack (stand-in for ACE-Step)")
+            res = stage.generate_synth(storyboard_path=args.storyboard)
+        else:
+            res = stage.run(
+                storyboard_path=args.storyboard,
+                force_regenerate=args.force,
+            )
         print(f"Status: {res.get('status')}")
         if "soundtrack_path" in res:
             print(f"Soundtrack: {res['soundtrack_path']}")
@@ -396,6 +400,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_mus = subparsers.add_parser("music", help="Generate soundtrack via ACE-Step on Kaggle")
     p_mus.add_argument("--storyboard", type=str, help="Path to storyboard JSON")
     p_mus.add_argument("--force", action="store_true", help="Force regenerate music")
+    p_mus.add_argument("--synth", action="store_true", help="Synthesize a full offline soundtrack (no GPU / Kaggle)")
     p_mus.add_argument("--mock", action="store_true", help="Generate offline mock audio")
     p_mus.set_defaults(func=cmd_music)
 

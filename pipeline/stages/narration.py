@@ -98,31 +98,42 @@ class NarrationStage:
         shot_audio_map: Dict[str, Path],
         full_audio_path: Path,
     ) -> None:
-        """Combine individual shot narrations into a continuous full-track audio file."""
-        import wave
-        
-        frames = []
-        sample_rate = 24000
-        n_channels = 1
-        samp_width = 2
+        """Combine per-shot narration into one track, aligned so each line starts with its shot.
 
+        Each clip is padded with silence to the shot duration. A clip that runs slightly long is
+        sped up (up to 1.25x) so it never spills into the next shot and sync is preserved.
+        """
+        import wave
+
+        frames = []
+        sample_rate, n_channels, samp_width = 24000, 1, 2
         for shot in shots:
-            shot_id = shot["shot_id"]
-            audio_path = shot_audio_map.get(shot_id)
+            audio_path = shot_audio_map.get(shot["shot_id"])
             if audio_path and audio_path.is_file():
                 try:
                     with wave.open(str(audio_path), "rb") as wf:
                         sample_rate = wf.getframerate()
                         n_channels = wf.getnchannels()
                         samp_width = wf.getsampwidth()
-                        frames.append(wf.readframes(wf.getnframes()))
                 except Exception:
-                    # In case of mock or non-wav format, pad with silence
-                    target_samples = int(float(shot.get("duration", 7.5)) * sample_rate)
-                    frames.append(b"\x00" * (target_samples * n_channels * samp_width))
-            else:
-                target_samples = int(float(shot.get("duration", 7.5)) * sample_rate)
-                frames.append(b"\x00" * (target_samples * n_channels * samp_width))
+                    pass
+                else:
+                    break
+
+        for shot in shots:
+            slot = float(shot.get("duration", 7.5))
+            slot_frames = int(round(slot * sample_rate))
+            audio_path = shot_audio_map.get(shot["shot_id"])
+            data = b""
+            if audio_path and audio_path.is_file():
+                try:
+                    data = self._fit_to_slot(audio_path, slot, sample_rate, n_channels, samp_width)
+                except Exception:
+                    data = b""
+            frame_bytes = n_channels * samp_width
+            want = slot_frames * frame_bytes
+            data = data[:want] + bytes(1) * max(0, want - len(data))
+            frames.append(data)
 
         with wave.open(str(full_audio_path), "wb") as out_wf:
             out_wf.setnchannels(n_channels)
@@ -131,3 +142,27 @@ class NarrationStage:
             for f in frames:
                 out_wf.writeframes(f)
 
+    @staticmethod
+    def _fit_to_slot(audio_path: Path, slot: float, sample_rate: int, n_channels: int, samp_width: int) -> bytes:
+        """Return PCM bytes for a clip, sped up if it is longer than its shot slot."""
+        import subprocess
+        import tempfile
+        import wave
+        from pipeline.utils.ffmpeg import is_ffmpeg_available
+
+        with wave.open(str(audio_path), "rb") as wf:
+            length = wf.getnframes() / float(wf.getframerate())
+            raw = wf.readframes(wf.getnframes())
+            src_rate = wf.getframerate()
+        if length <= slot or not is_ffmpeg_available():
+            return raw if src_rate == sample_rate else raw
+        rate = min(1.25, length / slot * 1.01)
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "fit.wav"
+            subprocess.run(
+                ["ffmpeg", "-y", "-loglevel", "error", "-i", str(audio_path),
+                 "-af", f"atempo={rate:.4f}", "-ar", str(sample_rate), "-ac", str(n_channels), "-c:a", "pcm_s16le", str(out)],
+                check=True,
+            )
+            with wave.open(str(out), "rb") as wf:
+                return wf.readframes(wf.getnframes())

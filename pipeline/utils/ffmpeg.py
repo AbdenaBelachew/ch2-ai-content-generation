@@ -36,8 +36,25 @@ def format_srt_timestamp(seconds: float) -> str:
     return f"{hrs:02d}:{mins:02d}:{secs:02d},{msecs:03d}"
 
 
-def generate_srt(shots: List[Dict[str, Any]], output_path: str | Path) -> Path:
-    """Generate an SRT subtitle file from shots using english_translation."""
+def _wav_seconds(path: Path) -> Optional[float]:
+    try:
+        with wave.open(str(path), "rb") as wf:
+            return wf.getnframes() / float(wf.getframerate())
+    except Exception:
+        return None
+
+
+def generate_srt(
+    shots: List[Dict[str, Any]],
+    output_path: str | Path,
+    narration_dir: Optional[str | Path] = None,
+    lead_in: float = 0.15,
+) -> Path:
+    """Generate an SRT from each shot's english_translation.
+
+    With narration_dir, each caption is shown only while its line is spoken (from shot start +
+    lead_in to the end of that shot's narration clip, never past the shot). Otherwise it fills the shot.
+    """
     out_path = Path(output_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -48,11 +65,16 @@ def generate_srt(shots: List[Dict[str, Any]], output_path: str | Path) -> Path:
     for shot in shots:
         duration = float(shot.get("duration", 7.5))
         translation = shot.get("english_translation", "").strip()
-        start_ts = format_srt_timestamp(current_time)
-        end_ts = format_srt_timestamp(current_time + duration)
+        start = current_time
+        end = current_time + duration
+        if narration_dir is not None:
+            spoken = _wav_seconds(Path(narration_dir) / f"{shot.get('shot_id', '')}.wav")
+            if spoken:
+                start = current_time + lead_in
+                end = current_time + min(duration, lead_in + spoken)
 
         if translation:
-            lines.append(f"{index}\n{start_ts} --> {end_ts}\n{translation}\n")
+            lines.append(f"{index}\n{format_srt_timestamp(start)} --> {format_srt_timestamp(end)}\n{translation}\n")
             index += 1
         current_time += duration
 
@@ -69,13 +91,16 @@ def build_audio_ducking_filter(
 
     Ducks background music whenever narration is speaking and normalizes with loudnorm.
     """
-    ratio = 4.0
-    threshold = 0.125
+    ratio = 8.0
+    threshold = 0.08
+    # Pad the narration with trailing silence so the sidechain stage (and the music) keep running
+    # after the voice ends, e.g. through the end card.
     filter_graph = (
-        f"[{music_input_index}:a]volume=0.35[bgm];"
-        f"[bgm][{narration_input_index}:a]sidechaincompress="
+        f"[{narration_input_index}:a]apad=pad_dur=15,asplit=2[narr_mix][narr_key];"
+        f"[{music_input_index}:a]volume=0.12[bgm];"
+        f"[bgm][narr_key]sidechaincompress="
         f"threshold={threshold}:ratio={ratio}:attack=20:release=300[ducked];"
-        f"[{narration_input_index}:a][ducked]amix=inputs=2:duration=first:dropout_transition=2,"
+        f"[narr_mix][ducked]amix=inputs=2:duration=longest:dropout_transition=2,"
         f"loudnorm=I=-16:TP=-1.5:LRA=11[aout]"
     )
     return filter_graph
@@ -90,9 +115,9 @@ def build_radio_cut_command(
     """Build FFmpeg command to mix narration and music with ducking for a Radio Cut."""
     ffmpeg_bin = get_config().ffmpeg.ffmpeg_path
     filter_graph = (
-        f"[1:a]volume=0.35[bgm];"
+        f"[1:a]volume=0.12[bgm];"
         f"[bgm][0:a]sidechaincompress=threshold=0.125:ratio=4:attack=20:release=300[ducked];"
-        f"[0:a][ducked]amix=inputs=2:duration=first:dropout_transition=2,"
+        f"[0:a][ducked]amix=inputs=2:duration=longest:dropout_transition=2,"
         f"loudnorm=I=-16:TP=-1.5:LRA=11[aout]"
     )
     codec = "pcm_s16le" if str(output_audio_path).endswith(".wav") else "libmp3lame"
@@ -310,7 +335,10 @@ def build_final_assembly_command(
     if subtitles_srt_path and Path(subtitles_srt_path).exists():
         # Escape path for FFmpeg subtitles filter
         escaped_srt = str(subtitles_srt_path).replace("\\", "/").replace(":", r"\:")
-        video_filter += f",subtitles='{escaped_srt}'"
+        # libass PlayRes is 384x288, so FontSize scales with video height.
+        size, margin = (11, 18) if aspect_ratio != "9:16" else (6, 45)
+        style = f"FontName=Arial,FontSize={size},Bold=1,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,Outline=2,Shadow=1,Alignment=2,MarginV={margin}"
+        video_filter += f",subtitles='{escaped_srt}':force_style='{style}'"
 
     audio_filter = build_audio_ducking_filter(
         narration_input_index=1,

@@ -102,7 +102,7 @@
       "shot_id": "shot_03",
       "duration": 7.5,
       "scene_description": "Grandmother's weathered hands gently washing raw green coffee beans in clean water within a traditional carved clay bowl.",
-      "narration_amharic": "ቡና በችኮላ አይዘጋጅም፤ ልክ እንደ ሕይወት፣ ጥንቃቄን እና ትዕግሥትን ይሻል።",
+      "narration_amharic": "ቡና በችኮላ አይዘጋጅም፤ ልክ እንደ ሕይወት፣ ጥንቃቄን እና ትግሥትን ይሻል።",
       "english_translation": "Coffee cannot be rushed; like life itself, it asks for patience and mindful care.",
       "image_prompt": "Extreme close-up shot of weathered, graceful elderly Ethiopian hands washing fresh green coffee beans in clear mountain water inside an authentic dark clay basin, water droplets catching morning light, vibrant green beans, tactile documentary feel, 50mm lens.",
       "motion_prompt": "Slow swirling motion of hands gently swirling beans through shimmering water, water ripples catching morning glints.",
@@ -256,4 +256,3 @@
     }
   ]
 }
-
