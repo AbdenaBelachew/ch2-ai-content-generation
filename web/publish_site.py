@@ -347,14 +347,13 @@ blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);ba
 .notice{margin:0 0 26px;padding:14px 18px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--panel);border-radius:0 14px 14px 0;font-size:15px}
 
 /* footer */
-footer{margin-top:90px;background:var(--bg2);border-top:1px solid var(--line)}
-footer .flag{margin-bottom:34px}
-footer .cols{display:grid;gap:30px;grid-template-columns:1.4fr 1fr 1fr}
-@media(max-width:760px){footer .cols{grid-template-columns:1fr}}
-footer h4{margin:0 0 10px;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-footer p,footer li{color:var(--muted);font-size:14px;margin:.3em 0}footer ul{list-style:none;margin:0;padding:0}footer a{text-decoration:none}footer a:hover{text-decoration:underline}
-.fine{border-top:1px solid var(--line);margin-top:30px;padding:18px 0 40px;font-size:13px;color:var(--muted)}
-.author{display:flex;align-items:center;gap:10px;margin-bottom:12px}.ini{width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:13px}
+footer{position:fixed;left:0;right:0;bottom:0;z-index:40;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.bar1{display:flex;align-items:center;justify-content:space-between;gap:18px;height:46px;font-size:13px;color:var(--muted);white-space:nowrap}
+.bar1 a{text-decoration:none}.bar1 a:hover{text-decoration:underline}
+.author{display:flex;align-items:center;gap:9px;margin:0;color:var(--text);font-size:13.5px}
+.ini{width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:11px;flex:none}
+body{padding-bottom:50px}
+@media(max-width:460px){.bar1 .cr{display:none}}
 
 /* lightbox */
 dialog#lb{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh;overflow:visible}
@@ -482,6 +481,7 @@ def shell(title: str, body: str, ctx: dict, depth: int, current_doc: str = "") -
 <title>{html.escape(title)}</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#fbf8f2">
+{('<meta name="author" content="' + html.escape(ctx['author'], quote=True) + '">') if ctx.get('author') else ''}
 <meta property="og:title" content="{html.escape(title, quote=True)}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="video.other">
@@ -505,15 +505,9 @@ def shell(title: str, body: str, ctx: dict, depth: int, current_doc: str = "") -
 {body}
 </main>
 <footer>
-  <div class="flag"><i></i><i></i><i></i></div>
-  <div class="wrap">
-    <div class="cols">
-      <div>{author}<h4>Made with AI</h4>
-      <p>The story, images, Amharic narration and music are AI-generated. The characters and events are fictional and depict no real person. The Amharic text is machine-written and has not been reviewed by a native speaker.</p></div>
-      <div><h4>Built with</h4><ul><li>Gemini: storyboard &amp; speech</li><li>FLUX.1 schnell: images</li><li>Synthesised guitar score</li><li>FFmpeg: motion, captions, mix</li></ul></div>
-      <div><h4>Documents</h4><ul>{docs_list}</ul></div>
-    </div>
-    <div class="fine">Independent challenge submission. © {ctx['year']} {who}</div>
+  <div class="wrap bar1">
+    {author}
+    <span class="cr">&copy; {ctx['year']} {who}</span>
   </div>
 </footer>
 <dialog id="lb"><button type="button">Close</button><img alt=""><p></p></dialog>
@@ -620,7 +614,7 @@ def build_sections(ctx: dict, sb: dict, films: dict, info: dict, tele: dict, tes
       <div class="cta"><a class="btn" href="#player">&#9654; Watch the film</a><a class="btn ghost" href="#review">For reviewers</a><a class="btn ghost" href="#pipeline">How it was made</a></div>
       <div class="stats"><div><b>{f169.get('duration', 0):.0f}s</b><span>Runtime</span></div><div><b>{len(shots)}</b><span>Shots</span></div><div><b>2</b><span>Formats</span></div><div><b>100%</b><span>AI, disclosed</span></div></div>
     </div>
-    <div class="heroart"><img src="img/poster.jpg" alt="Still from the film: an elderly Ethiopian grandmother in a white netela" fetchpriority="high"><span class="tag">AI-generated, fictional character</span></div>
+    <div class="heroart"><img src="img/poster.jpg" alt="Still from the film: an elderly Ethiopian grandmother in a white netela" fetchpriority="high"></div>
   </div>
 </div>
 <section id="film" style="padding-top:56px">
@@ -650,7 +644,7 @@ def build_sections(ctx: dict, sb: dict, films: dict, info: dict, tele: dict, tes
         row("Original soundtrack", "Partly met", "A clean solo guitar score synthesised in code (original, but a digital instrument). The ACE-Step 1.5 notebook is prepared but was not run."),
         row("Moving shots", "Partly met", "Camera motion (push-in, pan, tilt, zoom-out) over FLUX keyframes via FFmpeg. Wan 2.2 generation is prepared but was not run; see the Wan section."),
         row("Consistent character", "Partly met", "A character reference sheet was generated and every shot prompt repeats the character's traits. FLUX schnell takes text only, so the face is similar across shots, not identical."),
-        row("Mandatory AI disclosure", "Met", "Visible end card at the end of both films, plus the footer of this site."),
+        row("Mandatory AI disclosure", "Met", "Visible end card at the end of both films, and an \"AI-generated, fictional character\" tag on the hero image."),
         row("Loudness and ducking", "Met", "Narration lines gain-matched to the same level (within about 0.7 dB), music ducked beneath the voice, final mix normalised to -16 LUFS."),
         row("Reproducible and auditable", "Met", f"One <code>storyboard.json</code> drives everything; content-addressed cache; every model call logged ({len(tele['rows'])} entries, see Telemetry); {test_count}."),
         row("Cost transparency", "Met", "See <a href='docs/COSTS.html'>Costs</a>."),

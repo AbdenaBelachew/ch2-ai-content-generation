@@ -6,6 +6,7 @@
 <title>Failures - Taste of Heritage</title>
 <meta name="description" content="An intimate visual poem where grandmother Emaye Ayelech prepares a traditional Ethiopian coffee ceremony in the highland morning light, narrating the deeper meaning of patience, community, and ancestral roots passed across generations.">
 <meta name="theme-color" content="#fbf8f2">
+<meta name="author" content="Abdena Belachew">
 <meta property="og:title" content="Failures - Taste of Heritage">
 <meta property="og:description" content="An intimate visual poem where grandmother Emaye Ayelech prepares a traditional Ethiopian coffee ceremony in the highland morning light, narrating the deeper meaning of patience, community, and ancestral roots passed across generations.">
 <meta property="og:type" content="video.other">
@@ -179,14 +180,13 @@ blockquote{margin:16px 0;padding:8px 18px;border-left:4px solid var(--accent);ba
 .notice{margin:0 0 26px;padding:14px 18px;border:1px solid var(--line);border-left:4px solid var(--accent);background:var(--panel);border-radius:0 14px 14px 0;font-size:15px}
 
 /* footer */
-footer{margin-top:90px;background:var(--bg2);border-top:1px solid var(--line)}
-footer .flag{margin-bottom:34px}
-footer .cols{display:grid;gap:30px;grid-template-columns:1.4fr 1fr 1fr}
-@media(max-width:760px){footer .cols{grid-template-columns:1fr}}
-footer h4{margin:0 0 10px;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-footer p,footer li{color:var(--muted);font-size:14px;margin:.3em 0}footer ul{list-style:none;margin:0;padding:0}footer a{text-decoration:none}footer a:hover{text-decoration:underline}
-.fine{border-top:1px solid var(--line);margin-top:30px;padding:18px 0 40px;font-size:13px;color:var(--muted)}
-.author{display:flex;align-items:center;gap:10px;margin-bottom:12px}.ini{width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:13px}
+footer{position:fixed;left:0;right:0;bottom:0;z-index:40;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.bar1{display:flex;align-items:center;justify-content:space-between;gap:18px;height:46px;font-size:13px;color:var(--muted);white-space:nowrap}
+.bar1 a{text-decoration:none}.bar1 a:hover{text-decoration:underline}
+.author{display:flex;align-items:center;gap:9px;margin:0;color:var(--text);font-size:13.5px}
+.ini{width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:11px;flex:none}
+body{padding-bottom:50px}
+@media(max-width:460px){.bar1 .cr{display:none}}
 
 /* lightbox */
 dialog#lb{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh;overflow:visible}
@@ -252,15 +252,9 @@ dialog#lb button{position:absolute;right:-6px;top:-44px;font:600 14px var(--sans
 </li></ol></div></div></div></section>
 </main>
 <footer>
-  <div class="flag"><i></i><i></i><i></i></div>
-  <div class="wrap">
-    <div class="cols">
-      <div><h4>Made with AI</h4>
-      <p>The story, images, Amharic narration and music are AI-generated. The characters and events are fictional and depict no real person. The Amharic text is machine-written and has not been reviewed by a native speaker.</p></div>
-      <div><h4>Built with</h4><ul><li>Gemini: storyboard &amp; speech</li><li>FLUX.1 schnell: images</li><li>Synthesised guitar score</li><li>FFmpeg: motion, captions, mix</li></ul></div>
-      <div><h4>Documents</h4><ul><li><a href="../docs/README.html">Overview</a></li><li><a href="../docs/ARCHITECTURE.html">Architecture</a></li><li><a href="../docs/DESIGN.html">Design &amp; audience</a></li><li><a href="../docs/EXPERIMENTS.html">Experiments</a></li><li><a href="../docs/FAILURES.html" aria-current=page>Failures</a></li><li><a href="../docs/COSTS.html">Costs</a></li><li><a href="../docs/ETHICS.html">Ethics &amp; labelling</a></li><li><a href="../docs/KAGGLE.html">Kaggle guide</a></li><li><a href="../docs/STORY.html">Full narration</a></li></ul></div>
-    </div>
-    <div class="fine">Independent challenge submission. © 2026 </div>
+  <div class="wrap bar1">
+    <div class="author"><span class="ini">AB</span><span>Abdena Belachew · <a href="https://github.com/AbdenaBelachew/ch2-ai-content-generation" rel="noopener">Source on GitHub ↗</a></span></div>
+    <span class="cr">&copy; 2026 Abdena Belachew</span>
   </div>
 </footer>
 <dialog id="lb"><button type="button">Close</button><img alt=""><p></p></dialog>
